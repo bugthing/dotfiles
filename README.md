@@ -1,5 +1,5 @@
-My dot files
-============
+.files
+======
 
 Here is a repo containing my dot files.
 
@@ -9,12 +9,24 @@ Install stow
 ------------
 
     $ pacman -S stow
+or
 
-New dir?
---------
+    $ apt install stow
 
-    $ git clone git@github.com:bugthing/dotty.git ~/dotfiles
+Setup
+-----
 
+Clone into directory `~/dotfiles`, like so:
+
+    $ cd ~
+    $ git clone git@github.com:bugthing/dotfiles.git
+
+Manage
+------
+
+To create the file system links for the different groups of dotfiles, use stow like so:
+
+    $ cd ~/dotfiles
     $ stow bash
     $ stow vim
     $ stow tmux
