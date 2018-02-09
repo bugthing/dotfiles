@@ -1,0 +1,7 @@
+Short (50 chars or less) summary of changes
+
+More detailed explanatory text, if necessary.  Wrap it to about 72
+characters or so.
+
+Ref: FUJI-1234 Ticket this commit addresses
+Ref: FUJI-4321 Another ticket this addresses

@@ -1,0 +1,17 @@
+#
+# Output configuration
+#
+
+include ~/.sway/sway_home_outputs.conf
+# include ~/.sway/outputs_work.conf
+#
+# Output info: swaymsg -t get_outputs
+
+# Default wallpaper (more resolutions are available in /usr/share/sway/)
+#output * bg /home/ghost/Pictures/spacepoly3.png fill
+#output * bg /home/ghost/Pictures/interstellar.jpg fill
+#output * bg /home/ghost/Pictures/forest1.jpg fill
+
+
+# the rest of the config
+include ~/.sway/i3_config

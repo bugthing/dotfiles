@@ -1,0 +1,113 @@
+[user]
+  email = ben.martin@smartpension.co.uk
+  name = Benjamin Martin
+[push]
+  default = current
+[color]
+  ui = auto
+[merge]
+  tool = vimdiff
+
+[alias]
+  co = checkout
+  lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  praise = blame
+
+  ## Working with branches ##
+
+  # Get the current branch name (not so useful in itself, but used in
+  # other aliases)
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
+
+  # Push the current branch to the remote "origin", and set it to track
+  # the upstream branch
+  publish = "!git push -u origin $(git branch-name)"
+
+  # Delete the remote version of the current branch
+  unpublish = "!git push origin :$(git branch-name)"
+
+  # Delete a branch and recreate it from master — useful if you have, say,
+  # a development branch and a master branch and they could conceivably go
+  # out of sync
+  recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -D \"$@\" && git checkout -b \"$@\" && git publish; }; f"
+
+  # Fire up your difftool (e.g. Kaleidescope) with all the changes that
+  # are on the current branch.
+  code-review = vimdiff origin/master
+
+  # Given a merge commit, find the span of commits that exist(ed) on that
+  # branch. Again, not so useful in itself, but used by other aliases.
+  merge-span = "!f() { echo $(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f1)$1$(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f2); }; f"
+
+  # Find the commits that were introduced by a merge
+  merge-log = "!git log `git merge-span .. $1`"
+
+  # Show the changes that were introduced by a merge
+  merge-diff = "!git diff `git merge-span ... $1`"
+
+  # As above, but in your difftool
+  merge-difftool = "!git difftool `git merge-span ... $1`"
+
+  # Interactively rebase all the commits on the current branch
+  rebase-branch = "!git rebase -i `git merge-base master HEAD`"
+
+  # Comparing the commits between branches
+  missing = "!f() { git rev-list ..$1 --oneline | sed -e '1 iOnly in other:'; git rev-list $1.. --oneline | sed -e '1 iOnly in HEAD:'; }; f"
+
+  ## Working with files ##
+
+  # Unstage any files that have been added to the staging area
+  unstage = reset HEAD
+
+  # Show changes that have been staged
+  diffc = diff --cached
+
+  # Mark a file as "assume unchanged", which means that Git will treat it
+  # as though there are no changes to it even if there are. Useful for
+  # temporary changes to tracked files
+  assume = update-index --assume-unchanged
+
+  # Reverse the above
+  unassume = update-index --no-assume-unchanged
+
+  # Show the files that are currently assume-unchanged
+  assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+
+  # Checkout our version of a file and add it
+  ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+
+  # Checkout their version of a file and add it
+  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+
+  # Delete any branches that have been merged into master
+  # See also: https://gist.github.com/robmiller/5133264
+  delete-merged-branches = "!git co master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+  # any uncommited changes including untracked files are gone
+  total-reset = "!git clean -df && git reset HEAD --hard"
+
+  # fetch, delete develop, master and re-fetch
+  reget-master-develop = "!git fetch && git checkout master && git branch -D develop && git checkout develop && git branch -D master && git checkout master"
+
+  # git-flow fucks with develop and master and I often this little dance..
+  flow-up = "!git checkout develop && git push && git checkout master && git push && git push --tags"
+
+  # list all fils changes on a commit
+  list-changed-files = diff-tree --no-commit-id --name-only -r
+
+  g = grep --break --heading --line-number
+
+  revive = "!git checkout `git rev-list -n 1 HEAD -- $@`^ -- $@"
+
+  trash = "!mkdir -p .trash && git ls-files --others --exclude-standard | xargs mv -f -t .trash"
+
+[commit]
+	template = ~/.gitmessage.txt
+[grep]
+	lineNumber = true
+	extendRegexp = true
+[core]
+	editor = vim
+	excludesfile = /home/benjamin/.gitignore_global
+[rerere]
+	enabled = true

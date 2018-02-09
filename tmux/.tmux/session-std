@@ -1,0 +1,8 @@
+
+# standard - a project with typical tmux setup
+
+neww -n hack
+
+splitw -h -p 80 -t hack
+selectp -t 0
+splitw -v -p 80 -t hack
