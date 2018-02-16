@@ -170,6 +170,11 @@ function! SpecCorresponding()
   endif
 endfunction
 
+function! CopyFilepathToGpaste()
+    execute "silent !gpaste-client add" . " " . shellescape(fnamemodify(bufname("%"), ":p"))
+    redraw!
+endfunction
+
 "============================================================================
 "= Plugin config
 "============================================================================
@@ -306,6 +311,7 @@ map <Leader>c :w !gpaste-client<CR><CR>
 map <leader>d :setlocal spell! spelllang=en_gb<CR>
 map <Leader>e :tabe<CR>
 map <Leader>f :let @"=expand("%")<CR>
+map <Leader>d :call CopyFilepathToGpaste()<CR>
 map <Leader>k :Ack!<Space>
 map <leader>l :set list!<CR>
 map <Leader>m :set wrap!<CR>
