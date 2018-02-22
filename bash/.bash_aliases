@@ -27,6 +27,7 @@ alias gb="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(
 alias gd='git diff'
 alias gco='git checkout '
 alias vcon='vim -p $(git status | grep "both modified" | cut -d: -f2)'
+alias gvl='git log | vim -c "set keywordprg=git\ show" -R -'
 
 #===========================================================================
 #= (re)define commands
