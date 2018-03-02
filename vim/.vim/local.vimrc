@@ -27,8 +27,8 @@ call minpac#add('vim-scripts/SQLUtilities')
 call minpac#add('vim-ruby/vim-ruby') " the latest ruby support
 call minpac#add('xolox/vim-misc') " required for note taking plugin
 call minpac#add('xolox/vim-notes') " note taking
-call minpac#add('scrooloose/syntastic') " syntax checking
 call minpac#add('elixir-editors/vim-elixir') " elixir syntax highlighting
+call minpac#add('w0rp/ale') " linting
 
 command! Bundle call minpac#update()
 command! BundleClean call minpac#clean()

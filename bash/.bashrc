@@ -50,6 +50,8 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # default editor.
 export EDITOR=vi
 
+export PATH="./node_modules/.bin:$PATH"
+
 if [ -d "$HOME/build/bin" ]; then
   export PATH="$HOME/build/bin:$PATH"
 fi

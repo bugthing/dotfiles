@@ -175,6 +175,19 @@ function! CopyFilepathToGpaste()
     redraw!
 endfunction
 
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
 "============================================================================
 "= Plugin config
 "============================================================================
@@ -185,42 +198,10 @@ set statusline+=%w%h%m%r                 " Options
 set statusline+=\ [%{&ff}/%Y]            " filetype
 set statusline+=\ [%{getcwd()}]          " current dir
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{LinterStatus()}      " linter warnings
 set statusline+=%*
 let g:syntastic_enable_signs=1
 set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-
-let g:syntastic_ruby_checkers=['mri'] " 'rubocop', 'reek', 'flog', 'rubylint', 'macruby', 'jruby']
-let g:syntastic_ignore_files = ['^/usr/', '*node_modules*', '*vendor*', '*build*', '*LOCAL*', '*BASE', '*REMOTE*']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_enable_ballons=has('ballon_eval')
-let g:syntastic_auto_jump=1
-let g:syntastic_loc_list_height=3
-let g:syntastic_mode_map = { 'mode': 'active' }
-let g:syntastic_javascript_checkers=['jshint', 'jscs']
-let g:syntastic_json_checkers=['jsonlint', 'jsonval']
-let g:syntastic_perl_checkers=['perl','perlcritic','podchecker']
-let g:syntastic_python_checkers=['pylint','pep8','python']
-let g:syntastic_cpp_checkers=['gcc','cppcheck','cpplint','ycm','clang_tidy','clang_check']
-let g:syntastic_c_checkers=['gcc','make','cppcheck','clang_tidy','clang_check']
-let g:syntastic_haml_checkers=['haml_lint', 'haml']
-let g:syntastic_html_checkers=['jshint']
-let g:syntastic_yaml_checkers=['jsyaml']
-let g:syntastic_sh_checkers=['sh','shellcheck','checkbashisms']
-let g:syntastic_vim_checkers=['vimlint']
-let g:syntastic_enable_perl_checker=1
-let g:syntastic_c_clang_tidy_sort=1
-let g:syntastic_c_clang_check_sort=1
-let g:syntastic_c_remove_include_errors=1
-let g:syntastic_quiet_messages = { "level": "[]", "file": ['*_LOCAL_*', '*_BASE_*', '*_REMOTE_*']  }
-let g:syntastic_stl_format = '[%E{E: %fe #%e}%B{, }%W{W: %fw #%w}]'
-let g:syntastic_java_javac_options = "-g:none -source 8 -Xmaxerrs 5 -Xmaswarns 5"
 
 " vim-notes - config
 let g:notes_directories = ['~/.notes']
@@ -311,7 +292,7 @@ map <Leader>c :w !gpaste-client<CR><CR>
 map <leader>d :setlocal spell! spelllang=en_gb<CR>
 map <Leader>e :tabe<CR>
 map <Leader>f :let @"=expand("%")<CR>
-map <Leader>d :call CopyFilepathToGpaste()<CR>
+map <Leader>g :call CopyFilepathToGpaste()<CR>
 map <Leader>k :Ack!<Space>
 map <leader>l :set list!<CR>
 map <Leader>m :set wrap!<CR>
