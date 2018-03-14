@@ -71,6 +71,10 @@ set undoreload=10000
 " order of lookup when using completion
 set complete=.,w,b,u,t,i,kspell
 
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+endif
+
 "============================================================================
 "= Auto - commands
 "============================================================================
@@ -82,16 +86,11 @@ autocmd FileType javascript setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType perl setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
 
-" start NERDTree if we are not opening a specific file..
-autocmd vimenter * if !argc() | NERDTree | endif
-" close vim if NERDTree is last window open..
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
 " even-out splits when vim resized
 autocmd VimResized * execute "normal! \<c-w>="
 
 "============================================================================
-"= Colour
+"= Appearance
 "============================================================================
 
 syntax on
@@ -102,21 +101,29 @@ set background=dark
 " colorscheme solarized
 colorscheme dracula
 
-" Tabline
+" tabline
 hi TabLineFill  guifg=White guibg=DarkBlue  ctermfg=DarkBlue ctermbg=White
 hi TabLine      guifg=White guibg=DarkBlue  ctermfg=White    ctermbg=DarkBlue
 hi TabLineSel   guifg=White guibg=DarkGreen ctermfg=87       ctermbg=DarkGreen
 
-"Highlight text wider that 78 characters
+" highlight text wider that 78 characters
 highlight OverLength ctermbg=black cterm=bold guibg=#592929
 match OverLength /\%79v.\+/
 
-"Highlight trailing whitespace
+" highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
 " statusline - :help statusline
-set statusline=%t\ %m%r%y%=(ascii=\%03.3b,hex=\%02.2B)\ (%l/%L,%c)\ (%P)
+set statusline=%<%f\                     " Filename
+set statusline+=%w%h%m%r                 " Options
+set statusline+=\ [%{&ff}/%Y]            " filetype
+set statusline+=\ [%{getcwd()}]          " current dir
+set statusline+=%#warningmsg#
+set statusline+=%{LinterStatus()}      " linter warnings
+set statusline+=%*
+set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+
 " change highlighting based on mode
 highlight statusLine cterm=bold ctermfg=black ctermbg=blue
 au InsertLeave * highlight StatusLine cterm=bold ctermfg=black ctermbg=blue
@@ -192,28 +199,10 @@ endfunction
 "= Plugin config
 "============================================================================
 
-" statusline
-set statusline=%<%f\                     " Filename
-set statusline+=%w%h%m%r                 " Options
-set statusline+=\ [%{&ff}/%Y]            " filetype
-set statusline+=\ [%{getcwd()}]          " current dir
-set statusline+=%#warningmsg#
-set statusline+=%{LinterStatus()}      " linter warnings
-set statusline+=%*
-let g:syntastic_enable_signs=1
-set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-
 " vim-notes - config
 let g:notes_directories = ['~/.notes']
 let g:notes_suffix = '.note'
 let g:notes_title_sync = 'rename_file'
-
-" ack.vim
-if executable('rg')
-  let g:ackprg = 'rg --vimgrep' " configure to use ripgrep
-elseif executable('ag')
-  let g:ackprg = 'ag --vimgrep' " configure to use the_silver_searcher
-endif
 
 " vim-ruby
 let g:rubycomplete_rails = 1
@@ -230,6 +219,9 @@ runtime! macros/matchit.vim
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
+" fzf - make it use ripgrep
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
 "============================================================================
 "= Commands / Shortcuts / Keyboard bindings
 "============================================================================
@@ -239,7 +231,6 @@ nnoremap <C-l> <Esc>:tabn<CR>
 
 " define custom commands
 command! Rtags  :!bundle list --paths=true | xargs ctags --extra=+f --exclude=.git --exclude=tmp --exclude=log -R *
-command! NT     :NERDTree %
 " uses 'tidyhtml' package
 command! Thtml  :%!tidy -q -i -ashtml 
 command! Txhtml :%!tidy -q -i -asxhtml

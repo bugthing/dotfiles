@@ -50,6 +50,9 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # default editor.
 export EDITOR=vi
 
+# fzf is fuzzy finder - the env is used to tell it use ripgrep
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
 export PATH="./node_modules/.bin:$PATH"
 
 if [ -d "$HOME/build/bin" ]; then

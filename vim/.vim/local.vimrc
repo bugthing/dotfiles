@@ -15,13 +15,13 @@ call minpac#init()
 
 call minpac#add('k-takata/minpac', {'type':'opt'}) " minpac can update itself
 call minpac#add('universal-ctags/ctags')
-call minpac#add('scrooloose/nerdtree')
 call minpac#add('kien/ctrlp.vim')
-call minpac#add('mileszs/ack.vim')
-call minpac#add('vim-scripts/git-time-lapse')
+call minpac#add('junegunn/fzf.vim')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-db')
 call minpac#add('godlygeek/tabular')
+call minpac#add('vim-scripts/git-time-lapse')
 call minpac#add('vim-scripts/Align')
 call minpac#add('vim-scripts/SQLUtilities')
 call minpac#add('vim-ruby/vim-ruby') " the latest ruby support
