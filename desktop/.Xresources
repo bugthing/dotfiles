@@ -29,12 +29,10 @@ xscreensaver.passwd.thermometer.width:       8
 
 ! Urxvt ---------------------------------------------------------------
 
-#define termfont      xft:bitstream vera sans mono:size=12:antialias=true
-#define termboldfont  xft:bitstream vera sans mono:bold:size=12:antialias=true
-URxvt.font:           termfont
-URxvt.boldFont:       termboldfont
-URxvt.italicFont:     termfont
-URxvt.boldItalicFont: termboldfont
+URxvt.font:           xft:bitstream vera sans mono:size=12:antialias=true
+URxvt.boldFont:       xft:bitstream vera sans mono:bold:size=12:antialias=true
+URxvt.italicFont:     xft:bitstream vera sans mono:size=12:antialias=true
+URxvt.boldItalicFont: xft:bitstream vera sans mono:bold:size=12:antialias=true
 
 Rxvt.imLocale: en_GB.UTF-8
 

@@ -14,9 +14,8 @@ packadd minpac
 call minpac#init()
 
 call minpac#add('k-takata/minpac', {'type':'opt'}) " minpac can update itself
-call minpac#add('universal-ctags/ctags')
 call minpac#add('kien/ctrlp.vim')
-call minpac#add('junegunn/fzf.vim')
+call minpac#add('junegunn/fzf.vim') " fuzzy finder
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-db')
@@ -29,6 +28,7 @@ call minpac#add('xolox/vim-misc') " required for note taking plugin
 call minpac#add('xolox/vim-notes') " note taking
 call minpac#add('elixir-editors/vim-elixir') " elixir syntax highlighting
 call minpac#add('w0rp/ale') " linting
+call minpac#add('ludovicchabant/vim-gutentags') " auto tags generation
 
 command! Bundle call minpac#update()
 command! BundleClean call minpac#clean()
