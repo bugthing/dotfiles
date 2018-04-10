@@ -88,7 +88,10 @@ for_window [class="^.*"] border pixel 2
     # start passmenu
     bindsym $mod+g exec passmenu
 
-    # start browser
+    # start desktop file searcher
+    bindsym $mod+Shift+g exec i3-dmenu-desktop
+
+    # start browsers
     bindsym $mod+b exec firefox
     bindsym $mod+Shift+b exec chromium
 
