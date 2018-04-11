@@ -117,7 +117,7 @@ for_window [class="^.*"] border pixel 2
     bindsym $mod+Shift+i exec "setxkbmap -layout gb,us"
 
     # Suspend etc.
-    set $Locker i3lock -i /home/benjamin/Pictures/HomeSync/skate_login.png -t && sleep 1
+    set $Locker ~/.sway/scripts/shotnlock
     bindsym $mod+o exec --no-startup-id $Locker
     bindsym $mod+Shift+o exec --no-startup-id $Locker && systemctl suspend, mode "default"
     bindsym $mod+Shift+p exec --no-startup-id $Locker && systemctl hibernate, mode "default"
@@ -239,5 +239,4 @@ exec xrdb ~/.Xresources
 exec pulseaudio --start
 exec --no-startup-id nm-applet
 exec --no-startup-id mpd
-exec --no-startup-id redshift-gtk
-exec --no-startup-id ~/scripts/wallp
+exec --no-startup-id ~/.sway/scripts/wallp
