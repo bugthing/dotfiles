@@ -36,10 +36,10 @@ set $workspace3 "3: Chromium"
 set $workspace4 "4: More"
 set $workspace5 "5: Some more"
 set $workspace6 "6: Further more"
-set $workspace7 "7: Purhaps more"
+set $workspace7 "7: Perhaps more"
 set $workspace8 "8: Even more"
 set $workspace9 "9: More more"
-set $workspace10 "10: morey more"
+set $workspace10 "10: Morey more"
 
 # preferred terminal emulator
 set $term urxvt
@@ -96,7 +96,7 @@ for_window [class="^.*"] border pixel 2
     bindsym $mod+Shift+b exec chromium
 
     # take screenshots
-    bindsym Print exec swaygrab
+    #bindsym Print exec swaygrab
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -219,7 +219,7 @@ for_window [class="^.*"] border pixel 2
 bar {
     status_command i3status
     position top
-    strip_workspace_numbers yes
+    strip_workspace_numbers no
     # pango_markup enabled
     font $font
     colors {

@@ -292,9 +292,12 @@ map <leader>n :call RenameFile()<cr>
 map <Leader>p :e#<CR>
 map <Leader>q :qa<CR>
 map <Leader>s :!bash<CR>
+exec 'nnoremap <Leader>ss :mks! ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>sr :so   ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
 map <Leader>t :%s/\s\+$//e<CR>
 map <Leader>w :w<CR>
 map <leader>r :call SpecCorresponding()<CR>
+
 
 " tmux has ctrl+a, so lets rename in vim to ctl+b
 noremap <c-b> <c-a>

@@ -3,4 +3,5 @@ vim/.vim/bundle/*
 vim/.vim/view/*
 vim/.vim/undodir/*
 vim/.vim/spell/*
+vim/.vim/.netrwhist
 desktop/.ncmpcpp/error.log
