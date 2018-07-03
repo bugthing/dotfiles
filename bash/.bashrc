@@ -70,6 +70,9 @@ fi
 if [ -d "/var/lib/snapd/snap/bin" ]; then
   export PATH="/var/lib/snapd/snap/bin:$PATH"
 fi
+if [ -d "$HOME/.cargo/bin" ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
 
 # make predictable SSH authentication socket location.
 MYSOCK="/tmp/ssh-agent-$USER-link"
