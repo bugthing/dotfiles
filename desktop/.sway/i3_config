@@ -239,4 +239,4 @@ exec xrdb ~/.Xresources
 exec pulseaudio --start
 exec --no-startup-id nm-applet
 exec --no-startup-id mpd
-exec --no-startup-id ~/.sway/scripts/wallp
+# exec --no-startup-id ~/.sway/scripts/wallp
