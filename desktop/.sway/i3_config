@@ -77,7 +77,7 @@ for_window [class="^.*"] border pixel 2
     bindsym $mod+Return exec $term
 
     # start a filemanger
-    bindsym $mod+f exec nautilus --new-window
+    bindsym $mod+f exec pcmanfm
 
     # kill focused window
     bindsym $mod+Shift+q kill
@@ -85,11 +85,11 @@ for_window [class="^.*"] border pixel 2
     # start your launcher
     bindsym $mod+d exec $menu
 
-    # start passmenu
-    bindsym $mod+g exec passmenu
-
     # start desktop file searcher
-    bindsym $mod+Shift+g exec i3-dmenu-desktop
+    bindsym $mod+g exec i3-dmenu-desktop
+
+    # start passmenu
+    bindsym $mod+Shift+g passmenu
 
     # start browsers
     bindsym $mod+b exec firefox
@@ -231,12 +231,3 @@ bar {
         urgent_workspace   $lblue $yellow $lgreen
     }
 }
-
-#
-# Startup:
-#
-exec xrdb ~/.Xresources
-exec pulseaudio --start
-exec --no-startup-id nm-applet
-exec --no-startup-id mpd
-# exec --no-startup-id ~/.sway/scripts/wallp

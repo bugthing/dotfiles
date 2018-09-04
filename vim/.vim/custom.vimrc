@@ -35,6 +35,7 @@ set et
 set sw=2
 set smarttab
 set noincsearch
+set mouse=           " No mouse integration please
 set ignorecase smartcase
 set laststatus=2     " Always show status line.
 set number           " line numbers on
