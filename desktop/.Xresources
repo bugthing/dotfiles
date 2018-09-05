@@ -37,6 +37,10 @@ xscreensaver.passwd.thermometer.foreground:  #666666
 xscreensaver.passwd.thermometer.background:  #000000
 xscreensaver.passwd.thermometer.width:       8
 
+! Appearance ----------------------------------------------------------
+
+Xcursor.theme: Darkbolt-cursor
+
 ! Urxvt ---------------------------------------------------------------
 
 URxvt.font:           xft:bitstream vera sans mono:size=12:antialias=true
