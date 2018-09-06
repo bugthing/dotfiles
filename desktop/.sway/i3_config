@@ -89,11 +89,11 @@ for_window [class="^.*"] border pixel 2
     bindsym $mod+g exec i3-dmenu-desktop
 
     # start passmenu
-    bindsym $mod+Shift+g passmenu
+    bindsym $mod+Shift+g exec passmenu
 
     # start browsers
-    bindsym $mod+b exec firefox
-    bindsym $mod+Shift+b exec chromium
+    bindsym $mod+b exec --no-startup-id firefox
+    bindsym $mod+Shift+b exec --no-startup-id chromium
 
     # take screenshots
     #bindsym Print exec swaygrab
