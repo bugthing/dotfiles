@@ -10,6 +10,11 @@ function redis-clearout-docker {
   docker exec redis redis-cli flushall
 }
 
+function rspec-parallel {
+  bundle exec rake parallel:create
+  bundle exec rake parallel:prepare
+  bundle exec parallel_rspec ./spec
+}
 
 #===========================================================================
 # Misc.
