@@ -10,6 +10,15 @@ function redis-clearout-docker {
   docker exec redis redis-cli flushall
 }
 
+function rspec-parallel-prep {
+  bundle exec rake parallel:create
+  bundle exec rake parallel:prepare
+  rspec-parallel
+}
+
+function rspec-parallel {
+  bundle exec parallel_rspec ./spec
+}
 
 #===========================================================================
 # Misc.
@@ -21,6 +30,10 @@ function xo {
 
 function cpstat () {
   tar c "$1" | pv | tar x -C "$2"
+}
+
+function wallp () {
+  feh --recursive --randomize --bg-fill $HOME/Pictures/HomeSync/Wallpapers/*
 }
 
 #===========================================================================

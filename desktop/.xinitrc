@@ -5,6 +5,20 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
+# start dbus
+if [ -n $DBUS_SESSION_BUS_ADDRESS ]; then
+    export $(dbus-launch)
+fi
+
+# start pulseaudio in the background
+if [ -x /usr/bin/pulseaudio ]; then
+    /usr/bin/pulseaudio --start
+fi
+# register pulseaudio
+if [ -x /usr/bin/start-pulseaudio-x11 ]; then
+    /usr/bin/start-pulseaudio-x11
+fi
+
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then
@@ -34,6 +48,4 @@ fi
 
 eval $(ssh-agent)
 
-exec pulseaudio --start &
-
-exec dbus-launch i3 -c $HOME/.sway/i3_config
+exec i3 -c $HOME/.sway/i3_config

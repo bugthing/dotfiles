@@ -28,7 +28,7 @@ call minpac#add('xolox/vim-misc') " required for note taking plugin
 call minpac#add('xolox/vim-notes') " note taking
 call minpac#add('elixir-editors/vim-elixir') " elixir syntax highlighting
 call minpac#add('w0rp/ale') " linting
-call minpac#add('ludovicchabant/vim-gutentags') " auto tags generation
+"call minpac#add('ludovicchabant/vim-gutentags') " auto tags generation
 
 command! Bundle call minpac#update()
 command! BundleClean call minpac#clean()
