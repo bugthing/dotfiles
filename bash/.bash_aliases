@@ -20,9 +20,41 @@ function rspec-parallel {
   bundle exec parallel_rspec ./spec
 }
 
+function reviewapp-db-reset {
+  reviewapp-run $1 "rake environment db:drop db:create db:schema:load db:seed DISABLE_DATABASE_ENVIRONMENT_CHECK=1 SAFETY_ASSURED=1"
+}
+
+function reviewapp-console {
+  reviewapp-run $1 "rails console"
+}
+
+function reviewapp-bash {
+  reviewapp-run $1 "bash"
+}
+
+function reviewapp-run {
+  prnumber=$1
+  cmd=$2
+  re='^[0-9]+$'
+  if ! [[ $prnumber =~ $re ]] ; then
+    echo 'Please provide a pr number (for reviewapp)'
+    return 1
+  fi
+  heroku run -a sp-api-sandbox-pr-${prnumber} ${cmd}
+}
+
 #===========================================================================
 # Misc.
 #===========================================================================
+
+function ssl-check {
+  domain=$1
+  if [[ -z "${domain}" ]]; then
+    echo 'Please provide a domain to check (e.g. $ ssl-check www.google.com)'
+    return 1
+  fi
+  echo | openssl s_client -servername ${domain} -connect ${domain}:443 2>/dev/null | openssl x509 -noout -dates
+}
 
 function xo {
   gio open $*
