@@ -43,6 +43,10 @@ function reviewapp-run {
   heroku run -a sp-api-sandbox-pr-${prnumber} ${cmd}
 }
 
+function sp-api-db-reset {
+  rake environment db:drop db:create db:schema:load db:seed:development
+}
+
 #===========================================================================
 # Misc.
 #===========================================================================
