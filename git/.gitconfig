@@ -54,6 +54,8 @@
   # Comparing the commits between branches
   missing = "!f() { git rev-list ..$1 --oneline | sed -e '1 iOnly in other:'; git rev-list $1.. --oneline | sed -e '1 iOnly in HEAD:'; }; f"
 
+  arrh = "!git reset --hard @{u}"
+
   ## Working with files ##
 
   # Unstage any files that have been added to the staging area
