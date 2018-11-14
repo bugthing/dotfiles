@@ -21,7 +21,7 @@ function rspec-parallel {
 }
 
 function reviewapp-db-reset {
-  reviewapp-run $1 "rake environment db:drop db:create db:schema:load db:seed DISABLE_DATABASE_ENVIRONMENT_CHECK=1 SAFETY_ASSURED=1"
+  reviewapp-run $1 "rake environment db:drop db:create db:schema:load db:seed:development DISABLE_DATABASE_ENVIRONMENT_CHECK=1 SAFETY_ASSURED=1"
 }
 
 function reviewapp-console {
