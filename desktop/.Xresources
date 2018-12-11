@@ -39,7 +39,7 @@ xscreensaver.passwd.thermometer.width:       8
 
 ! Appearance ----------------------------------------------------------
 
-Xcursor.theme: Darkbolt-cursor
+Xcursor.theme: capitaine-cursors
 
 ! Urxvt ---------------------------------------------------------------
 

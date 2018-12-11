@@ -13,17 +13,16 @@ if [ -n $DBUS_SESSION_BUS_ADDRESS ]; then
     export $(dbus-launch)
 fi
 
-# start pulseaudio in the background
-if [ -x /usr/bin/pulseaudio ]; then
-    /usr/bin/pulseaudio --start
-fi
-# register pulseaudio
+# trigger pulseaudio if is autospawn set to yes
 if [ -x /usr/bin/start-pulseaudio-x11 ]; then
     /usr/bin/start-pulseaudio-x11
 fi
+# start pulseaudio in the background if not already running
+if [ -x /usr/bin/pulseaudio ] && [ ! /usr/bin/pulseaudio --check ]; then
+    /usr/bin/pulseaudio --start
+fi
 
 # merge in defaults and keymaps
-
 if [ -f $sysresources ]; then
     xrdb -merge $sysresources
 fi
@@ -40,13 +39,17 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-# start some nice programs
+# start some programs
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
   [ -x "$f" ] && . "$f"
  done
  unset f
+fi
+
+if [ -f /usr/bin/compton ]; then
+    compton --fading --daemon
 fi
 
 eval $(ssh-agent)

@@ -217,17 +217,22 @@ for_window [class="^.*"] border pixel 2
 # Status Bar:
 #
 bar {
-    status_command i3status
-    position top
-    strip_workspace_numbers no
-    # pango_markup enabled
-    font $font
-    colors {
-        statusline $green
-        background $black
-        separator  $blue
-        inactive_workspace $lblue $blue $grey
-        focused_workspace  $lblue $green $red
-        urgent_workspace   $lblue $yellow $lgreen
-    }
+   	font pango:Inconsolata 9
+	position top
+	status_command /usr/bin/bumblebee-status -m nic disk:root cpu memory battery pasink pasource date time -p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d %Y" -t iceberg-rainbow
 }
+
+#bar {
+#    status_command i3status
+#    position top
+#    strip_workspace_numbers no
+#    font $font
+#    colors {
+#        statusline $green
+#        background $black
+#        separator  $blue
+#        inactive_workspace $lblue $blue $grey
+#        focused_workspace  $lblue $green $red
+#        urgent_workspace   $lblue $yellow $lgreen
+#    }
+#}
