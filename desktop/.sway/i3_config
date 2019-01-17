@@ -93,7 +93,7 @@ for_window [class="^.*"] border pixel 2
 
     # start browsers
     bindsym $mod+b exec --no-startup-id firefox
-    bindsym $mod+Shift+b exec --no-startup-id chromium
+    bindsym $mod+Shift+b exec --no-startup-id "google-chrome-stable || chromium"
 
     # take screenshots
     #bindsym Print exec swaygrab
