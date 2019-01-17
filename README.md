@@ -33,3 +33,14 @@ To create the file system links for the different groups of dotfiles, use stow l
     $ stow desktop
     $ stow ruby
 
+
+System D
+--------
+
+There are some user systemd files include in my dotfile repo.
+To enable/start them, do this:
+
+    $ systemctl --user enable ssh-agent
+    $ systemctl --user start ssh-agent
+
+

@@ -52,6 +52,7 @@ if [ -f /usr/bin/compton ]; then
     compton --fading --daemon
 fi
 
-eval $(ssh-agent)
+# not needed anymore, starting via systemd
+# eval $(ssh-agent)
 
 exec i3 -c $HOME/.sway/i3_config
