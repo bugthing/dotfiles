@@ -62,8 +62,8 @@ client.urgent           $lgreen   $black     $gray   $lgreen    $lmagenta
 
 # gaps
 
-gaps inner 3
-gaps outer 1
+gaps inner 6
+gaps outer 4
 
 # Window Rules
 

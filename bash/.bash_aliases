@@ -44,7 +44,7 @@ function reviewapp-run {
 }
 
 function sp-api-db-reset {
-  rake environment db:drop db:create db:schema:load db:seed:development
+  bundle exec rake environment db:drop db:create db:schema:load db:seed:development
 }
 
 #===========================================================================

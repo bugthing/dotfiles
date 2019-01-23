@@ -178,6 +178,21 @@ function! SpecCorresponding()
   endif
 endfunction
 
+function! CopyFileContentToGpaste()
+  let l:selection = @*
+"  if len(l:selection) == 0
+"    echo "fuck"
+"  if <visual selection present>
+"    execute \":'>,'> !tee >(gpaste-client)"
+"  else
+    echo "shit"
+    echo len(l:selection)
+    echo l:selection
+"    execute \":w !gpaste-client"
+"  endif
+"    redraw!
+endfunction
+
 function! CopyFilepathToGpaste()
     execute "silent !gpaste-client add" . " " . shellescape(fnamemodify(bufname("%"), ":p"))
     redraw!
@@ -233,7 +248,7 @@ nnoremap <C-l> <Esc>:tabn<CR>
 " define custom commands
 command! Rtags  :!bundle list --paths=true | xargs ctags --extra=+f --exclude=.git --exclude=tmp --exclude=log -R *
 " uses 'tidyhtml' package
-command! Thtml  :%!tidy -q -i -ashtml 
+command! Thtml  :%!tidy -q -i -ashtml
 command! Txhtml :%!tidy -q -i -asxhtml
 command! Txml   :%!tidy -q -i -asxml
 " uses python
@@ -280,7 +295,7 @@ autocmd FileType perl map <leader>x :! perl %<CR>
 autocmd FileType ruby map <leader>x :! ruby %<CR>
 map <leader>a :set autochdir!<CR>
 map <leader>b :TlistToggle<CR>
-map <Leader>c :w !gpaste-client<CR><CR>
+map <Leader>c :call CopyFileContentToGpaste()<CR>
 map <leader>d :setlocal spell! spelllang=en_gb<CR>
 map <Leader>e :tabe<CR>
 map <Leader>f :let @"=expand("%")<CR>

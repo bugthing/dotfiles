@@ -78,12 +78,14 @@ if [ -d "$HOME/go/bin" ]; then
 fi
 
 # make predictable SSH authentication socket location.
-MYSOCK="/tmp/ssh-agent-$USER-link"
-if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
-  if [ -e $MYSOCK ]; then
-    rm -f $MYSOCK
-  fi
-  ln -sf $SSH_AUTH_SOCK $MYSOCK
-  export SSH_AUTH_SOCK=$MYSOCK
-fi
-
+# Old way
+#MYSOCK="/tmp/ssh-agent-$USER-link"
+# if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
+# if [ -e $MYSOCK ]; then
+# rm -f $MYSOCK
+# fi
+# ln -sf $SSH_AUTH_SOCK $MYSOCK
+# export SSH_AUTH_SOCK=$MYSOCK
+# fi
+# New way - using systemd
+export SSH_AUTH_SOCK="/run/user/$UID/ssh-agent.socket"

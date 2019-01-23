@@ -1,0 +1,11 @@
+[Unit]
+Description=Syncthing - Open Source Continuous File Synchronization for %I
+After=snapd.service
+
+[Service]
+Type=simple
+ExecStart=/var/lib/snapd/snap/bin/syncthing -no-browser -no-restart -logflags=1
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
