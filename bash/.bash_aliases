@@ -11,6 +11,7 @@ function redis-clearout-docker {
 }
 
 function rspec-parallel-prep {
+  bundle exec rake parallel:drop
   bundle exec rake parallel:create
   bundle exec rake parallel:prepare
   rspec-parallel

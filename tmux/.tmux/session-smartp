@@ -19,13 +19,13 @@ selectp -t 0
 # start api rails server
 send-keys 'cd ~/dev/api && bundle exec rails s' C-m
 
-# split and pane virtically (20%/80%)
-splitw -h -p 80
+# split pane virtically (55%/45%)
+splitw -h -p 45
 
 # start sidekiq in new pane
 send-keys 'cd ~/dev/api && bundle exec sidekiq -C config/sidekiq/development.yml' C-m
 
-# select pane 5 (lower of the 1st horizontal split)
+# select pane 2 (lower of the 1st horizontal split)
 selectp -t 2
 
 # split the pane horizontal (80%/20%)
