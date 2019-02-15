@@ -30,6 +30,9 @@ fi
 # turn of unix'y suspend/resume stuff
 stty -ixon
 
+# auto change to dir (not need for cd)
+shopt -s autocd
+
 ##############################################################################
 # Local programming langs
 ##############################################################################
