@@ -20,7 +20,7 @@ shopt -s histappend
 shopt -s checkwinsize
 
 # Set my prompt
-PS1="\[\033[38;5;081m\]\u\[\033[38;5;245m\]@\[\033[38;5;206m\]\H \[\033[38;5;245m\]\w \[\033[38;5;081m\]$ \[\e[0m\]"
+source ~/.bash_prompt
 
 # Load alias definitions.
 if [ -f ~/.bash_aliases ]; then
@@ -51,7 +51,7 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 ##############################################################################
 
 # default editor.
-export EDITOR=vi
+export EDITOR=vim
 
 # fzf is fuzzy finder - the env is used to tell it use ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
