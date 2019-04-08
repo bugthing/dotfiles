@@ -42,7 +42,7 @@ set $workspace9 "9: More more"
 set $workspace10 "10: Morey more"
 
 # preferred terminal emulator
-set $term urxvt
+set $term alacritty
 
 # preferred application launcher
 # set $menu dmenu_run -fn $font -nb $yellow -nf $green -sb $cyan -sf $blue -l 7
