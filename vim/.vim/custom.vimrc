@@ -7,7 +7,6 @@ let mapleader = "\<Space>"
 set nocompatible     " Use Vim defaults and forget about trying to be Vi"
 set timeoutlen=1000  " timeout quicker so using space as my leader is less PITA
 set ttimeoutlen=100  " ^ see above ^
-set nobackup         " Stop slow saving with btrfs
 set expandtab        " Insert spaces instead of tabs in insert mode. Use spaces for indents
 set tabstop=4        " Number of spaces that a <Tab> in the file counts for"
 set shiftwidth=4     " Number of spaces to use for each step of (auto)indent"
@@ -27,6 +26,8 @@ set wildmenu
 set wildmode=longest:full,full
 set backupdir=/var/tmp
 set directory=/var/tmp " Don't clutter my dirs up with swp and tmp files
+set nobackup
+set nowritebackup
 set autoread
 set wmh=0
 set viminfo+=!
@@ -149,6 +150,14 @@ let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "= Functions
 "============================================================================
 
+function! ReplayLastMacro()
+  try
+    normal @@
+  catch /E748/
+    normal @q
+  endtry
+endfunction
+
 function! RenameFile()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'), 'file')
@@ -245,6 +254,11 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 nnoremap <C-h> <Esc>:tabp<CR>
 nnoremap <C-l> <Esc>:tabn<CR>
 
+" copy/paste in more usual style
+vmap <C-c> "+yi
+imap <C-v> <esc>"+gpi
+set clipboard+=unnamed
+
 " define custom commands
 command! Rtags  :!bundle list --paths=true | xargs ctags --extra=+f --exclude=.git --exclude=tmp --exclude=log -R *
 " uses 'tidyhtml' package
@@ -281,6 +295,9 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 " save with sudo with :w!!
 cmap w!! w !sudo tee % >/dev/null
+
+" <enter> in normal mode just replays last macro
+nnoremap <silent> <cr> :call ReplayLastMacro()<cr>
 
 "" resize splits
 "nnoremap <C-H> <C-w>>
