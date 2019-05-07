@@ -53,8 +53,8 @@ Rxvt.imLocale: en_GB.UTF-8
 URxvt*depth: 32
 URxvt*background: rgba:0000/0000/0200/c800
 
-! URxvt.letterSpace:  -6
-URxvt.geometry:     90x25
+! URxvt.letterSpace:  -10
+URxvt.geometry:     180x50
 URxvt.scrollBar:    false
 Urxvt*scrollTtyOutput : false
 URxvt*scrollWithBuffer: true
