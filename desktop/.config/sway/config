@@ -1,0 +1,228 @@
+#
+# Variables
+#
+
+set $mod Mod4
+
+set $font pango:Monaco,9
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+# colors
+
+set $black    #080808
+set $red      #F51024
+set $green    #4E9A06
+set $yellow   #C4A000
+set $blue     #254775
+set $magenta  #75507B
+set $cyan     #06989A
+set $gray     #A5A5A5
+set $darkgray #555753
+set $lred     #FF4444
+set $lgreen    #74FF00
+set $lyellow  #FCE94F
+set $lblue    #4A84D8
+set $lmagenta #AD7FA8
+set $lcyan    #34E2E2
+set $white    #EEEEEC
+
+set $workspace1 "1: Firefox"
+set $workspace2 "2: Tmux"
+set $workspace3 "3: Chromium"
+set $workspace4 "4: More"
+set $workspace5 "5: Some more"
+set $workspace6 "6: Further more"
+set $workspace7 "7: Perhaps more"
+set $workspace8 "8: Even more"
+set $workspace9 "9: More more"
+set $workspace10 "10: Morey more"
+
+# preferred terminal emulator
+set $term alacritty
+
+# preferred application launcher
+# set $menu dmenu_run -fn $font -nb $yellow -nf $green -sb $cyan -sf $blue -l 7
+set $menu dmenu_run
+
+#
+# Decoration
+#
+
+font $font
+
+# color                 border    background text    indicator  child_border
+client.focused          $green    $black     $gray   $blue      $blue
+client.focused_inactive $gray     $black     $gray   $gray      $gray
+client.unfocused        $black    $black     $gray   $black     $magenta
+client.urgent           $lgreen   $black     $gray   $lgreen    $lmagenta
+
+# gaps
+
+gaps inner 6
+gaps outer 1
+
+# Window Rules
+
+for_window [class="^.*"] border pixel 2
+
+#
+# Key bindings
+#
+
+    # start a terminal
+    bindsym $mod+Return exec $term
+
+    # start a filemanger
+    bindsym $mod+f exec pcmanfm
+
+    # kill focused window
+    bindsym $mod+Shift+q kill
+
+    # start your launcher
+    bindsym $mod+d exec $menu
+
+    # start desktop file searcher
+    bindsym $mod+g exec i3-dmenu-desktop
+
+    # start passmenu
+    bindsym $mod+Shift+g exec passmenu
+
+    # start browsers
+    bindsym $mod+b exec --no-startup-id firefox
+    bindsym $mod+Shift+b exec --no-startup-id "google-chrome-stable || chromium"
+
+    # take screenshots
+    bindsym Print exec grim -t jpeg -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/Pictures/screenshot.jpg
+    bindsym Shift+Print exec grim -t jpeg -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_screenshot.jpg')
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    # floating_modifier $mod normal
+    floating_modifier $mod
+
+    # reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # exit sway (logs you out of your wayland session)
+    bindsym $mod+Shift+e exit
+
+    # keybord layout
+    bindsym $mod+i exec "setxkbmap -layout us,gb"
+    bindsym $mod+Shift+i exec "setxkbmap -layout gb,us"
+
+    # Suspend etc.
+    set $Locker ~/scripts/shotnlock
+    bindsym $mod+o exec --no-startup-id $Locker
+    bindsym $mod+Shift+o exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym $mod+Shift+p exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+
+# moving around:
+
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+
+    # _move_ the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+
+    # Alt+Tab type thing
+    bindsym Mod1+Tab workspace back_and_forth
+    bindsym Mod1+Shift+grave workspace next
+    bindsym Mod1+Shift+Tab workspace prev
+
+# workspaces:
+
+    workspace_auto_back_and_forth yes
+
+    # switch to workspace
+    bindsym $mod+1 workspace $workspace1
+    bindsym $mod+2 workspace $workspace2
+    bindsym $mod+3 workspace $workspace3
+    bindsym $mod+4 workspace $workspace4
+    bindsym $mod+5 workspace $workspace5
+    bindsym $mod+6 workspace $workspace6
+    bindsym $mod+7 workspace $workspace7
+    bindsym $mod+8 workspace $workspace8
+    bindsym $mod+9 workspace $workspace9
+    bindsym $mod+0 workspace $workspace10
+
+    # move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace $workspace1
+    bindsym $mod+Shift+2 move container to workspace $workspace2
+    bindsym $mod+Shift+3 move container to workspace $workspace3
+    bindsym $mod+Shift+4 move container to workspace $workspace4
+    bindsym $mod+Shift+5 move container to workspace $workspace5
+    bindsym $mod+Shift+6 move container to workspace $workspace6
+    bindsym $mod+Shift+7 move container to workspace $workspace7
+    bindsym $mod+Shift+8 move container to workspace $workspace8
+    bindsym $mod+Shift+9 move container to workspace $workspace9
+    bindsym $mod+Shift+0 move container to workspace $workspace10
+
+    # Special Fn Keys
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% && pkill -SIGRTMIN+15 i3blocks
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% && pkill -SIGRTMIN+15 i3blocks
+    bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle && pkill -SIGRTMIN+15 i3blocks
+    bindsym XF86AudioPlay exec mpc toggle
+    bindsym XF86AudioNext exec mpc next
+    bindsym XF86AudioPrev exec mpc prev
+    bindsym XF86AudioStop exec mpc pause
+    bindsym XF86ScreenSaver exec lock.sh
+
+
+# layout
+
+    bindsym $mod+s splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+w layout stacking
+    bindsym $mod+e layout tabbed
+    bindsym $mod+r layout toggle split
+
+    # current focus goes fullscreen
+    bindsym $mod+Up fullscreen
+
+    # toggle the current focus between tiling and floating mode
+    bindsym $mod+space floating toggle
+
+    # swap focus between the tiling area and the floating area
+    bindsym $mod+Shift+space focus mode_toggle
+
+    # move focus to the parent container
+    bindsym $mod+a focus parent
+
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Status Bar:
+#
+bar {
+   	font pango:Inconsolata 9
+	position top
+	status_command /usr/bin/bumblebee-status -m nic disk:root cpu memory battery pasink pasource date time -p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d %Y" -t iceberg-rainbow
+}
+
+#include ~/.config/sway/sway_work_outputs.conf
+include ~/.config/sway/sway_home_outputs.conf

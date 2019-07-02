@@ -55,4 +55,4 @@ fi
 # not needed anymore, starting via systemd
 # eval $(ssh-agent)
 
-exec i3 -c $HOME/.sway/i3_config
+exec i3
