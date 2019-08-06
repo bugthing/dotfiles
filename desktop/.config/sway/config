@@ -229,8 +229,8 @@ bar {
 # Monitors: (swaymsg -t get_outputs)
 #
 
-#include ~/.config/sway/work_outputs.conf
-include ~/.config/sway/home_outputs.conf
+include ~/.config/sway/work_outputs.conf
+#include ~/.config/sway/home_outputs.conf
 
 #
 # Inputs: (swaymsg -t get_inputs)
