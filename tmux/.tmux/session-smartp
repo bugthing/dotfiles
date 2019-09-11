@@ -4,6 +4,15 @@
 # Start all the containers in the current window
 send-keys 'docker start mysql redis' C-m
 
+# split virtically (50/%50%)
+splitw -h -p 50
+
+# select the zeroth pane
+selectp -t 0
+
+# split horizontal (50/%50%)
+splitw -p 50
+
 # new window and give it a name
 neww -n smartp-services
 
@@ -53,3 +62,12 @@ send-keys 'cd ~/dev/api' C-m
 splitw -v -p 20
 selectp -t 1
 send-keys 'cd ~/dev/api' C-m
+
+neww -n spare-api
+send-keys 'cd ~/dev/api_spare' C-m
+splitw -v -p 20
+selectp -t 1
+send-keys 'cd ~/dev/api_spare' C-m
+
+# select api window
+select-window -t api
