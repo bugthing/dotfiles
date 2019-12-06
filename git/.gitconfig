@@ -2,7 +2,7 @@
   email = ben.martin@smartpension.co.uk
   name = Benjamin Martin
 [push]
-  default = current
+	default = current
 [color]
   ui = auto
 [merge]
