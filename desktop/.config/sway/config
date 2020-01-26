@@ -142,6 +142,8 @@ default_border none
     bindsym Mod1+Tab workspace back_and_forth
     bindsym Mod1+Shift+grave workspace next
     bindsym Mod1+Shift+Tab workspace prev
+    # .. use in conjunction with track_prev_focus.sh
+    bindsym $mod+Tab [con_mark=_prev] focus
 
 # workspaces:
 
