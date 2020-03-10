@@ -50,7 +50,7 @@ send-keys 'cd ~/dev/ && tail -F api/log/*.log' C-m
 splitw -h -p 50
 
 # start the mysql client
-send-keys 'sleep 6 && docker run -it exec mysql mysql smartpension_development
+send-keys 'sleep 6 && docker run -it exec mysql mysql smartpension_development'
 
 # select last pane
 selectp -t 4
