@@ -33,6 +33,22 @@ stty -ixon
 # auto change to dir (not need for cd)
 shopt -s autocd
 
+# autocomplete
+if [ -f $HOME/.config/bash/git-completion.bash ]; then
+  . $HOME/.config/bash/git-completion.bash
+fi
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
+fi
+
+# Ensure the ssh agent is pointing at the right place
+MYSOCK="/run/user/$UID/ssh-agent.socket"
+if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
+  ln -sf $SSH_AUTH_SOCK $MYSOCK
+  export SSH_AUTH_SOCK=$MYSOCK
+fi
+
+
 ##############################################################################
 # Local programming langs
 ##############################################################################
@@ -43,12 +59,8 @@ if [ -d "$HOME/.asdf" ]; then
   . $HOME/.asdf/completions/asdf.bash
 fi
 
-# bash like history is iex (elixir)
+# bash like history in iex (elixir)
 export ERL_AFLAGS="-kernel shell_history enabled"
-
-if [ -f $HOME/.config/bash/git-completion.bash ]; then
-  . $HOME/.config/bash/git-completion.bash
-fi
 
 ##############################################################################
 # ENV variables
@@ -86,11 +98,3 @@ fi
 if [ -d "$HOME/go/bin" ]; then
   export PATH="$PATH:$HOME/go/bin"
 fi
-
-# Ensure tje agent is pointing at the right place
-MYSOCK="/run/user/$UID/ssh-agent.socket"
-if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
-  ln -sf $SSH_AUTH_SOCK $MYSOCK
-  export SSH_AUTH_SOCK=$MYSOCK
-fi
-
