@@ -46,6 +46,10 @@ fi
 # bash like history is iex (elixir)
 export ERL_AFLAGS="-kernel shell_history enabled"
 
+if [ -f $HOME/.config/bash/git-completion.bash ]; then
+  . $HOME/.config/bash/git-completion.bash
+fi
+
 ##############################################################################
 # ENV variables
 ##############################################################################
