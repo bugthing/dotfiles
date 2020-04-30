@@ -33,6 +33,22 @@ stty -ixon
 # auto change to dir (not need for cd)
 shopt -s autocd
 
+# autocomplete
+if [ -f $HOME/.config/bash/git-completion.bash ]; then
+  . $HOME/.config/bash/git-completion.bash
+fi
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
+fi
+
+# Ensure the ssh agent is pointing at the right place
+MYSOCK="/run/user/$UID/ssh-agent.socket"
+if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
+  ln -sf $SSH_AUTH_SOCK $MYSOCK
+  export SSH_AUTH_SOCK=$MYSOCK
+fi
+
+
 ##############################################################################
 # Local programming langs
 ##############################################################################
@@ -48,7 +64,8 @@ if [ -f "$HOME/.asdf/plugins/java/set-java-home.sh" ]; then
   . $HOME/.asdf/plugins/java/set-java-home.sh
 fi
 
-# bash like history is iex (elixir)
+# bash like history in iex (elixir)
+>>>>>>> e7677e1f483c59bc9ddbde73294dcafeb138a7eb
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 ##############################################################################
@@ -60,6 +77,9 @@ export EDITOR=vim
 
 # fzf is fuzzy finder - the env is used to tell it use ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
+# cd also looks in home dir:
+export CDPATH="$HOME:$CDPATH"
 
 export PATH="./node_modules/.bin:$PATH"
 
