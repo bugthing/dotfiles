@@ -43,6 +43,11 @@ if [ -d "$HOME/.asdf" ]; then
   . $HOME/.asdf/completions/asdf.bash
 fi
 
+# asdf java - set JAVA_HOME
+if [ -f "$HOME/.asdf/plugins/java/set-java-home.sh" ]; then
+  . $HOME/.asdf/plugins/java/set-java-home.sh
+fi
+
 # bash like history is iex (elixir)
 export ERL_AFLAGS="-kernel shell_history enabled"
 
@@ -78,6 +83,11 @@ if [ -d "$HOME/.cargo/bin" ]; then
 fi
 if [ -d "$HOME/go/bin" ]; then
   export PATH="$PATH:$HOME/go/bin"
+fi
+
+if [ -d "$HOME/dev/flutter" ]; then
+  export PATH="$PATH:$HOME/dev/flutter/bin"
+  export no_proxy=127.0.0.1
 fi
 
 # make predictable SSH authentication socket location.
