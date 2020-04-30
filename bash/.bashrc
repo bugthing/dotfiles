@@ -111,14 +111,14 @@ if [ -d "$HOME/dev/flutter" ]; then
 fi
 
 # make predictable SSH authentication socket location.
-# Old way
-#MYSOCK="/tmp/ssh-agent-$USER-link"
-# if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
+MYSOCK="/tmp/ssh-agent-$USER-link"
+if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
 # if [ -e $MYSOCK ]; then
 # rm -f $MYSOCK
 # fi
-# ln -sf $SSH_AUTH_SOCK $MYSOCK
-# export SSH_AUTH_SOCK=$MYSOCK
-# fi
-# New way - using systemd
-export SSH_AUTH_SOCK="/run/user/$UID/ssh-agent.socket"
+  ln -sf $SSH_AUTH_SOCK $MYSOCK
+  export SSH_AUTH_SOCK=$MYSOCK
+fi
+
+# New way - using systemd (does not work on systems not using systemd)
+# export SSH_AUTH_SOCK="/run/user/$UID/ssh-agent.socket"
