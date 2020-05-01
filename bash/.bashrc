@@ -65,7 +65,6 @@ if [ -f "$HOME/.asdf/plugins/java/set-java-home.sh" ]; then
 fi
 
 # bash like history in iex (elixir)
->>>>>>> e7677e1f483c59bc9ddbde73294dcafeb138a7eb
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 ##############################################################################
