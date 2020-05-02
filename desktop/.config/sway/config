@@ -41,13 +41,6 @@ set $workspace8 "8: Even more"
 set $workspace9 "9: More more"
 set $workspace10 "10: Morey more"
 
-# preferred terminal emulator
-set $term alacritty
-
-# preferred application launcher
-# set $menu dmenu_run -fn $font -nb $yellow -nf $green -sb $cyan -sf $blue -l 7
-set $menu dmenu_run
-
 #
 # Decoration
 #
@@ -72,33 +65,6 @@ default_border none
 
 #
 # Key bindings
-#
-
-    # start a terminal
-    bindsym $mod+Return exec $term
-
-    # start a filemanger
-    bindsym $mod+f exec pcmanfm
-
-    # kill focused window
-    bindsym $mod+Shift+q kill
-
-    # start your launcher
-    bindsym $mod+d exec $menu
-
-    # start desktop file searcher
-    bindsym $mod+g exec i3-dmenu-desktop
-
-    # start passmenu
-    bindsym $mod+Shift+g exec passmenu
-
-    # start browsers
-    bindsym $mod+b exec --no-startup-id firefox
-    bindsym $mod+Shift+b exec --no-startup-id "google-chrome-stable || chromium"
-
-    # take screenshots
-    bindsym Print exec grim -t jpeg -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/Pictures/screenshot.jpg
-    bindsym Shift+Print exec grim -t jpeg -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_screenshot.jpg')
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -114,6 +80,9 @@ default_border none
     # exit sway (logs you out of your wayland session)
     bindsym $mod+Shift+e exit
 
+    # kill focused window
+    bindsym $mod+Shift+q kill
+
     # keybord layout
     bindsym $mod+i exec "setxkbmap -layout us,gb"
     bindsym $mod+Shift+i exec "setxkbmap -layout gb,us"
@@ -122,9 +91,36 @@ default_border none
     set $Locker ~/scripts/shotnlock
     bindsym $mod+o exec --no-startup-id $Locker
     bindsym $mod+Shift+o exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    bindsym $mod+Shift+p exec --no-startup-id $Locker && systemctl hibernate, mode "default"
 
-# moving around:
+    # take screenshots
+    bindsym $mod+p exec grim -t jpeg -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/Pictures/screenshot.jpg
+    bindsym $mod+Shift+p exec grim -t jpeg -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_screenshot.jpg')
+
+    # launch applications:
+    set $term alacritty
+    set $menu dmenu_run
+    set $filemanager pcmanfm
+    set $passwords passmenu
+    set $browser "flatpak run org.mozilla.firefox"
+    set $browser2 "google-chrome-stable || chromium"
+
+    bindsym $mod+Return exec $term
+    bindsym $mod+f exec $filemanger
+    bindsym $mod+g exec $menu
+    bindsym $mod+Shift+g exec $passwords
+
+    # enter mode (mod+a) followed by a letter to launch app.
+    set $mode_launcher Launcher
+    bindsym $mod+a mode $mode_launcher
+    mode $mode_launcher {
+        bindsym t exec $term
+        bindsym f exec $filemanager
+        bindsym b exec $browser
+        bindsym c exec $browser2
+        bindsym Return mode "default"
+    }
+
+    # moving around:
 
     # Move your focus around
     bindsym $mod+$left focus left
@@ -145,7 +141,7 @@ default_border none
     # .. use in conjunction with track_prev_focus.sh
     bindsym $mod+Tab [con_mark=_prev] focus
 
-# workspaces:
+    # workspaces:
 
     workspace_auto_back_and_forth yes
 
@@ -204,7 +200,7 @@ default_border none
     bindsym $mod+Shift+space focus mode_toggle
 
     # move focus to the parent container
-    bindsym $mod+a focus parent
+    #bindsym $mod+a focus parent
 
 #
 # Scratchpad:
@@ -222,9 +218,7 @@ default_border none
 # Status Bar:
 #
 bar {
-   	font pango:Inconsolata 9
-	position top
-	status_command /usr/bin/bumblebee-status -m nic disk:root cpu memory battery pasink pasource date time -p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d %Y" -t iceberg-rainbow
+	swaybar_command waybar
 }
 
 #
