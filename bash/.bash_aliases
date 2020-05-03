@@ -69,43 +69,18 @@ function cpstat () {
   tar c "$1" | pv | tar x -C "$2"
 }
 
-function wallp () {
-  feh --recursive --randomize --bg-fill $HOME/Pictures/HomeSync/Wallpapers/*
+function run_prefered_vim () {
+  if [ -x "$(command -v nvim)" ]; then
+    nvim "$@"
+  elif [ -x "$(command -v vim)" ]; then
+    vim "$@"
+  elif [ -x "$(command -v vi)" ]; then
+    vi "$@"
+  else
+    echo 'vi function in .bash_aliases thinks no vi like is not installed'
+  fi
 }
-
-#===========================================================================
-# Binding keys
-#===========================================================================
-
-# Alt+l = pwd \n (example)
-bind '"\el": "\C-upwd\n"'
-
-#===========================================================================
-#= git -
-#===========================================================================
-
-alias gs='git status '
-alias ga='git add '
-alias gb="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
-alias gd='git diff'
-alias gco='git checkout '
-alias vcon='vim -p $(git status | grep "both modified" | cut -d: -f2)'
-alias gvl='git log | vim -c "set keywordprg=git\ show" -R -'
-
-#===========================================================================
-#= (re)define commands
-#===========================================================================
-
-alias aptup='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade'
-alias ll='ls -la'
-alias ssh-nokey='ssh  -o "IdentitiesOnly yes" '
-
-#= .. add colour (if available)  ..
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
-fi
+alias vi='run_prefered_vim '
 
 #===========================================================================
 #= ruby -
@@ -122,41 +97,6 @@ alias be='bundle_exec_or_not '
 
 function rcam () {
   bundle_exec_or_not rubocop -a --force-exclusion `git diff master --name-only --cached --diff-filter=ACMRTB`
-}
-
-# Only run rubocop on changed files
-function ed209 {
-  git status --porcelain | grep -v '^D' | grep '\.rb$' | cut -d ' ' -f 3 | xargs rubocop
-}
-
-#===========================================================================
-# vim-notes
-#===========================================================================
-
-# Opens a note
-function ne {
-  vim -c ":Note $*"
-}
- ## New Note: calls vim notes plugin
-function n {
-  vim -c :Note
-}
- # Searches Notes
-function  nls {
-  ls -c ~/.notes/ | egrep -i "$*"
-}
- # open searched note
-function nos {
-  found=$(nls $*)
-  linecount=`echo "$found" | wc -l`
-  if [ "$linecount" != "1" ]; then
-    echo "$found"
-    echo "Search must find only 1 (see above)"
-    return 1
-  fi
-  notename=${found/.note/}
-  echo "Opening note ($linecount) ${notename}.."
-  ne $notename
 }
 
 #===========================================================================
@@ -176,8 +116,24 @@ function txak {
   tmux select-window -t "$current_win"
 }
 
+#===========================================================================
+#= git -
+#===========================================================================
+
+alias gs='git status '
+alias ga='git add '
+alias gb="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+alias gd='git diff'
+alias gco='git checkout '
+alias vcon='nvim -p $(git status | grep "both modified" | cut -d: -f2)'
+alias gvl='git log | vim -c "set keywordprg=git\ show" -R -'
+
 
 #===========================================================================
-# GNU Utils
+#= linux'y tools
 #===========================================================================
+
 alias ls='lsd'
+alias aptup='sudo bash -c "apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade'
+alias ssh-nokey='ssh  -o "IdentitiesOnly yes" '
+

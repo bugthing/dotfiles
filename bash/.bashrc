@@ -112,12 +112,13 @@ fi
 # make predictable SSH authentication socket location.
 MYSOCK="/tmp/ssh-agent-$USER-link"
 if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
-# if [ -e $MYSOCK ]; then
-# rm -f $MYSOCK
-# fi
-  ln -sf $SSH_AUTH_SOCK $MYSOCK
-  export SSH_AUTH_SOCK=$MYSOCK
+  if [ "$SSH_AUTH_SOCK" -ef "$MYSOCK" ]; then
+    # Already the same file
+  else
+    # if [ -e $MYSOCK ]; then
+    # rm -f $MYSOCK
+    # fi
+    ln -sf $SSH_AUTH_SOCK $MYSOCK
+    export SSH_AUTH_SOCK=$MYSOCK
+  fi
 fi
-
-# New way - using systemd (does not work on systems not using systemd)
-# export SSH_AUTH_SOCK="/run/user/$UID/ssh-agent.socket"
