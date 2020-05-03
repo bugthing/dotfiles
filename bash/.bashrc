@@ -113,7 +113,7 @@ fi
 MYSOCK="/tmp/ssh-agent-$USER-link"
 if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
   if [ "$SSH_AUTH_SOCK" -ef "$MYSOCK" ]; then
-    # Already the same file
+    : # Already the same file
   else
     # if [ -e $MYSOCK ]; then
     # rm -f $MYSOCK
