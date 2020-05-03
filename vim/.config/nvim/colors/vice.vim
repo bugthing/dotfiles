@@ -11,38 +11,34 @@
 " Author: Bradley Cicenas <bradley@vektor.nyc>
 " License: MIT
 
-highlight clear
 set background=dark
-if exists('syntax_on') | syntax reset | endif
+highlight clear
+
+if exists("syntax_on")
+  syntax reset
+endif
 
 set t_Co=256
 let g:colors_name = "vice"
 
 " Color definitions
-let s:white = [231, "#ffffff"]
-let s:grey0 = [102, "#878787"] "lightest grey
-let s:grey1 = [238, "#444444"] "mid grey
-let s:grey2 = [235, "#303030"] "darkest grey
-
-let s:pink = [212, "#ff87d7"]
-let s:light_pink = [218, "#ffafdf"]
-let s:hot_pink = [201, "#ff00ff" ]
-
-let s:red = [197, "#ff005f" ]
-
-let s:teal = [123, "#87ffff"]
-let s:light_blue = [159, "#afffff"]
-
-let s:light_yellow = [229, "#ffffaf"]
-
-let s:mint = [158, "#afffd7"]
-let s:dark_mint = [49, "#87af87"]
-
-let s:lavender = [183, "#dfafff"]
-let s:gray_purple = [146, "#afafd7"]
+let s:white         = [231, "#ffffff"]
+let s:grey0         = [102, "#878787"] "lightest grey
+let s:grey1         = [238, "#444444"] "mid grey
+let s:grey2         = [236, "#303030"] "darkest grey
+let s:pink          = [212, "#ff87d7"]
+let s:light_pink    = [218, "#ffafd7"]
+let s:hot_pink      = [201, "#ff00ff" ]
+let s:red           = [197, "#ff005f" ]
+let s:teal          = [123, "#87ffff"]
+let s:light_blue    = [159, "#afffff"]
+let s:light_yellow  = [229, "#ffffaf"]
+let s:mint          = [158, "#afffd7"]
+let s:dark_mint     = [49, "#00ffaf"]
+let s:lavender      = [183, "#d7afff"]
+let s:gray_purple   = [146, "#afafd7"]
 let s:dark_lavender = [97, "#875faf"]
-
-let s:none = ["NONE", ""]
+let s:none          = ["NONE", ""]
 
 " func
 function! s:Color(name, fg, bg, style)
@@ -59,21 +55,21 @@ endfun
 call s:Color("Normal", s:white, s:grey2, "NONE")
 call s:Color("Cursor", s:grey2, s:white, "NONE")
 call s:Color("Visual", s:none, s:grey0, "NONE")
-call s:Color("CursorLine", s:hot_pink, s:grey2, "NONE")
+call s:Color("CursorLine", s:none, s:grey2, "NONE")
 call s:Color("CursorColumn", s:none, s:grey2, "NONE")
 call s:Color("CursorLineNr", s:hot_pink, s:none, "NONE")
 call s:Color("ColorColumn", s:none, s:grey2, "NONE")
 call s:Color("LineNr", s:grey0, s:grey2, "NONE")
 call s:Color("VertSplit", s:grey0, s:grey0, "NONE")
 call s:Color("MatchParen", s:grey0, s:light_blue, "NONE")
-call s:Color("StatusLine", s:white, s:grey0, "NONE")
+call s:Color("StatusLine", s:white, s:grey1, "NONE")
 call s:Color("StatusLineNC", s:white, s:grey0, "NONE")
 call s:Color("Pmenu", s:white, s:grey0, "NONE")
 call s:Color("PmenuSel", s:grey0, s:light_blue, "NONE")
 call s:Color("IncSearch", s:grey0, s:light_blue, "NONE")
 call s:Color("Search", s:grey0, s:light_blue, "NONE")
 call s:Color("Directory", s:light_blue, s:none, "NONE")
-call s:Color("Folded", s:dark_lavender, s:white, "NONE")
+call s:Color("Folded", s:mint, s:grey1, "NONE")
 call s:Color("Define", s:gray_purple, s:none, "NONE")
 
 " Diff
@@ -97,7 +93,7 @@ call s:Color("Float", s:lavender, s:none, "NONE")
 call s:Color("Function", s:pink, s:none, "NONE")
 call s:Color("Identifier", s:pink, s:none, "NONE")
 call s:Color("Keyword", s:pink, s:none, "NONE")
-call s:Color("Label", s:hot_pink, s:none, "NONE")
+call s:Color("Label", s:teal, s:none, "NONE")
 call s:Color("NonText", s:white, s:grey2, "NONE")
 call s:Color("Number", s:mint, s:none, "NONE")
 call s:Color("Operator", s:light_pink, s:none, "NONE")
@@ -126,6 +122,8 @@ call s:Color("htmlEndTag", s:none, s:none, "NONE")
 call s:Color("htmlTagName", s:none, s:none, "NONE")
 call s:Color("htmlArg", s:none, s:none, "NONE")
 call s:Color("htmlSpecialChar", s:lavender, s:none, "NONE")
+call s:Color("htmlItalic", s:mint, s:none, "NONE")
+call s:Color("htmlBold", s:dark_mint, s:none, "NONE")
 
 call s:Color("javaScriptFunction", s:mint, s:none, "NONE")
 call s:Color("javaScriptRailsFunction", s:mint, s:none, "NONE")
