@@ -17,13 +17,12 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'godlygeek/tabular'
-Plug 'vim-scripts/git-time-lapse'
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/SQLUtilities'
 Plug 'vim-ruby/vim-ruby' " the latest ruby support
-Plug 'w0rp/ale' " linting
+Plug 'w0rp/ale'
 Plug 'ludovicchabant/vim-gutentags' " auto tags generation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
