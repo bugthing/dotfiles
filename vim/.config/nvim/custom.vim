@@ -280,15 +280,14 @@ map <leader>gt :call TimeLapse()<CR>
 autocmd FileType perl map <leader>x :! perl %<CR>
 autocmd FileType ruby map <leader>x :! ruby %<CR>
 map <leader>a :set autochdir!<CR>
-map <leader>b :TlistToggle<CR>
 map <Leader>c :call CopyFileContentToGpaste()<CR>
 map <leader>d :setlocal spell! spelllang=en_gb<CR>
 map <Leader>e :tabe<CR>
-map <Leader>f :let @"=expand("%")<CR>
-map <Leader>g :call CopyFilepathToGpaste()<CR>
+map <leader>f :Files<CR>
+map <leader>g :Rg<CR>
 map <Leader>k :Ack!<Space>
 map <leader>l :set list!<CR>
-map <Leader>m :set wrap!<CR>
+nnoremap <leader>m :Marks<CR>
 map <leader>n :call RenameFile()<cr>
 " Re-Open Previously Opened File:
 map <Leader>p :e#<CR>
@@ -297,7 +296,7 @@ map <Leader>s :!bash<CR>
 exec 'nnoremap <Leader>ss :mks! ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
 exec 'nnoremap <Leader>sr :so   ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
 map <Leader>t :%s/\s\+$//e<CR>
-map <Leader>w :w<CR>
+map <Leader>w :set wrap!<CR>
 map <leader>r :call SpecCorresponding()<CR>
 
 " tmux has ctrl+a, so lets rename in vim to ctl+b
