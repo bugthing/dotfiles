@@ -18,7 +18,7 @@ endif
 "================================================================================
 let s:config = expand(stdpath('config').'/custom.vim')
 if filereadable(s:config)
-"  exec ':source ' . s:config
+  exec ':source ' . s:config
 endif
 
 "================================================================================

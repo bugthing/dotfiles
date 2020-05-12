@@ -285,7 +285,6 @@ map <leader>d :setlocal spell! spelllang=en_gb<CR>
 map <Leader>e :tabe<CR>
 map <leader>f :Files<CR>
 map <leader>g :Rg<CR>
-map <Leader>k :Ack!<Space>
 map <leader>l :set list!<CR>
 nnoremap <leader>m :Marks<CR>
 map <leader>n :call RenameFile()<cr>
