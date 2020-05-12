@@ -60,8 +60,11 @@ gaps outer 1
 
 # Window Rules
 
+default_orientation vertical
 default_border none
-#for_window [class="^.*"] border pixel 2
+for_window [app_id=".*"] split toggle
+for_window [class="^.*"] border pixel 2
+
 
 #
 # Key bindings
@@ -78,7 +81,7 @@ default_border none
     bindsym $mod+Shift+c reload
 
     # exit sway (logs you out of your wayland session)
-    bindsym $mod+Shift+e exit
+    bindsym $mod+Shift+x exit
 
     # kill focused window
     bindsym $mod+Shift+q kill
@@ -90,7 +93,7 @@ default_border none
     # Suspend etc.
     set $Locker ~/scripts/shotnlock
     bindsym $mod+o exec --no-startup-id $Locker
-    bindsym $mod+Shift+o exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym $mod+Shift+o exec --no-startup-id loginctl lock-session $XDG_SESSION_ID
 
     # take screenshots
     bindsym $mod+p exec grim -t jpeg -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/Pictures/screenshot.jpg
@@ -99,10 +102,11 @@ default_border none
     # launch applications:
     set $term alacritty
     set $menu dmenu_run
-    set $filemanager pcmanfm
+    set $filemanager "flatpak run org.gnome.NautilusDevel"
     set $passwords passmenu
     set $browser "flatpak run org.mozilla.firefox"
     set $browser2 "google-chrome-stable || chromium"
+    set $podcastmanager "flatpak run org.gpodder.gpodder"
 
     bindsym $mod+Return exec $term
     bindsym $mod+f exec $filemanger
@@ -117,6 +121,7 @@ default_border none
         bindsym f exec $filemanager
         bindsym b exec $browser
         bindsym c exec $browser2
+        bindsym p exec $podcastmanager
         bindsym Return mode "default"
     }
 
@@ -240,7 +245,11 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 }
 
 #
-# Notifcations:
+# Execute some programs
 #
+# notifcations
 exec mako
-
+# idle timeout
+exec swayidle -w \
+         before-sleep $Locker \
+         lock         $Locker

@@ -1,8 +1,7 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar at the bottom of your screen
-    "height": 24, // Waybar height
-    // "width": 1366, // Waybar width
+    "layer": "bottom", 
+    "position": "top",
+    "height": 24,
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "custom/spotify"],
     "modules-center": ["sway/window"],
@@ -10,14 +9,18 @@
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
-        "format": "{icon}",
+        "format": "{icon} {name}",
         "format-icons": {
-            "1:web": "",
-            "2:code": "",
-            "3:term": "",
-            "4:work": "",
-            "5:music": "",
-            "6:docs": "",
+            "1: Firefox": "",
+            "2: Tmux": "",
+            "3: Chromium": "",
+            "4: More": "",
+            "5: Some more": "",
+            "6: Further more": "",
+            "7: Perhaps more": "",
+            "8: Even more": "",
+            "9: More more": "",
+            "10: Morey more": "",
             "urgent": "",
             "focused": "",
             "default": ""
