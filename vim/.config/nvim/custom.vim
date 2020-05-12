@@ -126,21 +126,6 @@ au InsertLeave * highlight StatusLine cterm=bold ctermfg=black ctermbg=blue
 au InsertEnter * highlight StatusLine cterm=bold ctermfg=black ctermbg=green
 
 "============================================================================
-"= Programming specific stuff
-"============================================================================
-
-"" .. perl stuff
-"let perl_include_pod   = 1    "include pod.vim syntax file with perl.vim"
-"let perl_extended_vars = 1    "highlight complex expressions such as @{[$x,$y]}"
-"let perl_sync_dist     = 250  "use more context for highlighting"
-"
-"" .. ruby stuff
-"if !exists('g:neocomplcache_force_omni_patterns')
-"  let g:neocomplcache_force_omni_patterns = {}
-"endif
-"let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-"============================================================================
 "= Functions
 "============================================================================
 
@@ -279,6 +264,7 @@ map <leader>gt :call TimeLapse()<CR>
 " execute perl or ruby (depending on what filetype)
 autocmd FileType perl map <leader>x :! perl %<CR>
 autocmd FileType ruby map <leader>x :! ruby %<CR>
+autocmd FileType ruby imap <S-CR> <CR><CR>end<Esc>-cc
 map <leader>a :set autochdir!<CR>
 map <Leader>c :call CopyFileContentToGpaste()<CR>
 map <leader>d :setlocal spell! spelllang=en_gb<CR>
@@ -301,3 +287,4 @@ map <leader>r :call SpecCorresponding()<CR>
 " tmux has ctrl+a, so lets rename in vim to ctl+b
 noremap <c-b> <c-a>
 
+endif
