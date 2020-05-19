@@ -72,7 +72,7 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 ##############################################################################
 
 # default editor.
-export EDITOR=vim
+export EDITOR=nvim
 
 # fzf is fuzzy finder - the env is used to tell it use ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
