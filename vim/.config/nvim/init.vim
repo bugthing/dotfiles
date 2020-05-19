@@ -28,3 +28,8 @@ let s:config = expand(stdpath('config').'/fzf.vim')
 if filereadable(s:config)
   exec ':source ' . s:config
 endif
+
+let s:config = expand(stdpath('config').'/gutentags.vim')
+if filereadable(s:config)
+  exec ':source ' . s:config
+endif
