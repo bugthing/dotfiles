@@ -93,7 +93,7 @@ for_window [class="^.*"] border pixel 2
     # Suspend etc.
     set $Locker ~/scripts/shotnlock
     bindsym $mod+o exec --no-startup-id $Locker
-    bindsym $mod+Shift+o exec --no-startup-id loginctl lock-session $XDG_SESSION_ID
+    bindsym $mod+Shift+o exec --no-startup-id systemctl suspend
 
     # take screenshots
     bindsym $mod+p exec grim -t jpeg -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/Pictures/screenshot.jpg
