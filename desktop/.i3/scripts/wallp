@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-feh --auto-zoom --recursive --randomize --bg-scale ~/Pictures/HomeSync/Wallpapers/*
