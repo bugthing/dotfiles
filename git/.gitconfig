@@ -110,7 +110,6 @@
 	lineNumber = true
 	extendRegexp = true
 [core]
-	editor = vim
 	excludesfile = /home/benjamin/.gitignore_global
 [rerere]
 	enabled = true
