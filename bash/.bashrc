@@ -41,11 +41,15 @@ if [ -f /usr/share/bash-completion/bash_completion ]; then
   . /usr/share/bash-completion/bash_completion
 fi
 
-# Ensure the ssh agent is pointing at the right place
-MYSOCK="/run/user/$UID/ssh-agent.socket"
+# make predictable SSH authentication socket location.
+MYSOCK="/tmp/ssh-agent-$USER-link"
 if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
-  ln -sf $SSH_AUTH_SOCK $MYSOCK
-  export SSH_AUTH_SOCK=$MYSOCK
+  if [ "$SSH_AUTH_SOCK" -ef "$MYSOCK" ]; then
+    : # Already the same file
+  else
+    ln -sfn $SSH_AUTH_SOCK $MYSOCK
+    export SSH_AUTH_SOCK=$MYSOCK
+  fi
 fi
 
 
@@ -107,18 +111,4 @@ fi
 if [ -d "$HOME/dev/flutter" ]; then
   export PATH="$PATH:$HOME/dev/flutter/bin"
   export no_proxy=127.0.0.1
-fi
-
-# make predictable SSH authentication socket location.
-MYSOCK="/tmp/ssh-agent-$USER-link"
-if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
-  if [ "$SSH_AUTH_SOCK" -ef "$MYSOCK" ]; then
-    : # Already the same file
-  else
-    # if [ -e $MYSOCK ]; then
-    # rm -f $MYSOCK
-    # fi
-    ln -sf $SSH_AUTH_SOCK $MYSOCK
-    export SSH_AUTH_SOCK=$MYSOCK
-  fi
 fi
