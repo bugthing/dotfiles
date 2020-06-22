@@ -7,6 +7,9 @@
   set $down j
   set $up k
   set $right l
+
+  # app
+
   set $term alacritty
   set $menu i3-dmenu-desktop
   set $filemanager "flatpak run org.gnome.Nautilus"
@@ -92,7 +95,7 @@
   bindsym $mod+Shift+o exec --no-startup-id systemctl suspend
 
   # take screenshots
-  bindsym $mod+Shift+p exec scrot -s ~/Pictures/%Y-%m-%d-%H-%M-%S.png
+  bindsym --release $mod+Shift+p exec scrot -s ~/Pictures/%Y-%m-%d-%H-%M-%S.png
 
   # launch applications:
 
@@ -110,7 +113,7 @@
       bindsym b exec $browser
       bindsym c exec $browser2
       bindsym p exec $podcastmanager
-      bindsym v exec $audiocontrols
+      bindsym v exec $audiocontrol
       bindsym Return mode "default"
   }
 
@@ -203,7 +206,7 @@
 # Status Bar:
 
   bar {
-	position top
+    position top
     status_command i3status
     tray_output primary
     tray_padding 1px
