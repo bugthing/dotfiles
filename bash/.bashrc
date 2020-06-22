@@ -49,6 +49,7 @@ if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
   else
     ln -sfn $SSH_AUTH_SOCK $MYSOCK
   fi
+  export SSH_AUTH_SOCK=$MYSOCK
 fi
 
 
