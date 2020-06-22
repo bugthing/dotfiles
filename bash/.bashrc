@@ -48,7 +48,6 @@ if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
     : # Already the same file
   else
     ln -sfn $SSH_AUTH_SOCK $MYSOCK
-    export SSH_AUTH_SOCK=$MYSOCK
   fi
 fi
 
