@@ -4,5 +4,6 @@ vim/.vim/view/*
 vim/.vim/undodir/*
 vim/.vim/spell/*
 vim/.vim/.netrwhist
+vim/.config/nvim/.netrwhist
 desktop/.ncmpcpp/error.log
 tags
