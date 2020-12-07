@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-center '/home/benjamin/Pictures/HomeSync/Wallpapers/wallpaper_LanceMountain_1900x1200.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/vanz_wallp.jpg' 
