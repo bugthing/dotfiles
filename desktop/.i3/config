@@ -12,7 +12,7 @@
 
   set $term alacritty
   set $menu i3-dmenu-desktop
-  set $filemanager "flatpak run org.gnome.Nautilus"
+  set $filemanager nautilus
   set $passwords passmenu
   set $browser "flatpak run org.mozilla.firefox"
   set $browser2 "google-chrome-stable || chromium"
@@ -70,6 +70,8 @@
 
   default_orientation vertical
   default_border none
+
+  for_window [instance="origin.exe"] floating enable
 
 # key bindings
 
@@ -215,8 +217,8 @@
 # monitors
 
   # assign to workspaces (xrandr --query)
-  set $primary_output "DVI-D-1"
-  set $secondary_output "HDMI-0"
+  set $primary_output "HDMI-0"
+  set $secondary_output "DVI-D-1"
   workspace $workspace1  output $primary_output
   workspace $workspace2  output $primary_output
   workspace $workspace3  output $secondary_output
@@ -228,15 +230,23 @@
   workspace $workspace9  output $primary_output
   workspace $workspace10 output $primary_output
 
-  # assign applications to workspace (xprop | grep CLASS)
-  assign [class="Firefox"] $workspace1
-  assign [class="Alacritty"] $workspace2
-  assign [class="Google-chrome"] $workspace3
-  assign [class="Nautilus"] $workspace4
-  assign [class="Pavucontrol"] $workspace4
-  assign [class="Gpodder"] $workspace5
+  ## assign applications to workspace (xprop | grep CLASS)
+  #assign [class="Firefox"] $workspace1
+  #assign [class="Alacritty"] $workspace2
+  #assign [class="Google-chrome"] $workspace3
+  #assign [class="Nautilus"] $workspace4
+  #assign [class="Pavucontrol"] $workspace4
+  #assign [class="Gpodder"] $workspace5
 
 # execute some programs
 
   # notifcations
   exec mako
+
+  # startup
+  exec --no-startup-id $browser
+  exec --no-startup-id $term
+  exec --no-startup-id $browser2
+  exec --no-startup-id $filemanager
+  exec --no-startup-id $audiocontrol
+

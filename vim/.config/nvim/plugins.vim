@@ -23,5 +23,6 @@ Plug 'w0rp/ale'
 Plug 'ludovicchabant/vim-gutentags' " auto tags generation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 call plug#end()

@@ -1,0 +1,10 @@
+[Unit]
+Description=Launches rsync when usb drive is mounted
+Requires=run-media-benjamin-4TB.mount
+After=run-media-benjamin-4TB.mount
+
+[Service]
+ExecStart=/home/benjamin/scripts/usb-sync.sh /run/media/benjamin/4TB /run/media/benjamin/3TBPortable/Backups
+
+[Install]
+WantedBy=run-media-benjamin-4TB.mount

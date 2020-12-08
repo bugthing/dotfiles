@@ -56,4 +56,11 @@ if [ -f ~/.fehbg ]; then
   ~/.fehbg &
 fi
 
-exec i3
+session=${1:-i3}
+
+case $session in
+    i3|i3wm           ) exec i3;;
+    lxqt              ) exec startlxqt;;
+    steam             ) exec steamos-session;;
+    *                 ) exec $1;;
+esac
