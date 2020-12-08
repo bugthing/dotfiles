@@ -1,0 +1,1 @@
+export XDG_DATA_DIRS="/home/benjamin/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
