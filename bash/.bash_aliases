@@ -96,7 +96,7 @@ function bundle_exec_or_not {
 alias be='bundle_exec_or_not '
 
 function rcam () {
-  bundle_exec_or_not rubocop -a --force-exclusion `git diff master --name-only --cached --diff-filter=ACMRTB`
+  bundle_exec_or_not rubocop -a --force-exclusion `git diff main --name-only --cached --diff-filter=ACMRTB`
 }
 
 #===========================================================================

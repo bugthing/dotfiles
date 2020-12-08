@@ -220,6 +220,10 @@ runtime! macros/matchit.vim
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
+" Ale linter
+let g:ale_linters = {'ruby': ['standardrb']}
+let g:ale_fixers = {'ruby': ['standardrb']}
+
 "============================================================================
 "= Commands / Shortcuts / Keyboard bindings
 "============================================================================
