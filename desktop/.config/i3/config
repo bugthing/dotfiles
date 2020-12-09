@@ -217,8 +217,8 @@
 # monitors
 
   # assign to workspaces (xrandr --query)
-  set $primary_output "HDMI-0"
-  set $secondary_output "DVI-D-1"
+  set $primary_output "DP-2"
+  set $secondary_output "HDMI-0"
   workspace $workspace1  output $primary_output
   workspace $workspace2  output $primary_output
   workspace $workspace3  output $secondary_output
