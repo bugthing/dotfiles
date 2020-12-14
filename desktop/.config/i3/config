@@ -40,9 +40,9 @@
   set $lcyan    #34E2E2
   set $white    #EEEEEC
 
-  set $workspace1 "1: Firefox"
-  set $workspace2 "2: Tmux"
-  set $workspace3 "3: Chromium"
+  set $workspace1 "1: Terminal"
+  set $workspace2 "2: Browser"
+  set $workspace3 "3: Browser"
   set $workspace4 "4: More"
   set $workspace5 "5: Some more"
   set $workspace6 "6: Further more"
@@ -217,12 +217,13 @@
 # monitors
 
   # assign to workspaces (xrandr --query)
-  set $primary_output "DP-2"
-  set $secondary_output "HDMI-0"
+  set $primary_output "HDMI-0"
+  set $secondary_output "DP-2"
+  set $tertiary_output "DP-4"
   workspace $workspace1  output $primary_output
-  workspace $workspace2  output $primary_output
-  workspace $workspace3  output $secondary_output
-  workspace $workspace4  output $secondary_output
+  workspace $workspace2  output $secondary_output
+  workspace $workspace3  output $tertiary_output
+  workspace $workspace4  output $tertiary_output
   workspace $workspace5  output $secondary_output
   workspace $workspace6  output $secondary_output
   workspace $workspace7  output $primary_output
