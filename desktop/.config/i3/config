@@ -70,6 +70,7 @@
 
   default_orientation vertical
   default_border none
+  for_window [class="^"] split toggle
 
   for_window [instance="origin.exe"] floating enable
 
@@ -224,12 +225,12 @@
   workspace $workspace2  output $secondary_output
   workspace $workspace3  output $tertiary_output
   workspace $workspace4  output $tertiary_output
-  workspace $workspace5  output $secondary_output
-  workspace $workspace6  output $secondary_output
+  workspace $workspace5  output $tertiary_output
+  workspace $workspace6  output $primary_output
   workspace $workspace7  output $primary_output
   workspace $workspace8  output $primary_output
-  workspace $workspace9  output $primary_output
-  workspace $workspace10 output $primary_output
+  workspace $workspace9  output $secondary_output
+  workspace $workspace10 output $secondary_output
 
   ## assign applications to workspace (xprop | grep CLASS)
   #assign [class="Firefox"] $workspace1

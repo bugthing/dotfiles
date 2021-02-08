@@ -136,4 +136,5 @@ alias gvl='git log | vim -c "set keywordprg=git\ show" -R -'
 alias ls='lsd'
 alias aptup='sudo bash -c "apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade'
 alias ssh-nokey='ssh  -o "IdentitiesOnly yes" '
+alias lsblk='lsblk -o name,fstype,size,label,uuid'
 
