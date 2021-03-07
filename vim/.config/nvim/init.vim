@@ -3,8 +3,6 @@
 " = NEO VIM CONFIG - loads include files in correct order.
 "================================================================================
 
-set nocompatible
-
 "================================================================================
 "= Plugins
 "================================================================================
@@ -24,12 +22,24 @@ endif
 "================================================================================
 "= Plugin Config
 "================================================================================
+let s:config = expand(stdpath('config').'/lsp.vim')
+if filereadable(s:config)
+  exec ':source ' . s:config
+endif
+
+let s:config = expand(stdpath('config').'/completion.vim')
+if filereadable(s:config)
+  exec ':source ' . s:config
+endif
+
 let s:config = expand(stdpath('config').'/fzf.vim')
 if filereadable(s:config)
   exec ':source ' . s:config
 endif
 
-let s:config = expand(stdpath('config').'/gutentags.vim')
+" Status line
+let s:config = expand(stdpath('config').'/statusline.lua')
 if filereadable(s:config)
-  exec ':source ' . s:config
+  luafile ~/.config/nvim/statusline.lua
 endif
+

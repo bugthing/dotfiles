@@ -13,16 +13,33 @@ endif
 
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'godlygeek/tabular'
-Plug 'vim-scripts/Align'
-Plug 'vim-scripts/SQLUtilities'
-Plug 'vim-ruby/vim-ruby' " the latest ruby support
-Plug 'w0rp/ale'
-Plug 'ludovicchabant/vim-gutentags' " auto tags generation
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'tpope/vim-sensible' " decent default config
+
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+
+" linting
+Plug 'dense-analysis/ale'
+
+" snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" Fuzzy finder
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" Status line
+Plug 'glepnir/galaxyline.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 call plug#end()
+
+" Automatically install missing plugins on startup
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
+
