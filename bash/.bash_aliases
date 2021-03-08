@@ -66,16 +66,18 @@ function xo {
 }
 
 function cpstat () {
-  tar c "$1" | pv | tar x -C "$2"
+ j tar c "$1" | pv | tar x -C "$2"
 }
 
 function run_prefered_vim () {
-  if [ -x "$(command -v nvim)" ]; then
-    nvim "$@"
+  if [ -x "$(command -v $HOME/Applications/nvim.appimage)" ]; then
+    $HOME/Applications/nvim.appimage $@
+  elif [ -x "$(command -v nvim)" ]; then
+    nvim $@
   elif [ -x "$(command -v vim)" ]; then
-    vim "$@"
+    vim $@
   elif [ -x "$(command -v vi)" ]; then
-    vi "$@"
+    vi $@
   else
     echo 'vi function in .bash_aliases thinks no vi like is not installed'
   fi

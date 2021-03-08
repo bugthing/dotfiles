@@ -56,7 +56,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
     end
   end
 
-  local servers = {'pyright', 'gopls', 'rust_analyzer', 'solargraph'}
+  local servers = {'pyright', 'solargraph'}
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
