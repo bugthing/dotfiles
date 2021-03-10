@@ -113,3 +113,5 @@
 	excludesfile = /home/benjamin/.gitignore_global
 [rerere]
 	enabled = true
+[init]
+	defaultBranch = main

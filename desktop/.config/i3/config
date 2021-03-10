@@ -12,13 +12,13 @@
 
   set $term alacritty
   set $menu i3-dmenu-desktop
-  set $filemanager nautilus
+  set $filemanager "flatpak run org.gnome.Nautilus"
   set $passwords passmenu
   set $browser "flatpak run org.mozilla.firefox"
   set $browser2 "google-chrome-stable || chromium"
   set $podcastmanager "flatpak run org.gpodder.gpodder"
   set $locker ~/scripts/shotnlock
-  set $screenshot "scrot -s ~/Pictures/%Y-%m-%d-%H-%M-%S.png"
+  set $screenshot "scrot -s ~/temp/screen_grabs/%Y-%m-%d-%H-%M-%S.png"
   set $audiocontrol pavucontrol
 
   # colors

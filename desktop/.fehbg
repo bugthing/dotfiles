@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --no-fehbg --bg-center '/home/benjamin/Pictures/HomeSync/Wallpapers/wallpaper_LanceMountain_1900x1200.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/vanz_wallp.jpg' 
+feh --no-fehbg --bg-fill '/home/benjamin/Pictures/HomeSync/Wallpapers/wallpaper_LanceMountain_1900x1200.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/vanz_wallp.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/longboard-kolina-wheels.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/skate_tree_manual.jpg' 
