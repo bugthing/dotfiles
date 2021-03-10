@@ -3,55 +3,38 @@
 "============================================================================
 let mapleader = "\<Space>"
 
-set nocompatible     " Use Vim defaults and forget about trying to be Vi"
 set timeoutlen=1000  " timeout quicker so using space as my leader is less PITA
 set ttimeoutlen=100  " ^ see above ^
 set expandtab        " Insert spaces instead of tabs in insert mode. Use spaces for indents
-set tabstop=4        " Number of spaces that a <Tab> in the file counts for"
-set shiftwidth=4     " Number of spaces to use for each step of (auto)indent"
-set softtabstop=4    " Should be same as shiftwidth (when using shofttabs)
+set tabstop=2        " Number of spaces that a <Tab> in the file counts for"
+set shiftwidth=2     " Number of spaces to use for each step of (auto)indent"
+set softtabstop=2    " Should be same as shiftwidth (when using shofttabs)
 set wrap!            " Turn off word wrapping
-set backspace=2      " Allow backspacing over everything in insert mode"
 set showmatch        " When a bracket is inserted, briefly jump to the matching one
-set ruler            " Display line and column numbers
-set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set showcmd          " Display incomplete commands
-set autoindent
-set showmatch
-set nowrap
-set listchars=tab:▸\ ,eol:¬ " change how to display some invisibles chars
-set path+=**           " search from current directory down
-set wildmenu
+set path+=**         " search from current directory down
 set wildmode=longest:full,full
 set backupdir=/var/tmp
-set directory=/var/tmp " Don't clutter my dirs up with swp and tmp files
+set directory=/var/tmp    " Don't clutter my dirs up with swp and tmp files
 set nobackup
 set nowritebackup
-set autoread
-set wmh=0
-set viminfo+=!
-set guioptions-=T
-set et
-set sw=2
-set smarttab
-set noincsearch
-set mouse=           " No mouse integration please
-set ignorecase smartcase
+set autoread              " if file changed outside vim, re-rad
+set mouse=                " No mouse integration please
+set ignorecase smartcase  " when \c is used
 set laststatus=2     " Always show status line.
 set number           " line numbers on
 set relativenumber   " cusor position based line numbers in ruler
 set gdefault         " Assume the /g flag on :s substitutions to act globally
-set autoindent       " Always set autoindenting on
 set smartindent      " turn on smart indent
 set hlsearch         " highlight search matches
-set hidden
 set showmode         " show the mode on the last line
-set history=100      " keep more lines of history
+set history=10000    " keep more lines of history
 
 " more natural split opening
 set splitbelow
 set splitright
 set pastetoggle=<F2>
+
 " start editing where I prevously left the file.
 au BufWinLeave ?* silent! mkview 1
 au BufWinEnter ?* silent! loadview 1
@@ -92,8 +75,8 @@ autocmd VimResized * execute "normal! \<c-w>="
 "============================================================================
 
 syntax on
+set termguicolors
 set t_Co=256
-let g:solarized_termcolors=256
 set background=dark
 colorscheme vice
 
@@ -109,22 +92,6 @@ match OverLength /\%79v.\+/
 " highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
-
-" statusline - :help statusline
-set statusline=%<%f\                     " Filename
-set statusline+=%w%h%m%r                 " Options
-set statusline+=\ [%{&ff}/%Y]            " filetype
-set statusline+=\ [%{getcwd()}]          " current dir
-set statusline+=%{gutentags#statusline()}
-set statusline+=%#warningmsg#
-set statusline+=%{LinterStatus()}
-set statusline+=%*
-set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-
-" change highlighting based on mode
-highlight statusLine cterm=bold ctermfg=black ctermbg=blue
-au InsertLeave * highlight StatusLine cterm=bold ctermfg=black ctermbg=blue
-au InsertEnter * highlight StatusLine cterm=bold ctermfg=black ctermbg=green
 
 "============================================================================
 "= Functions
@@ -207,22 +174,19 @@ endif
 "= Plugin config
 "============================================================================
 
-" vim-ruby
-let g:rubycomplete_load_gemfile = 1
-
-" tabular
-cnoreabbrev Lu :Tabularize
-
-" in-built matchit
-runtime! macros/matchit.vim
-
-" CTags - open ctag in tab/vertical split
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
 " Ale linter
 let g:ale_linters = {'ruby': ['standardrb']}
 let g:ale_fixers = {'ruby': ['standardrb']}
+
+" Code snippets
+let g:completion_enable_snippet = 'UltiSnips'
+
+" Fuzzy finder
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fl <cmd>Telescope git_files<cr>
 
 "============================================================================
 "= Commands / Shortcuts / Keyboard bindings
@@ -234,10 +198,7 @@ nnoremap <C-l> <Esc>:tabn<CR>
 " copy/paste in more usual style
 vmap <C-c> "+yi
 imap <C-v> <esc>"+gpi
-set clipboard=unnamedplus	" neo vim will use wl-copy wl-paste if present
-
-" define custom commands
-command! Rtags  :!bundle list --paths=true | xargs ctags --extra=+f --exclude=.git --exclude=tmp --exclude=log -R *
+set clipboard=unnamedplus  " neo vim will use wl-copy wl-paste if present
 
 " tidy commands.
 " .. uses 'tidyhtml' package
@@ -272,18 +233,8 @@ cmap w!! w !sudo tee % >/dev/null
 " <enter> in normal mode just replays last macro
 nnoremap <silent> <cr> :call ReplayLastMacro()<cr>
 
-"" resize splits
-"nnoremap <C-H> <C-w>>
-"nnoremap <C-J> <C-w>-
-"nnoremap <C-K> <C-w>+
-"nnoremap <C-L> <C-w><
-
 " Leader key binds:
-map <leader>gt :call TimeLapse()<CR>
-" execute perl or ruby (depending on what filetype)
-autocmd FileType perl map <leader>x :! perl %<CR>
-autocmd FileType ruby map <leader>x :! ruby %<CR>
-autocmd FileType ruby imap <buffer> <CR> <C-R>=RubyEndToken()<CR>
+
 map <leader>a :set autochdir!<CR>
 map <Leader>c :call CopyFileContentToGpaste()<CR>
 map <leader>d :setlocal spell! spelllang=en_gb<CR>
@@ -293,15 +244,19 @@ map <leader>g :Rg<CR>
 map <leader>l :set list!<CR>
 nnoremap <leader>m :Marks<CR>
 map <leader>n :call RenameFile()<cr>
-" Re-Open Previously Opened File:
-map <Leader>p :e#<CR>
+map <Leader>p :e#<CR> " Re-Open Previously Opened File:
 map <Leader>q :qa<CR>
-map <Leader>s :!bash<CR>
 exec 'nnoremap <Leader>ss :mks! ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
 exec 'nnoremap <Leader>sr :so   ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
 map <Leader>t :%s/\s\+$//e<CR>
 map <Leader>w :set wrap!<CR>
 map <leader>r :call SpecCorresponding()<CR>
 
-" tmux has ctrl+a, so lets rename in vim to ctl+b
+" execute perl or ruby (depending on what filetype)
+autocmd FileType perl map <leader>x :! perl %<CR>
+autocmd FileType ruby map <leader>x :! ruby %<CR>
+autocmd FileType ruby imap <buffer> <CR> <C-R>=RubyEndToken()<CR>
+
+" my tmux has ctrl+a, so lets rename in vim to ctl+b
 noremap <c-b> <c-a>
+
