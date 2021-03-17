@@ -112,3 +112,12 @@ if [ -d "$HOME/dev/flutter" ]; then
   export PATH="$PATH:$HOME/dev/flutter/bin"
   export no_proxy=127.0.0.1
 fi
+
+##############################################################################
+# Custom config
+##############################################################################
+
+if [ -f "$HOME/.bash_local" ]; then
+  source $HOME/.bash_local
+fi
+

@@ -26,7 +26,7 @@ splitw -v -p 90
 selectp -t 0
 
 # start api rails server
-send-keys 'cd ~/Work/smart/api/ && bundle exec rails s' C-m
+send-keys 'cd ~/Work/smart/api/ && yarn start' C-m
 
 # split pane virtically (55%/45%)
 splitw -h -p 45
@@ -50,7 +50,7 @@ send-keys 'cd ~/Work/smart/api/ && tail -F log/*.log' C-m
 splitw -h -p 50
 
 # start the mysql client
-send-keys 'sleep 6 && docker exec -it mysql mysql smartpension_development' C-m
+send-keys 'sleep 6 && docker exec -it mysql mysql smartpension_development_smart' C-m
 
 # select last pane
 selectp -t 4

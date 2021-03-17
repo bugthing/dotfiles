@@ -32,7 +32,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 " Status line
-Plug 'glepnir/galaxyline.nvim'
+Plug 'glepnir/galaxyline.nvim', { 'branch': 'main' }
 Plug 'kyazdani42/nvim-web-devicons'
 
 call plug#end()
