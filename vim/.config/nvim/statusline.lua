@@ -59,7 +59,7 @@ gls.left = {
     },
     {
         GitBranch = {
-            provider = function() return string.format('%s ', vcs.get_git_branch()) end,
+            provider = vcs.get_git_branch,
             condition = function() return condition.check_git_workspace() and condition.checkwidth() end,
             highlight = {colors.black, colors.bblack}
         }
