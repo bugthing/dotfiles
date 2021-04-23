@@ -128,3 +128,5 @@
   g = grep --break --heading --line-number
 
   revive = "!git checkout `git rev-list -n 1 HEAD -- $@`^ -- $@"
+[init]
+	defaultBranch = main
