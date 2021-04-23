@@ -98,7 +98,7 @@
   bindsym $mod+Shift+o exec --no-startup-id systemctl suspend
 
   # take screenshots
-  bindsym --release $mod+Shift+p exec scrot -s ~/Pictures/%Y-%m-%d-%H-%M-%S.png
+  bindsym --release $mod+Shift+p exec scrot -s ~/temp/screen_grabs/%Y-%m-%d-%H-%M-%S.png
 
   # launch applications:
 

@@ -49,6 +49,7 @@
 
 [alias]
   co = checkout
+  wt = worktree
   lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
   praise = blame
   pushf = push --force-with-lease
@@ -66,12 +67,11 @@
   # Delete the remote version of the current branch
   unpublish = "!git push origin :$(git branch-name)"
 
-  # Fire up your difftool (e.g. Kaleidescope) with all the changes that
-  # are on the current branch.
-  code-review = difftool origin/master
+  # Fire up difftool with all the changes that are on the current branch.
+  code-review = difftool origin/main
 
   # Given a merge commit, find the span of commits that exist(ed) on that
-  # branch. Again, not so useful in itself, but used by other aliases.
+  # branch. Not so useful in itself, but used by other aliases.
   merge-span = "!f() { echo $(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f1)$1$(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f2); }; f"
 
   # Find the commits that were introduced by a merge
