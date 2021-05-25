@@ -44,7 +44,7 @@ splitw -v -p 20
 selectp -t 2
 
 # start a log tail
-send-keys 'cd ~/Work/smart/api/main && tail -F log/*.log' C-m
+send-keys 'cd ~/Work/smart/api && tail -F main/log/*.log spare/log/*.log' C-m
 
 # split virtically (50/%50%)
 splitw -h -p 50
@@ -64,10 +64,10 @@ selectp -t 1
 send-keys 'cd ~/Work/smart/api/main' C-m
 
 neww -n spare-api
-send-keys 'cd ~/Work/smart/api_spare/' C-m
+send-keys 'cd ~/Work/smart/api/spare/' C-m
 splitw -v -p 20
 selectp -t 1
-send-keys 'cd ~/Work/smart/api_spare/' C-m
+send-keys 'cd ~/Work/smart/api/spare/' C-m
 
 # select api window
 select-window -t api
