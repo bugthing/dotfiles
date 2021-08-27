@@ -15,6 +15,9 @@ HISTCONTROL=ignoredups
 # append to the history file, don't overwrite it
 shopt -s histappend
 
+# After each command, append to the history file and reread it
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; history -a; history -c; history -r}"
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize

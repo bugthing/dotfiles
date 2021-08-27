@@ -12,7 +12,7 @@
 
   set $term alacritty
   set $menu i3-dmenu-desktop
-  set $filemanager "flatpak run org.gnome.Nautilus"
+  set $filemanager "flatpak run org.gnome.NautilusDevel --new-window"
   set $passwords passmenu
   set $browser "flatpak run org.mozilla.firefox"
   set $browser2 "google-chrome-stable || chromium"
@@ -103,7 +103,7 @@
   # launch applications:
 
   bindsym $mod+Return exec $term
-  bindsym $mod+f exec $filemanger
+  bindsym $mod+f exec $filemanager
   bindsym $mod+g exec $menu
   bindsym $mod+Shift+g exec $passwords
 
