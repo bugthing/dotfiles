@@ -14,17 +14,10 @@ endif
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'tpope/vim-sensible' " decent default config
+Plug 'tpope/vim-endwise' " better do/end handling
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-
-" linting
-Plug 'dense-analysis/ale'
-
-" snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 
 " Fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -34,6 +27,12 @@ Plug 'nvim-telescope/telescope.nvim'
 " Status line
 Plug 'glepnir/galaxyline.nvim', { 'branch': 'main' }
 Plug 'kyazdani42/nvim-web-devicons'
+
+" ruby programming
+Plug 'hwartig/vim-seeing-is-believing'
+
+" AI assistance
+"Plug 'github/copilot.vim'
 
 call plug#end()
 

@@ -22,24 +22,24 @@ endif
 "================================================================================
 "= Plugin Config
 "================================================================================
-let s:config = expand(stdpath('config').'/lsp.vim')
-if filereadable(s:config)
-  exec ':source ' . s:config
-endif
-
-let s:config = expand(stdpath('config').'/completion.vim')
-if filereadable(s:config)
-  exec ':source ' . s:config
-endif
 
 let s:config = expand(stdpath('config').'/fzf.vim')
 if filereadable(s:config)
   exec ':source ' . s:config
 endif
 
-" Status line
+let s:config = expand(stdpath('config').'/seeing-is-believing.vim')
+if filereadable(s:config)
+  exec ':source ' . s:config
+endif
+
 let s:config = expand(stdpath('config').'/statusline.lua')
 if filereadable(s:config)
-  luafile ~/.config/nvim/statusline.lua
+  execute "luafile " . s:config
+endif
+
+let s:config = expand(stdpath('config').'/lsp.lua')
+if filereadable(s:config)
+  execute "luafile " . s:config
 endif
 
