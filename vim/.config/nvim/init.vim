@@ -33,6 +33,11 @@ if filereadable(s:config)
   exec ':source ' . s:config
 endif
 
+let s:config = expand(stdpath('config').'/copilot.vim')
+if filereadable(s:config)
+  exec ':source ' . s:config
+endif
+
 let s:config = expand(stdpath('config').'/statusline.lua')
 if filereadable(s:config)
   execute "luafile " . s:config

@@ -32,7 +32,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'hwartig/vim-seeing-is-believing'
 
 " AI assistance
-"Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
 
 call plug#end()
 
