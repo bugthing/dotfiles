@@ -1,2 +1,13 @@
 #!/bin/sh
-feh --no-fehbg --bg-fill '/home/benjamin/Pictures/HomeSync/Wallpapers/wallpaper_LanceMountain_1900x1200.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/vanz_wallp.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/longboard-kolina-wheels.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/skate_tree_manual.jpg' 
+
+DISPLAY=:1
+
+if [ "$1" == "fondo" ]; then
+  #file_name=$(cat /home/benjamin/.var/app/com.github.calo001.fondo/data/com.github.calo001.fondo/fondo_history.json  | jq '.[-1]."file-name"')
+  #/usr/bin/feh --no-fehbg --bg-fill "$HOME/.var/app/com.github.calo001.fondo/data/backgrounds/$file_name"
+  /usr/bin/feh --no-fehbg --bg-fill "$(find $HOME/.var/app/com.github.calo001.fondo/data/backgrounds -type f -printf '%T@ %p\n' | sort -rz  | sed -En 's/[^ ]* //p' | tail -1)"
+else
+  /usr/bin/feh --no-fehbg --bg-fill '/home/benjamin/Pictures/HomeSync/Wallpapers/wallpaper_LanceMountain_1900x1200.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/vanz_wallp.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/longboard-kolina-wheels.jpg' '/home/benjamin/Pictures/HomeSync/Wallpapers/skate_tree_manual.jpg' 
+fi
+
+exit 0;

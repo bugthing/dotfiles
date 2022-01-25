@@ -10,6 +10,27 @@ function redis-clearout-docker {
   docker exec redis redis-cli flushall
 }
 
+function dockerclean {
+  docker rm `docker ps -aq`
+  docker rmi `docker images -aq`
+}
+
+function kluster {
+  cluster=$1
+
+  if [[ -z $cluster ]]; then
+    read -p "Which cluster?" cluster
+  fi
+
+  cluster=$cluster-cluster
+
+  echo "Connecting k8s to cluster: $cluster..."
+
+  source $HOME/Work/smart/trekkie-toolkit/aws/smartaws
+  aws eks --region eu-west-2 update-kubeconfig --name $cluster
+  kubectl get pods
+}
+
 function rspec-parallel-prep {
   bundle exec rake parallel:drop
   bundle exec rake parallel:create
@@ -84,6 +105,10 @@ function run_prefered_vim () {
 }
 alias vi='run_prefered_vim '
 
+function shaddam () {
+  ssh-add $HOME/.ssh/smartpension && ssh-add $HOME/.ssh/bugthing
+}
+
 #===========================================================================
 #= ruby -
 #===========================================================================
@@ -139,4 +164,12 @@ alias ls='lsd'
 alias aptup='sudo bash -c "apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade'
 alias ssh-nokey='ssh  -o "IdentitiesOnly yes" '
 alias lsblk='lsblk -o name,fstype,size,label,uuid'
+
+#===========================================================================
+#= misc tools
+#===========================================================================
+
+source <(kubectl completion bash)
+alias k=kubectl
+complete -F __start_kubectl k
 
