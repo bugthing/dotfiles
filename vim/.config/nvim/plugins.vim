@@ -18,6 +18,10 @@ Plug 'tpope/vim-endwise' " better do/end handling
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind-nvim'
 
 " Fuzzy finder
 Plug 'nvim-lua/popup.nvim'
