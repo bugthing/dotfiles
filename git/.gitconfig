@@ -91,6 +91,8 @@
 
   arrh = "!git reset --hard @{u}"
 
+  oh = "!git commit --amend --no-edit"
+
   ## Working with files ##
 
   # Unstage any files that have been added to the staging area
