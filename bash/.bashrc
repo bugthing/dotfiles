@@ -44,6 +44,16 @@ if [ -f /usr/share/bash-completion/bash_completion ]; then
   . /usr/share/bash-completion/bash_completion
 fi
 
+# configure gpg agent stuff.
+#   see: https://man.archlinux.org/man/gpg-agent.1
+#   see: https://budts.be/weblog/2012/08/ssh-authentication-with-your-pgp-key/
+GPG_TTY=$(tty)
+export GPG_TTY
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  # set the ssh auth sock to be that from gpg-agent
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
 # make predictable SSH authentication socket location.
 MYSOCK="/tmp/ssh-agent-$USER-link"
 if [ -S $SSH_AUTH_SOCK ] && [ "$SSH_AUTH_SOCK" != $MYSOCK ]; then
