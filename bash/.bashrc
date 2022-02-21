@@ -126,6 +126,10 @@ if [ -d "$HOME/dev/flutter" ]; then
   export no_proxy=127.0.0.1
 fi
 
+if [ -f "/usr/share/doc/mcfly/mcfly.bash" ]; then
+  source /usr/share/doc/mcfly/mcfly.bash
+fi
+
 ##############################################################################
 # Custom config
 ##############################################################################
