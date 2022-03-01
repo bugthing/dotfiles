@@ -15,6 +15,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'tpope/vim-sensible' " decent default config
 Plug 'tpope/vim-endwise' " better do/end handling
+Plug 'tpope/vim-surround' " about 'surroundings': parentheses, brackets, quotes, XML tags, and more.
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
