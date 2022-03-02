@@ -1,12 +1,12 @@
 local gl = require('galaxyline')
 local gls = gl.section
 local condition = require('galaxyline.condition')
-local vcs = require('galaxyline.provider_vcs')
-local buffer = require('galaxyline.provider_buffer')
-local fileinfo = require('galaxyline.provider_fileinfo')
-local diagnostic = require('galaxyline.provider_diagnostic')
-local lspclient = require('galaxyline.provider_lsp')
-local icons = require('galaxyline.provider_fileinfo').define_file_icon()
+local vcs = require('galaxyline.providers.vcs')
+local buffer = require('galaxyline.providers.buffer')
+local fileinfo = require('galaxyline.providers.fileinfo')
+local diagnostic = require('galaxyline.providers.diagnostic')
+local lspclient = require('galaxyline.providers.lsp')
+local icons = fileinfo.define_file_icon()
 
 local colors = {
     black     = '#282828',
@@ -99,7 +99,7 @@ gls.left = {
             provider = fileinfo.get_file_icon,
             condition = condition.buffer_not_empty,
             highlight = {
-                require('galaxyline.provider_fileinfo').get_file_icon_color,
+                fileinfo.get_file_icon_color,
                 colors.black
             },
         },

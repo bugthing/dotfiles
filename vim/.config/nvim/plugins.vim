@@ -30,7 +30,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 " Status line
-Plug 'glepnir/galaxyline.nvim', { 'branch': 'main' }
+Plug 'NTBBloodbath/galaxyline.nvim', { 'branch': 'main' }
 Plug 'kyazdani42/nvim-web-devicons'
 
 " ruby programming
