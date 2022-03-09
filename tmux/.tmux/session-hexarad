@@ -1,8 +1,8 @@
 
-# smart pension - start docker containers then start all "smart pension" services, also log-tail, mysql session and spare term
+# hexarad - tmux setup
 
 # Start all the containers in the current window
-send-keys 'docker start mysql redis' C-m
+send-keys 'docker start postgres redis' C-m
 
 # split virtically (50/%50%)
 splitw -h -p 50
@@ -14,10 +14,10 @@ selectp -t 0
 splitw -p 50
 
 # new window and give it a name
-neww -n smartp-services
+neww -n services
 
 # change directory
-send-keys 'cd ~/Work/smart/api/main' C-m
+#send-keys 'cd ~/Work/hexarad/orders_portal/' C-m
 
 # split the pane horizontal (10%/90%)
 splitw -v -p 90
@@ -26,13 +26,13 @@ splitw -v -p 90
 selectp -t 0
 
 # start api rails server
-send-keys 'cd ~/Work/smart/api/main && yarn start' C-m
+#send-keys 'cd ~/Work/hexarad/orders_portal/ && ./bin/rails s' C-m
 
 # split pane virtically (55%/45%)
 splitw -h -p 45
 
 # start sidekiq in new pane
-send-keys 'cd ~/Work/smart/api/main && bundle exec sidekiq -C config/sidekiq/development.yml' C-m
+#send-keys 'cd ~/Work/hexarad/orders_portal/ && bundle exec sidekiq' C-m
 
 # select pane 2 (lower of the 1st horizontal split)
 selectp -t 2
@@ -44,30 +44,30 @@ splitw -v -p 20
 selectp -t 2
 
 # start a log tail
-send-keys 'cd ~/Work/smart/api && tail -F main/log/*.log spare/log/*.log' C-m
+send-keys 'tail -F ~/Work/hexarad/hexarad_workflow_manager/log/*.log ~/Work/hexarad/orders_portal/log/*.log ' C-m
 
 # split virtically (50/%50%)
 splitw -h -p 50
 
 # start the mysql client
-send-keys 'sleep 6 && docker exec -it mysql mysql smartpension_development_smart' C-m
+send-keys 'sleep 6 && docker exec -it postgres psql -Upostgres' C-m
 
 # select last pane
 selectp -t 4
 
 # new named window, change dir, split the pane horizontal (80%/20%),
 # select last pane, change dir
-neww -n api
-send-keys 'cd ~/Work/smart/api/main' C-m
+neww -n OP
+send-keys 'cd ~/Work/hexarad/orders_portal/' C-m
 splitw -v -p 20
 selectp -t 1
-send-keys 'cd ~/Work/smart/api/main' C-m
+send-keys 'cd ~/Work/hexarad/orders_portal/' C-m
 
-neww -n spare-api
-send-keys 'cd ~/Work/smart/api/spare/' C-m
+neww -n WFM
+send-keys 'cd ~/Work/hexarad/hexarad_workflow_manager/' C-m
 splitw -v -p 20
 selectp -t 1
-send-keys 'cd ~/Work/smart/api/spare/' C-m
+send-keys 'cd ~/Work/hexarad/hexarad_workflow_manager/' C-m
 
 # select api window
-select-window -t api
+select-window -t WFM
