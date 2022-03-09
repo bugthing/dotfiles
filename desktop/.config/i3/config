@@ -12,10 +12,10 @@
 
   set $term alacritty
   set $menu i3-dmenu-desktop
-  set $filemanager "flatpak run org.gnome.NautilusDevel --new-window"
+  set $filemanager "nautilus --new-window"
   set $passwords passmenu
   set $browser "flatpak run org.mozilla.firefox"
-  set $browser2 "google-chrome-stable || chromium"
+  set $browser2 "flatpak run org.chromium.Chromium"
   set $podcastmanager "flatpak run org.gpodder.gpodder"
   set $locker ~/scripts/shotnlock
   set $screenshot "scrot -s ~/temp/screen_grabs/%Y-%m-%d-%H-%M-%S.png"
@@ -98,7 +98,7 @@
   bindsym $mod+Shift+o exec --no-startup-id systemctl suspend
 
   # take screenshots
-  bindsym --release $mod+Shift+p exec scrot -s ~/temp/screen_grabs/%Y-%m-%d-%H-%M-%S.png
+  bindsym --release $mod+Shift+p exec $screenshot
 
   # launch applications:
 
@@ -218,9 +218,12 @@
 # monitors
 
   # assign to workspaces (xrandr --query)
-  set $primary_output "HDMI-0"
-  set $secondary_output "DP-2"
-  set $tertiary_output "DP-4"
+  set $primary_output "eDP-1"
+  #set $secondary_output "eDP-1"
+  set $secondary_output "DP-1-1"
+  #set $tertiary_output "eDP-1"
+  set $tertiary_output "DP-1-2"
+  set $quaternary_output "DP-2-2"
   workspace $workspace1  output $primary_output
   workspace $workspace2  output $secondary_output
   workspace $workspace3  output $tertiary_output
@@ -230,7 +233,7 @@
   workspace $workspace7  output $primary_output
   workspace $workspace8  output $primary_output
   workspace $workspace9  output $secondary_output
-  workspace $workspace10 output $secondary_output
+  workspace $workspace10 output $quaternary_output
 
   ## assign applications to workspace (xprop | grep CLASS)
   #assign [class="Firefox"] $workspace1

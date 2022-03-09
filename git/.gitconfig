@@ -1,5 +1,8 @@
+[init]
+  defaultBranch = main
+
 [user]
-  email = ben.martin@smartpension.co.uk
+  email = benjamin247365@hotmail.com
   name = Benjamin Martin
 
 [color]
@@ -130,5 +133,6 @@
   g = grep --break --heading --line-number
 
   revive = "!git checkout `git rev-list -n 1 HEAD -- $@`^ -- $@"
-[init]
-	defaultBranch = main
+
+[includeIf "gitdir:~/Work/hexarad"]
+  path = ~/.git.d/config.hexarad
