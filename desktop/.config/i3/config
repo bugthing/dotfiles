@@ -218,21 +218,19 @@
 # monitors
 
   # assign to workspaces (xrandr --query)
-  set $primary_output "eDP-1"
-  #set $secondary_output "eDP-1"
-  set $secondary_output "DP-1-1"
-  #set $tertiary_output "eDP-1"
-  set $tertiary_output "DP-1-2"
-  set $quaternary_output "DP-2-2"
+  set $primary_output "DP-2-1"
+  set $secondary_output "DP-1-2"
+  set $tertiary_output "DP-2-2"
+  set $quaternary_output "eDP-1"
   workspace $workspace1  output $primary_output
   workspace $workspace2  output $secondary_output
   workspace $workspace3  output $tertiary_output
-  workspace $workspace4  output $tertiary_output
-  workspace $workspace5  output $tertiary_output
-  workspace $workspace6  output $primary_output
+  workspace $workspace4  output $primary_output
+  workspace $workspace5  output $secondary_output
+  workspace $workspace6  output $tertiary_output
   workspace $workspace7  output $primary_output
-  workspace $workspace8  output $primary_output
-  workspace $workspace9  output $secondary_output
+  workspace $workspace8  output $secondary_output
+  workspace $workspace9  output $tertiary_output
   workspace $workspace10 output $quaternary_output
 
   ## assign applications to workspace (xprop | grep CLASS)

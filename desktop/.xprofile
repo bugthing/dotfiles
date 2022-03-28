@@ -36,3 +36,4 @@ fi
 if [ -f ~/.fehbg ]; then
   ~/.fehbg &
 fi
+

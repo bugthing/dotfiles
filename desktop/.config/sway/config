@@ -23,7 +23,7 @@ set $cyan     #06989A
 set $gray     #A5A5A5
 set $darkgray #555753
 set $lred     #FF4444
-set $lgreen    #74FF00
+set $lgreen   #74FF00
 set $lyellow  #FCE94F
 set $lblue    #4A84D8
 set $lmagenta #AD7FA8
@@ -65,7 +65,6 @@ default_border none
 for_window [app_id=".*"] split toggle
 for_window [class="^.*"] border pixel 2
 
-
 #
 # Key bindings
 
@@ -91,8 +90,8 @@ for_window [class="^.*"] border pixel 2
     bindsym $mod+Shift+i exec "setxkbmap -layout gb,us"
 
     # Suspend etc.
-    set $Locker ~/scripts/shotnlock
-    bindsym $mod+o exec --no-startup-id $Locker
+    set $locker ~/scripts/shotnlock
+    bindsym $mod+o exec --no-startup-id $locker
     bindsym $mod+Shift+o exec --no-startup-id systemctl suspend
 
     # take screenshots
@@ -100,12 +99,12 @@ for_window [class="^.*"] border pixel 2
     bindsym $mod+Shift+p exec grim -t jpeg -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_screenshot.jpg')
 
     # launch applications:
-    set $term alacritty
-    set $menu dmenu_run
-    set $filemanager "flatpak run org.gnome.NautilusDevel"
-    set $passwords passmenu
+    set $term "alacritty"
+    set $menu fuzzel --icon-theme=Adwaita  -f cozette:size=10   -w 64   -b 2C2525FF   -t FFFFFFFF   -m F9CC6CFF   -C 635657FF   -s 3C3032ff   -B 1   -r 0   -x 20   -l 10    --line-height 13
+    set $filemanager "nautilus"
+    set $passwords "passmenu"
     set $browser "flatpak run org.mozilla.firefox"
-    set $browser2 "google-chrome-stable || chromium"
+    set $browser2 "flatpak run com.google.Chromee || chromium"
     set $podcastmanager "flatpak run org.gpodder.gpodder"
 
     bindsym $mod+Return exec $term
@@ -230,7 +229,7 @@ bar {
 # Monitors: (swaymsg -t get_outputs)
 #
 
-include ~/.config/sway/work_outputs.conf
+#include ~/.config/sway/work_outputs.conf
 include ~/.config/sway/home_outputs.conf
 
 #
@@ -247,9 +246,13 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 #
 # Execute some programs
 #
+
+# dbus
+exec "dbus-update-activation-environment 2>/dev/null; dbus-update-activation-environment --all; dbus-update-activation-environment --systemd"
+
 # notifcations
 exec mako
 # idle timeout
 exec swayidle -w \
-         before-sleep $Locker \
-         lock         $Locker
+         before-sleep $locker \
+         lock         $locker
