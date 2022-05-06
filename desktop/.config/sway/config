@@ -30,16 +30,16 @@ set $lmagenta #AD7FA8
 set $lcyan    #34E2E2
 set $white    #EEEEEC
 
-set $workspace1 "1: Firefox"
-set $workspace2 "2: Tmux"
-set $workspace3 "3: Chromium"
+set $workspace1 "1: Terminal"
+set $workspace2 "2: Firefox"
+set $workspace3 "3: Chrome"
 set $workspace4 "4: More"
 set $workspace5 "5: Some more"
 set $workspace6 "6: Further more"
 set $workspace7 "7: Perhaps more"
 set $workspace8 "8: Even more"
 set $workspace9 "9: More more"
-set $workspace10 "10: Morey more"
+set $workspace10 "10: Utils"
 
 #
 # Decoration
@@ -86,8 +86,8 @@ for_window [class="^.*"] border pixel 2
     bindsym $mod+Shift+q kill
 
     # keybord layout
-    bindsym $mod+i exec "setxkbmap -layout us,gb"
-    bindsym $mod+Shift+i exec "setxkbmap -layout gb,us"
+    bindsym $mod+i exec "swaymsg input \* xkb_layout us"
+    bindsym $mod+Shift+i exec "swaymsg input \* xkb_layout gb"
 
     # Suspend etc.
     set $locker ~/scripts/shotnlock
@@ -95,8 +95,8 @@ for_window [class="^.*"] border pixel 2
     bindsym $mod+Shift+o exec --no-startup-id systemctl suspend
 
     # take screenshots
-    bindsym $mod+p exec grim -t jpeg -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/Pictures/screenshot.jpg
-    bindsym $mod+Shift+p exec grim -t jpeg -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_screenshot.jpg')
+    bindsym $mod+p exec grim -t jpeg -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/temp/screen_grabs/last_screenshot.jpg
+    bindsym $mod+Shift+p exec grim -t jpeg -g "$(slurp)" ~/temp/screen_grabs/$(date +'%Y-%m-%d-%H%M%S_screenshot.jpg')
 
     # launch applications:
     set $term "alacritty"
@@ -228,20 +228,16 @@ bar {
 #
 # Monitors: (swaymsg -t get_outputs)
 #
-
-#include ~/.config/sway/work_outputs.conf
+# include ~/.config/sway/work_outputs.conf
 include ~/.config/sway/home_outputs.conf
 
 #
 # Inputs: (swaymsg -t get_inputs)
 #
-input "9610:4102:Gaming_KB__Gaming_KB" {
+input "Keebio Keebio Iris Rev. 4 Consumer Control" {
     xkb_layout us
 }
 
-input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout gb
-}
 
 #
 # Execute some programs
@@ -252,6 +248,7 @@ exec "dbus-update-activation-environment 2>/dev/null; dbus-update-activation-env
 
 # notifcations
 exec mako
+
 # idle timeout
 exec swayidle -w \
          before-sleep $locker \
