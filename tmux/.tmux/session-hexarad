@@ -1,6 +1,8 @@
+#-------------------------------------------------------------
+# hexarad - tmux session setup
+#-------------------------------------------------------------
 
-# hexarad - tmux setup
-
+#-------------------------------------------------------------
 # Start all the containers in the current window
 send-keys 'docker start postgres redis' C-m
 
@@ -13,61 +15,43 @@ selectp -t 0
 # split horizontal (50/%50%)
 splitw -p 50
 
-# new window and give it a name
-neww -n services
+#-------------------------------------------------------------
+neww -n OPTIRAD
+send-keys 'cd ~/Work/hexarad/optirad/' C-m
 
-# change directory
-#send-keys 'cd ~/Work/hexarad/orders_portal/' C-m
+splitw -v -p 10
+selectp -t 1
+send-keys 'cd ~/Work/hexarad/optirad/' C-m
+send-keys 'RAILS_ENV=test DATABASE_URL=postgres://postgres:postgres@0.0.0.0:5430/optirad_test bundle exec rspec --help' C-m
 
-# split the pane horizontal (10%/90%)
-splitw -v -p 90
-
-# select the zeroth pane
-selectp -t 0
-
-# start api rails server
-#send-keys 'cd ~/Work/hexarad/orders_portal/ && ./bin/rails s' C-m
-
-# split pane virtically (55%/45%)
-splitw -h -p 45
-
-# start sidekiq in new pane
-#send-keys 'cd ~/Work/hexarad/orders_portal/ && bundle exec sidekiq' C-m
-
-# select pane 2 (lower of the 1st horizontal split)
-selectp -t 2
-
-# split the pane horizontal (80%/20%)
-splitw -v -p 20
-
-# select 5 pane again
-selectp -t 2
-
-# start a log tail
-send-keys 'tail -F ~/Work/hexarad/hexarad_workflow_manager/log/*.log ~/Work/hexarad/orders_portal/log/*.log ' C-m
-
-# split virtically (50/%50%)
 splitw -h -p 50
+selectp -t 2
+send-keys 'cd ~/Work/hexarad/optirad/' C-m
+send-keys 'DATABASE_URL=postgres://postgres:postgres@0.0.0.0:5430/optirad_development bundle exec rails c' C-m
 
-# start the mysql client
-send-keys 'sleep 6 && docker exec -it postgres psql -Upostgres' C-m
+splitw -h -p 45
+selectp -t 3
+send-keys 'cd ~/Work/hexarad/optirad/' C-m
+send-keys 'DATABASE_URL=postgres://postgres:postgres@0.0.0.0:5430/optirad_development bundle exec rails s' C-m
+#-------------------------------------------------------------
 
-# select last pane
-selectp -t 4
-
-# new named window, change dir, split the pane horizontal (80%/20%),
-# select last pane, change dir
+#-------------------------------------------------------------
 neww -n OP
 send-keys 'cd ~/Work/hexarad/orders_portal/' C-m
+
 splitw -v -p 20
 selectp -t 1
 send-keys 'cd ~/Work/hexarad/orders_portal/' C-m
+#-------------------------------------------------------------
 
+#-------------------------------------------------------------
 neww -n WFM
 send-keys 'cd ~/Work/hexarad/hexarad_workflow_manager/' C-m
+
 splitw -v -p 20
 selectp -t 1
 send-keys 'cd ~/Work/hexarad/hexarad_workflow_manager/' C-m
+#-------------------------------------------------------------
 
-# select api window
-select-window -t WFM
+# select current window
+select-window -t OPTIRAD
