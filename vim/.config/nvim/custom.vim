@@ -151,24 +151,24 @@ function! LinterStatus() abort
     \)
 endfunction
 
-if !exists( "*RubyEndToken" )
-    function RubyEndToken()
-        let current_line = getline( '.' )
-        let braces_at_end = '{\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
-        let stuff_without_do = '^\s*\(class\|if\|unless\|begin\|case\|for\|module\|while\|until\|def\)'
-        let with_do = 'do\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
-
-        if match(current_line, braces_at_end) >= 0
-            return "\<CR>}\<C-O>O"
-        elseif match(current_line, stuff_without_do) >= 0
-            return "\<CR>end\<C-O>O"
-        elseif match(current_line, with_do) >= 0
-            return "\<CR>end\<C-O>O"
-        else
-            return "\<CR>"
-        endif
-    endfunction
-endif
+"if !exists( "*RubyEndToken" )
+"    function RubyEndToken()
+"        let current_line = getline( '.' )
+"        let braces_at_end = '{\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
+"        let stuff_without_do = '^\s*\(class\|if\|unless\|begin\|case\|for\|module\|while\|until\|def\)'
+"        let with_do = 'do\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
+"
+"        if match(current_line, braces_at_end) >= 0
+"            return "\<CR>}\<C-O>O"
+"        elseif match(current_line, stuff_without_do) >= 0
+"            return "\<CR>end\<C-O>O"
+"        elseif match(current_line, with_do) >= 0
+"            return "\<CR>end\<C-O>O"
+"        else
+"            return "\<CR>"
+"        endif
+"    endfunction
+"endif
 
 "============================================================================
 "= Plugin config
@@ -194,6 +194,9 @@ nnoremap <leader>fl <cmd>Telescope git_files<cr>
 
 nnoremap <C-h> <Esc>:tabp<CR>
 nnoremap <C-l> <Esc>:tabn<CR>
+
+nnoremap Zz <C-w><\|<C-w>\|
+nnoremap Zo <C-w>=
 
 " copy/paste in more usual style
 vmap <C-c> "+yi
@@ -255,7 +258,7 @@ map <leader>r :call SpecCorresponding()<CR>
 " execute perl or ruby (depending on what filetype)
 autocmd FileType perl map <leader>x :! perl %<CR>
 autocmd FileType ruby map <leader>x :! ruby %<CR>
-autocmd FileType ruby imap <buffer> <CR> <C-R>=RubyEndToken()<CR>
+"autocmd FileType ruby imap <buffer> <CR> <C-R>=RubyEndToken()<CR>
 
 " my tmux has ctrl+a, so lets rename in vim to ctl+b
 noremap <c-b> <c-a>
