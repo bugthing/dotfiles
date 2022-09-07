@@ -3,7 +3,7 @@
 
 Here is a repo containing my dot files.
 
-I use the gnu tool `stow` to manage them.
+I use the gnu tool `stow` to manage them. Or the bash script included
 
 Install stow
 ------------
@@ -13,13 +13,18 @@ or
 
     $ apt install stow
 
+Use script
+------------
+
+    $ ~/.dotfiles/stowsh ~/.dotfiles/bash
+
 Setup
 -----
 
-Clone into directory `~/dotfiles`, like so:
+Clone into directory `~/.dotfiles`, like so:
 
     $ cd ~
-    $ git clone git@github.com:bugthing/dotfiles.git
+    $ git clone git@github.com:bugthing/dotfiles.git .dotfiles
 
 Manage
 ------
