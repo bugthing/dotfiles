@@ -63,7 +63,7 @@ endif
 " Indentation .. below we define filetype specific indentations..
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2
-autocmd FileType javascript setlocal expandtab shiftwidth=4 softtabstop=4
+autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType perl setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=8
 
@@ -215,6 +215,9 @@ command! Tcss   :%!csstidy -
 " .. uses 'vim-scripts/SQLUtilities' plugin
 command! Tsql   :SQLUFormatter
 
+" Clear all registers
+command! ClearReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
+
 " line number toggle
 :nmap <C-N><C-N> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
@@ -235,6 +238,11 @@ cmap w!! w !sudo tee % >/dev/null
 
 " <enter> in normal mode just replays last macro
 nnoremap <silent> <cr> :call ReplayLastMacro()<cr>
+nnoremap <silent> <leader><cr> :ClearReg<cr>
+
+" increment/decrement numbers
+:nnoremap <A-a> <C-a>
+:nnoremap <A-x> <C-x>
 
 " Leader key binds:
 

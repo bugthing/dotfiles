@@ -28,6 +28,7 @@ Plug 'onsails/lspkind-nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Status line
 Plug 'NTBBloodbath/galaxyline.nvim', { 'branch': 'main' }
@@ -37,7 +38,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'hwartig/vim-seeing-is-believing'
 
 " AI assistance
-Plug 'github/copilot.vim'
+"Plug 'github/copilot.vim'
 
 call plug#end()
 
