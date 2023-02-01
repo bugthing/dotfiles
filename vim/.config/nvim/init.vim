@@ -52,3 +52,8 @@ let s:config = expand(stdpath('config').'/cmp.lua')
 if filereadable(s:config)
   execute "luafile " . s:config
 endif
+
+let s:config = expand(stdpath('config').'/ror.lua')
+if filereadable(s:config)
+  execute "luafile " . s:config
+endif

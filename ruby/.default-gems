@@ -2,5 +2,6 @@ bundler
 pry
 gem-ctags
 neovim
+httparty
 solargraph
 solargraph-standardrb

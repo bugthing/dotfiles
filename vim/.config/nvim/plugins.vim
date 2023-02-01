@@ -36,6 +36,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 " ruby programming
 Plug 'hwartig/vim-seeing-is-believing'
+Plug 'weizheheng/ror.nvim'
 
 " AI assistance
 "Plug 'github/copilot.vim'
