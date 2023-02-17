@@ -121,6 +121,7 @@ function bundle_exec_or_not {
     fi
 }
 alias be='bundle_exec_or_not '
+alias ombe='overmind run bundle exec'
 
 function rcam () {
   bundle_exec_or_not rubocop -a --force-exclusion `git diff main --name-only --cached --diff-filter=ACMRTB`
@@ -150,6 +151,7 @@ function txak {
 alias gs='git status '
 alias ga='git add '
 alias gb="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+alias gbr="git branch"
 alias gd='git diff'
 alias gco='git checkout '
 alias vcon='nvim -p $(git status | grep "both modified" | cut -d: -f2)'
