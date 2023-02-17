@@ -45,7 +45,7 @@
   extendRegexp = true
 
 [core]
-  excludesfile = /home/benjamin/.gitignore_global
+  excludesfile = ~/.gitignore_global
 
 [rerere]
   enabled = true

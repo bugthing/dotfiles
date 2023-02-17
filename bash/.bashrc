@@ -127,6 +127,10 @@ if [ -f "/usr/share/doc/mcfly/mcfly.bash" ]; then
   source /usr/share/doc/mcfly/mcfly.bash
 fi
 
+if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
+  source "$HOME/.asdf/plugins/java/set-java-home.bash"
+fi
+
 ##############################################################################
 # Custom config
 ##############################################################################
