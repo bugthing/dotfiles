@@ -38,10 +38,16 @@ local lspconfig = require('lspconfig')
 lspconfig.solargraph.setup{
   settings = {
     solargraph = {
-      commandPath = '/home/benjamin/.asdf/shims/solargraph',
-      diagnostics = true,
-      completion = true
+      commandPath = "~/.asdf/shims/solargraph",
+      completion = true,
+      diagnostics = false,
+      autoformat = false,
+      formatting = false,
     }
   },
   on_attach = attacher
 }
+-- .. for StandardRB's own LSP (see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#standardrb)
+lspconfig.standardrb.setup{
+}
+
