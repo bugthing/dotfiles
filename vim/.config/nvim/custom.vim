@@ -181,19 +181,6 @@ let g:ale_fixers = {'ruby': ['standardrb']}
 " Code snippets
 let g:completion_enable_snippet = 'UltiSnips'
 
-" Fuzzy finder
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fl <cmd>Telescope git_files<cr>
-
-"" ror.nvim binding
-"nnoremap <leader>tl <cmd>:RorMinitestRun Line<cr>
-"nnoremap <leader>tf <cmd>:RorMinitestRun<cr>
-"nnoremap <leader>tc <cmd>:RorMinitestClear<cr>
-"nnoremap <leader>tt <cmd>:RorMinitestAttachTerminal<cr>
-
 "============================================================================
 "= Commands / Shortcuts / Keyboard bindings
 "============================================================================
