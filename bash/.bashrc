@@ -94,8 +94,6 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 # cd also looks in home dir:
 export CDPATH="$HOME:$CDPATH"
 
-export PATH="./node_modules/.bin:$PATH"
-
 if [ -d "$HOME/build/bin" ]; then
   export PATH="$HOME/build/bin:$PATH"
 fi
@@ -124,6 +122,10 @@ if [ -d "$HOME/dev/flutter" ]; then
 fi
 
 if [ -f "/usr/share/doc/mcfly/mcfly.bash" ]; then
+  export MCFLY_KEY_SCHEME=vim
+  export MCFLY_FUZZY=2
+  export MCFLY_PROMPT="❯"
+  export MCFLY_HISTORY_LIMIT=20000
   source /usr/share/doc/mcfly/mcfly.bash
 fi
 
