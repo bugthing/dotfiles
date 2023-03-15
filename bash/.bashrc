@@ -88,8 +88,23 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # default editor.
 export EDITOR=nvim
 
-# fzf is fuzzy finder - the env is used to tell it use ripgrep
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# fzf is fuzzy finder - here is my setup
+if [ -f /usr/share/fzf/key-bindings.bash ]; then
+  export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+  export FZF_TMUX_OPTS="-p"
+  export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+  export FZF_CTRL_R_OPTS="
+    --preview 'echo {}'
+    --preview-window 'up:3:hidden:wrap'
+    --bind 'ctrl-/:toggle-preview'
+    --bind 'ctrl-y:execute-silent(echo -n {2..} | wl-copy)+abort'
+    --color 'header:italic'
+    --header 'Press CTRL-Y to copy command into clipboard'
+  "
+  . /usr/share/fzf/key-bindings.bash
+  . /usr/share/fzf/completion.bash
+  bind -x '"\C-f":"vi $(fzf)"' # bind CTRL+f to search and open in nvim
+fi
 
 # cd also looks in home dir:
 export CDPATH="$HOME:$CDPATH"
@@ -119,14 +134,6 @@ fi
 if [ -d "$HOME/dev/flutter" ]; then
   export PATH="$PATH:$HOME/dev/flutter/bin"
   export no_proxy=127.0.0.1
-fi
-
-if [ -f "/usr/share/doc/mcfly/mcfly.bash" ]; then
-  export MCFLY_KEY_SCHEME=vim
-  export MCFLY_FUZZY=2
-  export MCFLY_PROMPT="❯"
-  export MCFLY_HISTORY_LIMIT=20000
-  source /usr/share/doc/mcfly/mcfly.bash
 fi
 
 if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
