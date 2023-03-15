@@ -103,7 +103,7 @@ if [ -f /usr/share/fzf/key-bindings.bash ]; then
   "
   . /usr/share/fzf/key-bindings.bash
   . /usr/share/fzf/completion.bash
-  bind -x '"\C-f":"vi $(fzf)"' # bind CTRL+f to search and open in nvim
+  bind -x '"\C-f":"vi -p $(fzf --multi)"' # bind CTRL+f to search and open in vi
 fi
 
 # cd also looks in home dir:
