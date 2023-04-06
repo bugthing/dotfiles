@@ -91,7 +91,6 @@ export EDITOR=nvim
 # fzf is fuzzy finder - here is my setup
 if [ -f /usr/share/fzf/key-bindings.bash ]; then
   export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-  export FZF_TMUX_OPTS="-p"
   export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
   export FZF_CTRL_R_OPTS="
     --preview 'echo {}'
@@ -103,7 +102,7 @@ if [ -f /usr/share/fzf/key-bindings.bash ]; then
   "
   . /usr/share/fzf/key-bindings.bash
   . /usr/share/fzf/completion.bash
-  bind -x '"\C-f":"vi -p $(fzf --multi)"' # bind CTRL+f to search and open in vi
+  bind -x '"\C-f":"vi -p $(fzf-tmux -p --multi)"' # bind CTRL+f to search and open in vi
 fi
 
 # cd also looks in home dir:
