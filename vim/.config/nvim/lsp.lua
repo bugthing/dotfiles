@@ -50,4 +50,6 @@ lspconfig.solargraph.setup{
 -- .. for StandardRB's own LSP (see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#standardrb)
 lspconfig.standardrb.setup{
 }
+---- .. for syntax_tree's own LSP (see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#syntax_tree)
+--lspconfig.syntax_tree.setup{}
 
