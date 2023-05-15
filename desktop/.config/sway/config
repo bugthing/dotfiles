@@ -98,6 +98,9 @@ for_window [class="^.*"] border pixel 2
     bindsym $mod+p exec grim -t jpeg -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/temp/screen_grabs/last_screenshot.jpg
     bindsym $mod+Shift+p exec grim -t jpeg -g "$(slurp)" ~/temp/screen_grabs/$(date +'%Y-%m-%d-%H%M%S_screenshot.jpg')
 
+    # colour picker
+    bindsym $mod+u exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
+
     # launch applications:
     set $term "alacritty"
     set $menu fuzzel --icon-theme=Adwaita  -f cozette:size=10   -w 64   -b 2C2525FF   -t FFFFFFFF   -m F9CC6CFF   -C 635657FF   -s 3C3032ff   -B 1   -r 0   -x 20   -l 10    --line-height 13

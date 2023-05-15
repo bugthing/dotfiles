@@ -1,0 +1,12 @@
+# asdf - multiple language switcher
+
+if [ -d "$HOME/.asdf" ]; then
+  . $HOME/.asdf/asdf.sh
+  . $HOME/.asdf/completions/asdf.bash
+fi
+
+# asdf java - set JAVA_HOME
+if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
+  source "$HOME/.asdf/plugins/java/set-java-home.bash"
+fi
+

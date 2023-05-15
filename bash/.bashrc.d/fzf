@@ -1,0 +1,17 @@
+# fzf is fuzzy finder - here is my setup
+if [ -f /usr/share/fzf/key-bindings.bash ]; then
+  export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+  export FZF_TMUX_OPTS="-p"
+  export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+  export FZF_CTRL_R_OPTS="
+    --preview 'echo {}'
+    --preview-window 'up:3:hidden:wrap'
+    --bind 'ctrl-/:toggle-preview'
+    --bind 'ctrl-y:execute-silent(echo -n {2..} | wl-copy)+abort'
+    --color 'header:italic'
+    --header 'Press CTRL-Y to copy command into clipboard'
+  "
+  . /usr/share/fzf/key-bindings.bash
+  . /usr/share/fzf/completion.bash
+  bind -x '"\C-f":"vi -p $(fzf --multi)"' # bind CTRL+f to search and open in vi
+fi
