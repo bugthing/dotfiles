@@ -41,33 +41,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # cd also looks in home dir:
 export CDPATH="$HOME:$CDPATH"
 
-if [ -d "$HOME/build/bin" ]; then
-  export PATH="$HOME/build/bin:$PATH"
-fi
-if [ -d "$HOME/scripts" ]; then
-  export PATH="$HOME/scripts:$PATH"
-fi
-if [ -d "$HOME/bin" ]; then
-  export PATH="$HOME/bin:$PATH"
-fi
-if [ -d "$HOME/.local/bin/" ]; then
-  export PATH="$HOME/.local/bin:$PATH"
-fi
-if [ -d "/var/lib/snapd/snap/bin" ]; then
-  export PATH="/var/lib/snapd/snap/bin:$PATH"
-fi
-if [ -d "$HOME/.cargo/bin" ]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
-if [ -d "$HOME/go/bin" ]; then
-  export PATH="$PATH:$HOME/go/bin"
-fi
-
-if [ -d "$HOME/dev/flutter" ]; then
-  export PATH="$PATH:$HOME/dev/flutter/bin"
-  export no_proxy=127.0.0.1
-fi
-
 ##############################################################################
 # Custom config
 ##############################################################################
