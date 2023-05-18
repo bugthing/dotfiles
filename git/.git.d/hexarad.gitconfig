@@ -1,5 +1,6 @@
 [user]
   email = bmartin@hexarad.com
+  name = B Martin
   signingKey = F7C7EB45
 
 [url "git@github-work"]
