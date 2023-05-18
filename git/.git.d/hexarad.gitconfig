@@ -1,7 +1,7 @@
 [user]
   email = bmartin@hexarad.com
   name = B Martin
-  signingKey = F7C7EB45
+  signingKey = ~/.ssh/hexarad.pub
 
 [url "git@github-work"]
   insteadOf = git@github.com
