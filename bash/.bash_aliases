@@ -15,60 +15,6 @@ function dockerclean {
   docker rmi `docker images -aq`
 }
 
-function kluster {
-  cluster=$1
-
-  if [[ -z $cluster ]]; then
-    read -p "Which cluster?" cluster
-  fi
-
-  cluster=$cluster-cluster
-
-  echo "Connecting k8s to cluster: $cluster..."
-
-  source $HOME/Work/smart/trekkie-toolkit/aws/smartaws
-  aws eks --region eu-west-2 update-kubeconfig --name $cluster
-  kubectl get pods
-}
-
-function rspec-parallel-prep {
-  bundle exec rake parallel:drop
-  bundle exec rake parallel:create
-  bundle exec rake parallel:prepare
-  rspec-parallel
-}
-
-function rspec-parallel {
-  bundle exec parallel_rspec ./spec
-}
-
-function reviewapp-db-reset {
-  reviewapp-run $1 "rake environment db:drop db:create db:schema:load db:seed:development DISABLE_DATABASE_ENVIRONMENT_CHECK=1 SAFETY_ASSURED=1"
-}
-
-function reviewapp-console {
-  reviewapp-run $1 "rails console"
-}
-
-function reviewapp-bash {
-  reviewapp-run $1 "bash"
-}
-
-function reviewapp-run {
-  prnumber=$1
-  cmd=$2
-  re='^[0-9]+$'
-  if ! [[ $prnumber =~ $re ]] ; then
-    echo 'Please provide a pr number (for reviewapp)'
-    return 1
-  fi
-  heroku run -a sp-api-sandbox-pr-${prnumber} ${cmd}
-}
-
-function sp-api-db-reset {
-  bundle exec rake environment db:drop db:create db:schema:load db:seed:development
-}
-
 #===========================================================================
 # Misc.
 #===========================================================================
@@ -105,10 +51,6 @@ function run_prefered_vim () {
 }
 alias vi='run_prefered_vim '
 
-function shaddam () {
-  ssh-add $HOME/.ssh/smartpension && ssh-add $HOME/.ssh/bugthing
-}
-
 #===========================================================================
 #= ruby -
 #===========================================================================
@@ -122,10 +64,6 @@ function bundle_exec_or_not {
 }
 alias be='bundle_exec_or_not '
 alias ombe='overmind run bundle exec'
-
-function rcam () {
-  bundle_exec_or_not rubocop -a --force-exclusion `git diff main --name-only --cached --diff-filter=ACMRTB`
-}
 
 #===========================================================================
 # tmux
@@ -143,29 +81,6 @@ function txak {
   done
   tmux select-window -t "$current_win"
 }
-
-#===========================================================================
-#= git -
-#===========================================================================
-
-alias gs='git status '
-alias ga='git add '
-alias gb="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
-alias gbr="git branch"
-alias gd='git diff'
-alias gco='git checkout '
-alias vcon='nvim -p $(git status | grep "both modified" | cut -d: -f2)'
-alias gvl='git log | vim -c "set keywordprg=git\ show" -R -'
-
-
-#===========================================================================
-#= linux'y tools
-#===========================================================================
-
-alias ls='lsd'
-alias aptup='sudo bash -c "apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade'
-alias ssh-nokey='ssh  -o "IdentitiesOnly yes" '
-alias lsblk='lsblk -o name,fstype,size,label,uuid'
 
 #===========================================================================
 #= misc tools
