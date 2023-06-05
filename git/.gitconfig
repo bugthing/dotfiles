@@ -1,10 +1,6 @@
 [init]
   defaultBranch = main
 
-[user]
-  email = benjamin247365@hotmail.com
-  name = Benjamin Martin
-
 [color]
   ui = auto
 
@@ -134,5 +130,10 @@
 
   revive = "!git checkout `git rev-list -n 1 HEAD -- $@`^ -- $@"
 
-[includeIf "gitdir:~/Work/hexarad"]
-  path = ~/.git.d/config.hexarad
+[user]
+  email = benjamin247365@hotmail.com
+  name = Benjamin Martin
+
+[includeIf "gitdir:~/Work/hexarad/"]
+  path = ~/.git.d/hexarad.gitconfig
+
