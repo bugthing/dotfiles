@@ -1,8 +1,11 @@
 # asdf - multiple language switcher
 
-if [ -d "$HOME/.asdf" ]; then
-  . $HOME/.asdf/asdf.sh
-  . $HOME/.asdf/completions/asdf.bash
+if [ -f "$HOME/.nix-profile/share/asdf-vm/asdf.sh" ]; then
+  source "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
+fi
+
+if [ -f "$HOME/.nix-profile/share/bash-completion/completions/asdf.bash" ]; then
+ source "$HOME/.nix-profile/share/bash-completion/completions/asdf.bash"
 fi
 
 # asdf java - set JAVA_HOME
