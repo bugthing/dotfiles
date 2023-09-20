@@ -7,6 +7,7 @@ vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', op
 vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
+local funcs = require("funcs")
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local attacher = function(client, bufnr)
@@ -29,6 +30,9 @@ local attacher = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+
+  -- set default formatter (to avoid be asked to select)
+  funcs.set_default_formatter_for_filetypes('standardrb', {'ruby'})
 end
 
 -- Setup all language servers
@@ -39,17 +43,15 @@ lspconfig.solargraph.setup{
   settings = {
     solargraph = {
       commandPath = "~/.asdf/shims/solargraph",
-      completion = true,
-      diagnostics = false,
       autoformat = false,
-      formatting = false,
+      formatting = false
     }
   },
   on_attach = attacher
 }
 -- .. for StandardRB's own LSP (see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#standardrb)
 lspconfig.standardrb.setup{
+  on_attach = attacher
 }
 ---- .. for syntax_tree's own LSP (see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#syntax_tree)
 --lspconfig.syntax_tree.setup{}
-
