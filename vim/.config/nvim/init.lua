@@ -1,0 +1,6 @@
+require('plugins')
+require('statusline')
+require('lsp')
+require('cmp-setup')
+vim.cmd('source ~/.config/nvim/custom.vim')
+vim.cmd('source ~/.config/nvim/telescope.vim')
