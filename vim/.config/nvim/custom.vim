@@ -243,7 +243,6 @@ map <leader>a :set autochdir!<CR>
 map <Leader>c :call CopyFileContentToGpaste()<CR>
 map <leader>d :setlocal spell! spelllang=en_gb<CR>
 map <Leader>e :tabe<CR>
-map <leader>f :Files<CR>
 map <leader>g :Rg<CR>
 map <leader>l :set list!<CR>
 nnoremap <leader>m :Marks<CR>
@@ -255,6 +254,7 @@ exec 'nnoremap <Leader>sr :so   ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
 map <Leader>t :%s/\s\+$//e<CR>
 map <Leader>w :set wrap!<CR>
 map <leader>r :call SpecCorresponding()<CR>
+nnoremap <leader>rc :belowright split \| terminal overmind run bundle exec rails console<CR> \| i
 
 " execute perl or ruby (depending on what filetype)
 autocmd FileType perl map <leader>x :! perl %<CR>
