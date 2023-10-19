@@ -1,0 +1,105 @@
+# Use something easier to type as the prefix.
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+
+set-window-option -g mode-keys vi
+
+set-option -g history-limit 10000
+
+# Relax!
+set -sg escape-time 0
+set -sg repeat-time 600
+
+# Shut up.
+#set -g quiet on
+set -g focus-events on
+set-option -g focus-events on
+set-option -ga terminal-overrides ',screen-256color:Tc'
+set-option -sa terminal-overrides ',screen-256color:RGB'
+
+# Only constrain a window when a client is looking at it.
+setw -g aggressive-resize on
+
+# Reload the config.
+bind r source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf"
+
+# Saner splitting.
+bind v split-window -h -c '#{pane_current_path}'
+bind s split-window -v -c '#{pane_current_path}'
+
+# kill window
+unbind k
+bind x confirm kill-pane
+bind & confirm kill-window
+
+# Pane movement
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Layouts
+set -g main-pane-height 50
+set -g main-pane-width 120
+bind m select-layout main-horizontal
+bind M select-layout main-vertical
+bind e select-layout even-horizontal
+bind E select-layout even-vertical
+bind T select-layout tiled
+
+# Pane resizing
+bind -r C-h resize-pane -L 5
+bind -r C-j resize-pane -D 5
+bind -r C-k resize-pane -U 5
+bind -r C-l resize-pane -R 5
+
+# Window movement
+bind C-a last-window
+
+# 256 colors please
+set -g default-terminal "screen-256color"
+# 24-bit color
+set -ga terminal-overrides ",*256col*:RGB"
+
+# Tmux Bar colours
+set -g status-style bg=colour91,fg=colour33
+set -g window-status-activity-style bold
+set -g pane-border-style fg=colour245
+set -g pane-active-border-style fg=colour39
+set -g message-style bg=colour16,fg=colour221,bold
+
+# Custom status bar
+# Powerline symbols: ||||
+set -g status-left-length 32
+set -g status-right-length 150
+set -g status-interval 5
+
+set -g status-left '#[fg=colour16,bg=colour254,bold] #S '
+
+set -g status-right '#[fg=colour16,bg=colour254] %R - %d %b - #h '
+
+set -g window-status-format "#[fg=white] #I #W "
+set -g window-status-current-format "#[fg=colour200,bg=colour2,noreverse,bold] #I - #W "
+
+# Activity
+setw -g monitor-activity on
+set -g visual-activity off
+
+# Autorename sanely.
+setw -g automatic-rename on
+
+# window panes
+bind c new-window
+unbind t
+bind t command-prompt "rename-window '%%'"
+
+# Sessions
+bind C new-session
+bind S choose-session
+bind g source-file ~/.tmux/session-std
+bind G source-file ~/.tmux/session-hexarad
+bind w source-file ~/.tmux/session-hexarad-single
+
+# send keys to all panes of current of window
+bind Y set-window-option synchronize-panes

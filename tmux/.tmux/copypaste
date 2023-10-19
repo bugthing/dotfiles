@@ -1,0 +1,15 @@
+# Copy mode
+setw -g mode-keys vi
+bind ` copy-mode     # start copy mode with backtick
+unbind [
+bind -Tcopy-mode-vi H       send -X start-of-line
+bind -Tcopy-mode-vi L       send -X end-of-line
+bind -Tcopy-mode-vi v       send -X begin-selection
+bind -Tcopy-mode-vi c       send -X copy-selection
+bind -Tcopy-mode-vi Escape  send -X cancel
+bind -Tcopy-mode-vi y       send -X copy-pipe "gpaste-client"
+unbind p
+bind p paste-buffer # paste buffer with 'p'
+
+#bind -Tcopy-mode-vo C-Up send -X scroll-up
+#bind -Tcopy-mode-vo WheelUpPane send -N5 -X scroll-up
