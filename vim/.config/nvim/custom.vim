@@ -251,7 +251,8 @@ map <Leader>p :e#<CR> " Re-Open Previously Opened File:
 map <Leader>q :qa<CR>
 exec 'nnoremap <Leader>ss :mks! ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
 exec 'nnoremap <Leader>sr :so   ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
-map <Leader>t :%s/\s\+$//e<CR>
+map <Leader>s :%s/\s\+$//e<CR>
+map <Leader>t :TestNearest<CR>
 map <Leader>w :set wrap!<CR>
 map <leader>r :call SpecCorresponding()<CR>
 nnoremap <leader>rc :belowright split \| terminal overmind run bundle exec rails console<CR> \| i

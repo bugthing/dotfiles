@@ -21,6 +21,10 @@ Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug('NTBBloodbath/galaxyline.nvim', {branch = 'main' })
 Plug('kyazdani42/nvim-web-devicons')
 
+-- Testing
+Plug('vim-test/vim-test')
+Plug('preservim/vimux')
+
 vim.call('plug#end')
 
 
