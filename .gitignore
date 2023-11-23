@@ -6,4 +6,5 @@ vim/.vim/spell/*
 vim/.vim/.netrwhist
 vim/.config/nvim/.netrwhist
 desktop/.ncmpcpp/error.log
+tmux/.tmux/plugins/*
 tags
