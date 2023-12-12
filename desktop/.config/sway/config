@@ -64,6 +64,7 @@ default_orientation vertical
 default_border none
 for_window [app_id=".*"] split toggle
 for_window [class="^.*"] border pixel 2
+for_window [shell="xwayland"] title_format "[XWayland] %title"
 
 #
 # Key bindings

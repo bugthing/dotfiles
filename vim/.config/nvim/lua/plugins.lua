@@ -5,7 +5,7 @@ vim.call('plug#begin', vim.fn.stdpath('data') .. '/plugged')
 -- tpope
 Plug('tpope/vim-sensible')
 Plug('tpope/vim-endwise')
-Plug('tpope/vim-surround')
+Plug('machakann/vim-sandwich')
 --  LSP
 Plug('neovim/nvim-lspconfig')
 Plug('hrsh7th/cmp-nvim-lsp')

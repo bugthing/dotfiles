@@ -211,6 +211,10 @@ command! Tsql   :SQLUFormatter
 " Clear all registers
 command! ClearReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 
+" disable/enable LSP
+command! Dlsp :lua vim.lsp.diagnostic.disable()
+command! Elsp :lua vim.lsp.diagnostic.enable()
+
 " line number toggle
 :nmap <C-N><C-N> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
