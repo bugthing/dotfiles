@@ -243,23 +243,10 @@ nnoremap <silent> <leader><cr> :ClearReg<cr>
 
 " Leader key binds:
 
-map <leader>a :set autochdir!<CR>
-map <Leader>c :call CopyFileContentToGpaste()<CR>
-map <leader>d :setlocal spell! spelllang=en_gb<CR>
-map <Leader>e :tabe<CR>
-map <leader>g :Rg<CR>
-map <leader>l :set list!<CR>
-nnoremap <leader>m :Marks<CR>
 map <leader>n :call RenameFile()<cr>
 map <Leader>p :e#<CR> " Re-Open Previously Opened File:
-map <Leader>q :qa<CR>
-exec 'nnoremap <Leader>ss :mks! ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
-exec 'nnoremap <Leader>sr :so   ~/vim-sessions/*.vim<C-D><BS><BS><BS><BS><BS>'
 map <Leader>s :%s/\s\+$//e<CR>
-map <Leader>t :TestNearest<CR>
 map <Leader>w :set wrap!<CR>
-map <leader>r :call SpecCorresponding()<CR>
-nnoremap <leader>rc :belowright split \| terminal overmind run bundle exec rails console<CR> \| i
 
 " execute perl or ruby (depending on what filetype)
 autocmd FileType perl map <leader>x :! perl %<CR>

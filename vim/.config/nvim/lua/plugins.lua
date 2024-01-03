@@ -25,6 +25,9 @@ Plug('kyazdani42/nvim-web-devicons')
 Plug('vim-test/vim-test')
 Plug('preservim/vimux')
 
+-- Opening assocaited files
+Plug('rgroli/other.nvim')
+
 vim.call('plug#end')
 
 
