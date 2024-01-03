@@ -13,5 +13,3 @@ vim.api.nvim_set_keymap("n", "<leader>lc", "<cmd>:OtherClear<CR>", { noremap = t
 
 -- Context specific bindings
 vim.api.nvim_set_keymap("n", "<leader>lt", "<cmd>:Other test<CR>", { noremap = true, silent = true })
-
-print('FUCKOOTHER')

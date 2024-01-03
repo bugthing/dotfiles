@@ -121,55 +121,6 @@ function! XTermPasteBegin()
   return ""
 endfunction
 
-function! SpecCorresponding()
-  let l:efile = @%
-  if match(expand(l:efile), "_spec.rb$") != -1
-    let l:cfile = substitute(l:efile, "_spec.rb$", ".rb", "s")
-    let l:cfile = substitute(l:cfile, "spec/", "app/", "s")
-    execute("rightbelow vsplit " . l:cfile)
-  else
-    let l:cfile = substitute(l:efile, ".rb$", "_spec.rb", "s")
-    let l:cfile = substitute(l:cfile, "app/", "spec/", "s")
-    execute("leftabove vsplit " . l:cfile)
-  endif
-endfunction
-
-function! LinterStatus() abort
-    if &rtp !~ 'ale'
-      return 'no ale'
-    endif
-
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
-
-"if !exists( "*RubyEndToken" )
-"    function RubyEndToken()
-"        let current_line = getline( '.' )
-"        let braces_at_end = '{\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
-"        let stuff_without_do = '^\s*\(class\|if\|unless\|begin\|case\|for\|module\|while\|until\|def\)'
-"        let with_do = 'do\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
-"
-"        if match(current_line, braces_at_end) >= 0
-"            return "\<CR>}\<C-O>O"
-"        elseif match(current_line, stuff_without_do) >= 0
-"            return "\<CR>end\<C-O>O"
-"        elseif match(current_line, with_do) >= 0
-"            return "\<CR>end\<C-O>O"
-"        else
-"            return "\<CR>"
-"        endif
-"    endfunction
-"endif
-
 "============================================================================
 "= Plugin config
 "============================================================================
@@ -242,7 +193,6 @@ nnoremap <silent> <leader><cr> :ClearReg<cr>
 :nnoremap <A-x> <C-x>
 
 " Leader key binds:
-
 map <leader>n :call RenameFile()<cr>
 map <Leader>p :e#<CR> " Re-Open Previously Opened File:
 map <Leader>s :%s/\s\+$//e<CR>
