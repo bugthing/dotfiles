@@ -121,6 +121,19 @@ function! XTermPasteBegin()
   return ""
 endfunction
 
+function! SpecCorresponding()
+  let l:efile = @%
+  if match(expand(l:efile), "_spec.rb$") != -1
+    let l:cfile = substitute(l:efile, "_spec.rb$", ".rb", "s")
+    let l:cfile = substitute(l:cfile, "spec/", "app/", "s")
+    execute("rightbelow vsplit " . l:cfile)
+  else
+    let l:cfile = substitute(l:efile, ".rb$", "_spec.rb", "s")
+    let l:cfile = substitute(l:cfile, "app/", "spec/", "s")
+    execute("leftabove vsplit " . l:cfile)
+  endif
+endfunction
+
 "============================================================================
 "= Plugin config
 "============================================================================
@@ -197,6 +210,8 @@ map <leader>n :call RenameFile()<cr>
 map <Leader>p :e#<CR> " Re-Open Previously Opened File:
 map <Leader>s :%s/\s\+$//e<CR>
 map <Leader>w :set wrap!<CR>
+map <Leader>t :TestNearest<CR>
+map <Leader>r :call SpecCorresponding()<CR>
 
 " execute perl or ruby (depending on what filetype)
 autocmd FileType perl map <leader>x :! perl %<CR>
