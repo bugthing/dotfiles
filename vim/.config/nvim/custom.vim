@@ -1,7 +1,7 @@
 "============================================================================
 "= Editing style
 "============================================================================
-let mapleader = "\<Space>"
+" this is now done via custom-conf.lua : let mapleader = "\<Space>" 
 
 set timeoutlen=1000  " timeout quicker so using space as my leader is less PITA
 set ttimeoutlen=100  " ^ see above ^
