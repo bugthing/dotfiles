@@ -33,4 +33,21 @@ function M.set_default_formatter_for_filetypes(language_server_name, filetypes)
   end)
 end
 
+function M.replay_last_macro()
+  local success, error_message = pcall(vim.fn.execute, 'normal @@')
+  if not success then
+    vim.fn.execute('normal @q')
+  end
+end
+
+function M.rename_file()
+  local old_name = vim.fn.expand('%')
+  local new_name = vim.fn.input('New file name: ', vim.fn.expand('%'), 'file')
+  if new_name ~= '' and new_name ~= old_name then
+    vim.cmd(':saveas ' .. new_name)
+    vim.cmd(':silent !rm ' .. old_name)
+    vim.fn.redraw()
+  end
+end
+
 return M
