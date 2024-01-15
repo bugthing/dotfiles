@@ -70,8 +70,8 @@ vim.api.nvim_set_keymap('n', '<C-l>', ':tabn<CR>', { noremap = true, silent = tr
 
 -- Leader key binds
 vim.api.nvim_set_keymap('n', '<Leader>n', ':lua require("funcs").rename_file()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>r', ':lua require("funcs").spec_corresponding()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>p', ':e#<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>s', ':%s/\\s\\+$//e<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>w', ':set wrap!<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>t', ':TestNearest<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>r', ':call SpecCorresponding()<CR>', { noremap = true, silent = true })

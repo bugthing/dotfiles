@@ -50,4 +50,19 @@ function M.rename_file()
   end
 end
 
+function M.spec_corresponding()
+  local efile = vim.fn.expand('%')
+
+  if vim.fn.match(efile, "_spec.rb$") ~= -1 then
+    local cfile = vim.fn.substitute(efile, "_spec.rb$", ".rb", "s")
+    cfile = vim.fn.substitute(cfile, "spec/", "app/", "s")
+    vim.cmd("rightbelow vsplit " .. cfile)
+  else
+    local cfile = vim.fn.substitute(efile, ".rb$", "_spec.rb", "s")
+    cfile = vim.fn.substitute(cfile, "app/", "spec/", "s")
+    vim.cmd("leftabove vsplit " .. cfile)
+  end
+end
+
+
 return M
