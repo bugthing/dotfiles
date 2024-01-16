@@ -67,6 +67,7 @@ vim.cmd('match ExtraWhitespace /\\s\\+$/')
 -- Commands / Shortcuts / Keyboard bindings
 vim.api.nvim_set_keymap('n', '<C-h>', ':tabp<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-l>', ':tabn<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-N><C-N>', ':exec &nu==&rnu? "se nu!" : "se rnu!"<CR>', { noremap = true, silent = true });
 
 -- Leader key binds
 vim.api.nvim_set_keymap('n', '<Leader>n', ':lua require("funcs").rename_file()<CR>', { noremap = true, silent = true })
