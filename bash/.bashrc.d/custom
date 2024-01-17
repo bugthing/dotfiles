@@ -34,6 +34,8 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # cd also looks in home dir:
 export CDPATH="$HOME:$CDPATH"
 
+export EDITOR=nvim
+
 ##############################################################################
 # Custom config
 ##############################################################################
