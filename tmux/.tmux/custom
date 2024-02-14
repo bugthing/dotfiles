@@ -97,8 +97,7 @@ bind t command-prompt "rename-window '%%'"
 # Sessions
 bind C new-session
 bind S choose-session
-bind g source-file ~/.tmux/session-std
-bind G source-file ~/.tmux/session-hexarad
+bind W source-file ~/.tmux/session-std
 bind w source-file ~/.tmux/session-hexarad-single
 
 # send keys to all panes of current of window

@@ -1,8 +1,14 @@
+#-------------------------------------------------------------
+# standard - a typical tmux setup
+#-------------------------------------------------------------
 
-# standard - a project with typical tmux setup
+splitw -v -l 10 -c "#{pane_current_path}"
+selectp -t 1
+send-keys 'echo Term' C-m
 
-neww -n hack
+splitw -h -l 100 -c "#{pane_current_path}"
+selectp -t 2
+send-keys 'echo Services' C-m
 
-splitw -h -p 80 -t hack
 selectp -t 0
-splitw -v -p 80 -t hack
+send-keys 'echo Editor' C-m

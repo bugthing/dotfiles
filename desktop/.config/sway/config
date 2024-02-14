@@ -100,7 +100,7 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
     bindsym $mod+Shift+p exec grim -t jpeg -g "$(slurp)" ~/temp/screen_grabs/$(date +'%Y-%m-%d-%H%M%S_screenshot.jpg')
 
     # colour picker
-    bindsym $mod+u exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
+    bindsym $mod+u exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy
 
     # launch applications:
     set $term "alacritty"
@@ -229,6 +229,9 @@ bar {
 	swaybar_command waybar
 }
 
+
+# Include drop in config
+include /etc/sway/config.d/*
 #
 # Monitors: (swaymsg -t get_outputs)
 #
@@ -242,18 +245,16 @@ input "Keebio Keebio Iris Rev. 4 Consumer Control" {
     xkb_layout us
 }
 
-
 #
 # Execute some programs
 #
-
-# dbus
-exec "dbus-update-activation-environment 2>/dev/null; dbus-update-activation-environment --all; dbus-update-activation-environment --systemd"
 
 # notifcations
 exec mako
 
 # idle timeout
+#exec swayidle -w before-sleep $locker lock $locker
 exec swayidle -w \
-         before-sleep $locker \
-         lock         $locker
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
