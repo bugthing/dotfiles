@@ -1,0 +1,10 @@
+[Install]
+WantedBy=default.target
+
+[Container]
+Image=docker.io/osixia/openldap:latest
+ContainerName=ldap
+Environment=LDAP_ADMIN_PASSWORD=secret
+Environment=LDAP_DOMAIN=test.com
+PublishPort=389:389
+Network=hexarad.network
