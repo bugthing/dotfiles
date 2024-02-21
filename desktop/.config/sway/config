@@ -103,13 +103,12 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
     bindsym $mod+u exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy
 
     # launch applications:
-    set $term "alacritty"
+    set $term "flatpak run org.gnome.Ptyxis.Devel"
     set $menu fuzzel --icon-theme=Adwaita  -f cozette:size=10   -w 64   -b 2C2525FF   -t FFFFFFFF   -m F9CC6CFF   -C 635657FF   -s 3C3032ff   -B 1   -r 0   -x 20   -l 10    --line-height 13
-    set $filemanager "nautilus"
+    set $filemanager "flatpak run org.gnome.NautilusDevel"
     set $passwords "passmenu"
     set $browser "flatpak run org.mozilla.firefox"
-    set $browser2 "flatpak run com.google.Chromee || chromium"
-    set $podcastmanager "flatpak run org.gpodder.gpodder"
+    set $browser2 "flatpak run com.google.Chrome || chromium"
 
     bindsym $mod+Return exec $term
     bindsym $mod+f exec $filemanger
@@ -124,7 +123,6 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
         bindsym f exec $filemanager
         bindsym b exec $browser
         bindsym c exec $browser2
-        bindsym p exec $podcastmanager
         bindsym Return mode "default"
     }
 
@@ -229,7 +227,6 @@ bar {
 	swaybar_command waybar
 }
 
-
 # Include drop in config
 include /etc/sway/config.d/*
 #
@@ -248,6 +245,9 @@ input "Keebio Keebio Iris Rev. 4 Consumer Control" {
 #
 # Execute some programs
 #
+
+# turn off display if laptop lid closed
+exec_always ~/.config/sway/clamshell.sh
 
 # notifcations
 exec mako
