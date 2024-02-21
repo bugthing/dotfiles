@@ -15,7 +15,7 @@ fi
 
 # asdf golang - set paths
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
-got_golang=$(asdf where golang)
+got_golang=$(asdf where golang 2> /dev/null)
 if [ $? -eq 0 ]; then
   export GOPATH=$(asdf where golang)/packages
   export GOROOT=$(asdf where golang)/go
