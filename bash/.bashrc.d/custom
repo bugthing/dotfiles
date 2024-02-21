@@ -20,6 +20,10 @@ if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
 
+if [ -f /usr/share/bash-completion/completions/pass ]; then
+  . /usr/share/bash-completion/completions/pass
+fi
+
 ##############################################################################
 # Local programming langs
 ##############################################################################
