@@ -91,7 +91,7 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
     bindsym $mod+Shift+i exec "swaymsg input \* xkb_layout gb"
 
     # Suspend etc.
-    set $locker ~/scripts/shotnlock
+    set $locker ~/.config/sway/shotnlock.sh
     bindsym $mod+o exec --no-startup-id $locker
     bindsym $mod+Shift+o exec --no-startup-id systemctl suspend
 
@@ -253,8 +253,7 @@ exec_always ~/.config/sway/clamshell.sh
 exec mako
 
 # idle timeout
-#exec swayidle -w before-sleep $locker lock $locker
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         timeout 300 $locker \
+         timeout 600 $locker \
+         before-sleep $locker
