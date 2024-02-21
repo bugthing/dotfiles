@@ -1,6 +1,10 @@
 
-# All bashrc files
-for file in ~/.bashrc.d/*; do
-  source "$file"
-done
+# load all the custom shizzle
+if [ -d ~/.bashrc.d ]; then
+  for rc in ~/.bashrc.d/*; do
+    if [ -f "$rc" ]; then
+      . "$rc"
+    fi
+  done
+fi
 
