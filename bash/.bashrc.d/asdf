@@ -12,3 +12,12 @@ fi
 if [ -f "$HOME/.asdf/plugins/java/set-java-home.bash" ]; then
   source "$HOME/.asdf/plugins/java/set-java-home.bash"
 fi
+
+# asdf golang - set paths
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+got_golang=$(asdf where golang)
+if [ $? -eq 0 ]; then
+  export GOPATH=$(asdf where golang)/packages
+  export GOROOT=$(asdf where golang)/go
+  export PATH="${PATH}:$(go env GOPATH)/bin"
+fi
