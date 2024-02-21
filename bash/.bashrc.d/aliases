@@ -1,19 +1,16 @@
 #===========================================================================
-# Work
+#= git
 #===========================================================================
 
-function redis-clearout-rails {
-  bundle exec rails runner 'Sidekiq.redis { |conn| conn.flushdb }'
-}
+alias gb="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+alias gbr="git branch"
+alias gco="git checkout"
+alias gd="git diff"
+alias gs="git status"
 
-function redis-clearout-docker {
-  docker exec redis redis-cli flushall
-}
-
-function dockerclean {
-  docker rm `docker ps -aq`
-  docker rmi `docker images -aq`
-}
+#===========================================================================
+# Work
+#===========================================================================
 
 #===========================================================================
 # Misc.
@@ -91,3 +88,8 @@ if command -v kubectl &> /dev/null; then
   alias k=kubectl
   complete -F __start_kubectl k
 fi
+
+alias aptup="sudo bash -c 'apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade'"
+
+alias lsblk="lsblk -o name,fstype,size,label,uuid"
+
