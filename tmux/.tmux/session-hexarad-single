@@ -4,7 +4,7 @@
 
 #-------------------------------------------------------------
 # Start all the containers in the current window
-send-keys 'docker start postgres redis ldap' C-m
+send-keys 'echo docker start postgres redis ldap' C-m
 
 rename-window HexaWork
 

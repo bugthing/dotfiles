@@ -1,1 +1,8 @@
-../../../.dotfiles/desktop/.config/containers/systemd/redis.container
+[Install]
+WantedBy=default.target
+
+[Container]
+Image=docker.io/library/redis:latest
+ContainerName=redis
+PublishPort=6379:6379
+Network=hexarad.network

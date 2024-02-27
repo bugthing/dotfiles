@@ -1,1 +1,11 @@
-../../../.dotfiles/desktop/.config/containers/systemd/postgres.container
+[Install]
+WantedBy=default.target
+
+[Container]
+Image=docker.io/library/postgres:latest
+ContainerName=postgres
+Volume=/home/benjamin/container-volumes/postgres/data:/var/lib/postgresql/data:z
+Environment=PGDATA=/var/lib/postgresql/data/pgdata
+Environment=POSTGRES_PASSWORD=postgres
+PublishPort=5430:5432
+Network=hexarad.network

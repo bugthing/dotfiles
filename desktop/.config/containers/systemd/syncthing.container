@@ -1,1 +1,11 @@
-../../../.dotfiles/desktop/.config/containers/systemd/syncthing.container
+[Install]
+WantedBy=default.target
+
+[Container]
+Image=docker.io/syncthing/syncthing:latest
+ContainerName=syncthing
+Volume=%h/container-volumes/syncthing:/var/syncthing:z
+PublishPort=8384:8384
+PublishPort=22000:22000
+PublishPort=21027:21027
+UserNS=keep-id
