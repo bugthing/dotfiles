@@ -12,6 +12,8 @@ Plug('hrsh7th/cmp-nvim-lsp')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/nvim-cmp')
 Plug('onsails/lspkind-nvim')
+--  Github
+Plug('github/copilot.vim')
 -- Fuzzy finder
 Plug('nvim-lua/popup.nvim')
 Plug('nvim-lua/plenary.nvim')
