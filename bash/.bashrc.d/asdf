@@ -21,3 +21,6 @@ if [ $? -eq 0 ]; then
   export GOROOT=$(asdf where golang)/go
   export PATH="${PATH}:$(go env GOPATH)/bin"
 fi
+
+# asdf rust - default packages
+ASDF_CRATE_DEFAULT_PACKAGES_FILE="$HOME/.crate_default_packages"
