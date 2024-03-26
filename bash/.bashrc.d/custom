@@ -40,7 +40,13 @@ export CDPATH="$HOME:$CDPATH"
 
 export EDITOR=nvim
 
-export PATH="~/.nix-profile/bin:$PATH"
+if [ -d "$HOME/.nix-profile" ]; then
+  export PATH="~/.nix-profile/bin:$PATH"
+fi
+
+if [ -d "$HOME/scripts" ]; then
+  export PATH="~/scripts:$PATH"
+fi
 
 ##############################################################################
 # Custom config
