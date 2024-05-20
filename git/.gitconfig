@@ -136,4 +136,3 @@
 
 [includeIf "gitdir:~/Work/hexarad/"]
   path = ~/.git.d/hexarad.gitconfig
-

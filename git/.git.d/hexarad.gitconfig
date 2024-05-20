@@ -3,5 +3,5 @@
   name = B Martin
   signingKey = ~/.ssh/hexarad.pub
 
-[url "git@github-work"]
-  insteadOf = git@github.com
+[url "git@github.com"]
+	insteadOf = git@github-work
