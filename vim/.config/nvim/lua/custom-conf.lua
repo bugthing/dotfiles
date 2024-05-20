@@ -13,9 +13,7 @@ o.completeopt = 'menuone,noinsert,noselect'  -- Autocomplete options
 o.wildmode = 'longest:full,full'
 o.backupdir = '/var/tmp'
 o.directory = '/var/tmp'
-o.nobackup = true
 o.path = vim.o.path .. '**'
-o.nowritebackup = true
 o.autoread = true
 o.mouse = ''
 o.ignorecase = true
@@ -48,7 +46,6 @@ o.wrap = false
 o.showcmd = true
 cmd('syntax enable')
 opt.termguicolors = true
-o.t_Co = 256
 o.background = 'dark'
 cmd('colorscheme vice')
 api.nvim_exec([[ autocmd VimResized * execute "normal! \<c-w>=" ]], false) -- Even-out splits when Neovim is resized
