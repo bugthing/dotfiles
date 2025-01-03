@@ -1,0 +1,4 @@
+if [[ "$(command -v atuin)" ]]; then
+  # eval "$(atuin init bash --disable-up-arrow --disable-ctrl-r)"
+  eval "$(atuin init bash)"
+fi
