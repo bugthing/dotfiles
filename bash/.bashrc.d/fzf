@@ -17,6 +17,7 @@ export FZF_DEFAULT_OPTS='
   --preview-window "right:55%:border:wrap"
   --bind "ctrl-v:execute($EDITOR {})"
 '
+export FZF_CTRL_R_OPTS='--no-preview'
 
 # built using: https://vitormv.github.io/fzf-themes/
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
