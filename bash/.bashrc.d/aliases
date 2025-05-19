@@ -16,6 +16,14 @@ alias gs="git status"
 # Misc.
 #===========================================================================
 
+function sshforcepw {
+  ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no "$@"
+}
+
+function killgpg {
+  gpgconf --kill gpg-agent
+}
+
 function ssl-check {
   domain=$1
   if [[ -z "${domain}" ]]; then
