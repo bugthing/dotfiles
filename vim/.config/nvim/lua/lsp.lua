@@ -40,21 +40,10 @@ end
 -- Setup all language servers
 local lspconfig = require('lspconfig')
 
--- .. for ruby
-lspconfig.solargraph.setup{
-  settings = {
-    solargraph = {
-      commandPath = "~/.asdf/shims/solargraph",
-      autoformat = false,
-      formatting = false
-    }
+lspconfig.ruby_lsp.setup({
+  init_options = {
+    formatter = 'standard',
+    linters = { 'standard' },
   },
-  on_attach = attacher
-}
--- .. for StandardRB's own LSP (see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#standardrb)
-lspconfig.standardrb.setup{
   on_attach = attacher,
-  cmd = {"bundle", "exec", "standardrb", "--lsp"},
-}
----- .. for syntax_tree's own LSP (see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#syntax_tree)
---lspconfig.syntax_tree.setup{}
+})

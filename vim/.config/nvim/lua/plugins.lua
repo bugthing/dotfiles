@@ -20,7 +20,8 @@ Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 -- Status line
-Plug('NTBBloodbath/galaxyline.nvim', {branch = 'main' })
+--Plug('NTBBloodbath/galaxyline.nvim', {branch = 'main' })
+Plug('nvim-lualine/lualine.nvim')
 Plug('kyazdani42/nvim-web-devicons')
 
 -- Testing
