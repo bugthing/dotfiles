@@ -17,20 +17,20 @@ function M.set_default_formatter_for_filetypes(language_server_name, filetypes)
 
   local active_servers = {}
 
-  vim.lsp.for_each_buffer_client(0, function(client)
+  for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
     table.insert(active_servers, client.config.name)
-  end)
+  end
 
   if not set_contains(active_servers, language_server_name) then
     return
   end
 
-  vim.lsp.for_each_buffer_client(0, function(client)
+  for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
     if client.name ~= language_server_name then
       client.server_capabilities.document_formatting = false
       client.server_capabilities.document_range_formatting = false
     end
-  end)
+  end
 end
 
 function M.replay_last_macro()
