@@ -34,3 +34,8 @@ fi
 
 # asdf rust - default packages
 ASDF_CRATE_DEFAULT_PACKAGES_FILE="$HOME/.crate_default_packages"
+
+# asdf ruby -
+if [ -d "$HOMEBREW_PREFIX/opt/openssl@3" ]; then
+  export RUBY_CONFIGURE_OPTS="${RUBY_CONFIGURE_OPTS} --with-openssl-dir=$(brew --prefix openssl@3)"
+fi

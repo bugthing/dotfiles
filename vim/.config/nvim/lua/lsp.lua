@@ -37,13 +37,32 @@ local attacher = function(client, bufnr)
   funcs.set_default_formatter_for_filetypes('standardrb', {'ruby'})
 end
 
--- Setup all language servers
-local lspconfig = require('lspconfig')
+-- Ruby LSP
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'ruby',
+  callback = function(args)
+    vim.lsp.start({
+      name = 'ruby_lsp',
+      cmd = { 'ruby-lsp' },
+      root_dir = vim.fs.root(args.buf, { 'Gemfile', '.git' }),
+      init_options = {
+        formatter = 'standard',
+        linters = { 'standard' },
+      },
+      on_attach = attacher,
+    })
+  end,
+})
 
-lspconfig.ruby_lsp.setup({
-  init_options = {
-    formatter = 'standard',
-    linters = { 'standard' },
-  },
-  on_attach = attacher,
+-- TypeScript/JavaScript LSP
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+  callback = function(args)
+    vim.lsp.start({
+      name = 'ts_ls',
+      cmd = { 'typescript-language-server', '--stdio' },
+      root_dir = vim.fs.root(args.buf, { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' }),
+      on_attach = attacher,
+    })
+  end,
 })
