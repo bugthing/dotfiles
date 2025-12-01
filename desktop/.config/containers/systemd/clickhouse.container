@@ -1,0 +1,13 @@
+[Install]
+WantedBy=default.target
+
+[Container]
+Image=docker.io/clickhouse/clickhouse-server:latest
+ContainerName=clickhouse
+Volume=/home/benjamin/container-volumes/clickhouse/data:/var/lib/clickhouse:z
+Volume=/home/benjamin/container-volumes/clickhouse/logs:/var/lib/clickhouse-server:z
+Environment=CLICKHOUSE_PASSWORD=clickhouse
+PublishPort=8123:8123
+PublishPort=9000:9000
+Ulimit=nofile=262144:262144 
+Network=tussell.network

@@ -1,0 +1,5 @@
+# mise - replacement for asdf
+
+if [ -x "$HOMEBREW_PREFIX/bin/mise" ]; then
+  eval "$(mise activate bash)"
+fi
