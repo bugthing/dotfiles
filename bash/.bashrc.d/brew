@@ -14,3 +14,11 @@
 #     done
 #   fi
 # fi
+
+
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  export PATH="/home/linuxbrew/.linuxbrew/opt/postgresql@15/bin:$PATH"
+  export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/postgresql@15/lib"
+  export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/postgresql@15/include"
+fi
+
