@@ -1,6 +1,5 @@
 
-
 # activate mise if we have it
-if [[ -x "$HOMEBREW_PREFIX/bin/mise" ]]; then
-  eval "$(mise activate bash)"'
+if [ -x "$HOMEBREW_PREFIX/bin/mise" ]; then
+  eval "$(mise activate bash)"
 fi
