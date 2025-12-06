@@ -1,0 +1,6 @@
+
+
+if [ -x /usr/bin/rbenv ]; then
+  eval "$(rbenv init -)"
+fi
+

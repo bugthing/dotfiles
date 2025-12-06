@@ -1,9 +1,0 @@
-[Install]
-WantedBy=default.target
-
-[Container]
-Image=docker.io/gotenberg/gotenberg:latest
-ContainerName=gotenberg
-PublishPort=8380:8380
-Network=hexarad.network
-Exec=gotenberg --api-port=8380 --api-timeout=10s --libreoffice-disable-routes --log-level=debug
