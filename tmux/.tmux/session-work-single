@@ -1,12 +1,12 @@
 #-------------------------------------------------------------
-# hexarad single project - tmux session setup
+# tussell single project - tmux session setup
 #-------------------------------------------------------------
 
 #-------------------------------------------------------------
 # Start all the containers in the current window
-send-keys 'echo docker start postgres redis ldap' C-m
+#send-keys 'echo docker start postgres redis ldap' C-m
 
-rename-window HexaWork
+rename-window TussellHussle
 
 splitw -v -l 10 -c "#{pane_current_path}"
 selectp -t 1
@@ -22,9 +22,9 @@ send-keys 'overmind run bundle exec rails c' C-m
 
 splitw -h -l 25 -c "#{pane_current_path}"
 selectp -t 4
-send-keys 'overmind start' C-m
+send-keys 'overmind start -x redis,mailhog,releas' C-m
 #-------------------------------------------------------------
 
 # select current window and pane
-select-window -t HexaWork
+select-window -t TussellHussle
 selectp -t 1
