@@ -1,0 +1,4 @@
+[user]
+  email = benjamin.martin@tussell.com
+  name = Benjamin Martin
+  signingKey = ~/.ssh/tussell.pub

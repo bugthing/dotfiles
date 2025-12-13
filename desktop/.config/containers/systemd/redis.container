@@ -5,4 +5,4 @@ WantedBy=default.target
 Image=docker.io/library/redis:latest
 ContainerName=redis
 PublishPort=6379:6379
-Network=hexarad.network
+Network=tussell.network
