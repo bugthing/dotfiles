@@ -41,13 +41,53 @@ end
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'ruby',
   callback = function(args)
+    local root = vim.fs.root(args.buf, { 'Gemfile', '.git' })
+    if not root then
+      return
+    end
+
+    local function gemfile_has_standard()
+      local gemfile = root .. '/Gemfile'
+      local stat = vim.loop.fs_stat(gemfile)
+      if not stat then
+        return false
+      end
+
+      local fd = io.open(gemfile, 'r')
+      if not fd then
+        return false
+      end
+
+      for line in fd:lines() do
+        -- matches: gem "standard" or gem 'standard'
+        if line:match('gem%s+["\']standard["\']') then
+          fd:close()
+          return true
+        end
+      end
+
+      fd:close()
+      return false
+    end
+
+    local formatter
+    local linters
+
+    if gemfile_has_standard() then
+      formatter = 'standard'
+      linters = { 'standard' }
+    else
+      formatter = 'rubocop'
+      linters = { 'rubocop' }
+    end
+
     vim.lsp.start({
       name = 'ruby_lsp',
       cmd = { 'ruby-lsp' },
-      root_dir = vim.fs.root(args.buf, { 'Gemfile', '.git' }),
+      root_dir = root,
       init_options = {
-        formatter = 'standard',
-        linters = { 'standard' },
+        formatter = formatter,
+        linters = linters,
       },
       on_attach = attacher,
     })
