@@ -98,6 +98,7 @@ bind t command-prompt "rename-window '%%'"
 bind C new-session
 bind S choose-session
 bind W source-file ~/.tmux/session-std
+bind P source-file ~/.tmux/session-work-panes
 bind w source-file ~/.tmux/session-work-single
 
 # send keys to all panes of current of window

@@ -1,0 +1,12 @@
+#-------------------------------------------------------------
+# window pane setup
+#-------------------------------------------------------------
+
+split-window -h -c "$HOME"
+select-layout even-horizontal
+new-window -n BAR -c "$HOME/Work/tussell/barbican"
+new-window -n HAR -c "$HOME/Work/tussell/harvester_v2"
+
+# select current window and pane
+select-window -t BAR
+selectp -t 2
