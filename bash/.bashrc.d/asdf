@@ -2,6 +2,11 @@
 
 
 # asdf bash integration
+if [ -d "$HOMEBREW_PREFIX/opt/asdf" ]; then
+  export ASDF_DATA_DIR="$HOME/.asdf"
+  export PATH="$ASDF_DATA_DIR/shims:$PATH"
+fi
+
 if [ -f "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh" ]; then
  source "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"
 fi
