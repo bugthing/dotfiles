@@ -1,6 +1,12 @@
 [Install]
 WantedBy=default.target
 
+[Unit]
+Description=development env
+After=dev-box-postgres.service
+After=dev-box-redis.service
+After=dev-box-clickhouse.service
+
 [Container]
 Pod=dev-box.pod
 Image=dev-box.build
