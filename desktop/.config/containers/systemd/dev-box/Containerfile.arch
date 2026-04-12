@@ -2,7 +2,7 @@ FROM archlinux:latest
 
 # Update system and install essential tools
 RUN pacman -Syu --noconfirm && \
-    pacman -S --noconfirm sudo shadow base-devel binutils nvim mise ripgrep git libyaml openssl openssh bash-completion chromium flatpak-xdg-utils inetutils lsof man-db man-pages nss-mdns postgresql-libs rsync wget curl zip tmux
+    pacman -S --noconfirm sudo shadow base-devel binutils nvim mise ripgrep git libyaml libvips libheif openssl openssh bash-completion chromium flatpak-xdg-utils inetutils lsof man-db man-pages nss-mdns postgresql-libs rsync wget curl zip tmux
 
 # Set root password
 RUN echo "root:password" | chpasswd
@@ -15,6 +15,7 @@ RUN useradd -m -G wheel -s /bin/bash devuser && \
 # This allows members of 'wheel' to use sudo with their own password
 RUN echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/wheel
 
+EXPOSE 3000
 USER devuser
 ENV HOME=/home/devuser
 # We expect --volume /your-dir:/home/devuser:z so your dev work is there
