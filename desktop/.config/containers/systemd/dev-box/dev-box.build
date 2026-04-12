@@ -1,0 +1,4 @@
+[Build]
+ImageTag=localhost:5500/dev-box:latest
+File=Containerfile.arch
+SetWorkingDirectory=unit

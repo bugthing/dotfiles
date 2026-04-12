@@ -1,0 +1,9 @@
+[Install]
+WantedBy=default.target
+
+[Container]
+Image=docker.io/library/registry:2
+ContainerName=local-registry
+Volume=/home/benjamin/container-volumes/registry:/var/lib/registry:Z
+Environment=POSTGRES_PASSWORD=postgres
+PublishPort=5500:5000

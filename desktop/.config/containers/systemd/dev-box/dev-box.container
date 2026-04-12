@@ -1,0 +1,13 @@
+[Install]
+WantedBy=default.target
+
+[Container]
+Pod=dev-box.pod
+Image=dev-box.build
+ContainerName=dev-box
+Environment=HOME=/home/devuser
+Volume=/home/benjamin/container-volumes/dev-box:/home/devuser:z
+Exec=sleep infinity
+
+[Service]
+TimeoutStartSec=900

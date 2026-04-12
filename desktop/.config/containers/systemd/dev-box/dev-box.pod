@@ -1,0 +1,9 @@
+[Unit]
+Description=developer box Pod
+
+[Pod]
+PodName=dev-box
+Network=dev-box.network
+PublishPort=5439:5432
+PublishPort=9001:9000
+PublishPort=8124:8123

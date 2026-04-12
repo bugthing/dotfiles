@@ -1,0 +1,15 @@
+[Install]
+WantedBy=default.target
+
+[Container]
+Pod=dev-box.pod
+Image=docker.io/library/postgres:14
+ServiceName=dev-box-postgres
+ContainerName=dev-box-postgres
+Environment=PGDATA=/var/lib/postgresql/data/pgdata
+Volume=/home/benjamin/container-volumes/dev-box-postgres/data:/var/lib/postgresql/data:z
+Volume=/home/benjamin/container-volumes/dev-box-postgres/ssl:/etc/postgresql/ssl:z
+Volume=/home/benjamin/container-volumes/dev-box-postgres/config/postgresql.conf:/etc/postgresql.conf:z
+Volume=/home/benjamin/container-volumes/dev-box-postgres/config/pg_hba.conf:/etc/pg_hba.conf:z
+Environment=POSTGRES_PASSWORD=postgres
+Exec=-c config_file=/etc/postgresql.conf

@@ -1,0 +1,10 @@
+[Install]
+WantedBy=default.target
+
+[Container]
+Pod=dev-box.pod
+Image=docker.io/clickhouse/clickhouse-server:26.2
+ServiceName=dev-box-clickhouse
+ContainerName=dev-box-clickhouse
+Environment=CLICKHOUSE_PASSWORD=clickhouse
+Volume=/home/benjamin/container-volumes/dev-box-clickhouse/data:/var/lib/clickhouse:z

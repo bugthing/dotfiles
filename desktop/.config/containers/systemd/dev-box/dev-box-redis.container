@@ -1,0 +1,10 @@
+[Install]
+WantedBy=default.target
+
+[Container]
+Pod=dev-box.pod
+Image=docker.io/library/redis:7
+ServiceName=dev-box-redis
+ContainerName=dev-box-redis
+Environment=REDIS_PASSWORD=redis
+Volume=/home/benjamin/container-volumes/dev-box-redis/data:/data:z
