@@ -52,6 +52,7 @@
   lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
   praise = blame
   pushf = push --force-with-lease
+  amend = commit --amend
 
   ## Working with branches ##
 
@@ -124,7 +125,7 @@
   fullreset = "!git clean -df && git reset HEAD --hard"
 
   # list all fils changes on a commit
-  listchanges = diff-tree --no-commit-id --name-only -r
+  fileschanged = "!git diff --name-only $(git merge-base master HEAD)"
 
   g = grep --break --heading --line-number
 

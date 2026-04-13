@@ -26,5 +26,5 @@ send-keys 'overmind start -x redis,mailhog,release' C-m
 #-------------------------------------------------------------
 
 # select current window and pane
-select-window -t TussellHussle
+#select-window -t TussellHussle
 selectp -t 1
