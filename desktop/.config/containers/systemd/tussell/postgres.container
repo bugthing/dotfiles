@@ -2,7 +2,8 @@
 WantedBy=default.target
 
 [Container]
-Image=docker.io/library/postgres:14
+Pod=tussell.pod
+Image=docker.io/library/postgres:16
 ContainerName=postgres
 Environment=PGDATA=/var/lib/postgresql/data/pgdata
 Volume=/home/benjamin/container-volumes/postgres/data:/var/lib/postgresql/data:z
@@ -10,6 +11,4 @@ Volume=/home/benjamin/container-volumes/postgres/ssl:/etc/postgresql/ssl:z
 Volume=/home/benjamin/container-volumes/postgres/config/postgresql.conf:/etc/postgresql.conf:z
 Volume=/home/benjamin/container-volumes/postgres/config/pg_hba.conf:/etc/pg_hba.conf:z
 Environment=POSTGRES_PASSWORD=postgres
-PublishPort=5430:5432
-Network=tussell.network
 Exec=-c config_file=/etc/postgresql.conf
