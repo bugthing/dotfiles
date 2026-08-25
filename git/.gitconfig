@@ -125,7 +125,7 @@
   fullreset = "!git clean -df && git reset HEAD --hard"
 
   # list all fils changes on a commit
-  fileschanged = "!git diff --name-only $(git merge-base master HEAD)"
+  fileschanged = "!git diff --name-only $(git merge-base main HEAD)"
 
   g = grep --break --heading --line-number
 
@@ -145,3 +145,8 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gitlab.com"]
+	helper = 
+	helper = !/var/home/linuxbrew/.linuxbrew/Cellar/glab/1.108.0/bin/glab auth git-credential
+[credential "https://git.heroku.com"]
+	helper = !heroku git:credentials

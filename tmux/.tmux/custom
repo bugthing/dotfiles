@@ -103,3 +103,8 @@ bind W source-file ~/.tmux/session-work-single
 
 # send keys to all panes of current of window
 bind Y set-window-option synchronize-panes
+
+# for pi agent
+set -g extended-keys on
+set -g extended-keys-format csi-u
+

@@ -3,10 +3,11 @@ Description=pod for tussell
 
 [Pod]
 PodName=tussell
-ShmSize=1g
+ShmSize=2g
 Network=tussell.network
 PublishPort=8123:8123
 PublishPort=9000:9000
 PublishPort=5430:5432
+PublishPort=5431:5431
 PublishPort=6379:6379
 PublishPort=5500:5000
