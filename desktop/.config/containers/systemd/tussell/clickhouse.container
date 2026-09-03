@@ -5,7 +5,7 @@ WantedBy=default.target
 Pod=tussell.pod
 Image=docker.io/clickhouse/clickhouse-server:latest
 ContainerName=clickhouse
-Volume=/home/benjamin/container-volumes/clickhouse/data:/var/lib/clickhouse:z
-Volume=/home/benjamin/container-volumes/clickhouse/logs:/var/lib/clickhouse-server:z
+Volume=%h/container-volumes/%N/data:/var/lib/clickhouse:z
+Volume=%h/container-volumes/%N/logs:/var/lib/clickhouse-server:z
 Environment=CLICKHOUSE_PASSWORD=clickhouse
 Ulimit=nofile=262144:262144
