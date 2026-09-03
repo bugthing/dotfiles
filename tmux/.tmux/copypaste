@@ -7,7 +7,7 @@ bind -Tcopy-mode-vi L       send -X end-of-line
 bind -Tcopy-mode-vi v       send -X begin-selection
 bind -Tcopy-mode-vi c       send -X copy-selection
 bind -Tcopy-mode-vi Escape  send -X cancel
-bind -Tcopy-mode-vi y       send -X copy-pipe "gpaste-client"
+bind -Tcopy-mode-vi y       send -X copy-pipe "wl-copy"
 unbind p
 bind p paste-buffer # paste buffer with 'p'
 

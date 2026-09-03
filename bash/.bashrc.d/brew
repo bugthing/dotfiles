@@ -1,7 +1,7 @@
 # if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
 #   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # fi
-# 
+#
 # if type brew &>/dev/null; then
 #   HOMEBREW_PREFIX="$(brew --prefix)"
 #   if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
@@ -16,9 +16,17 @@
 # fi
 
 
-if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
-  export PATH="/home/linuxbrew/.linuxbrew/opt/postgresql@15/bin:$PATH"
-  export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/postgresql@15/lib"
-  export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/postgresql@15/include"
-fi
+# if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+#   export PATH="/home/linuxbrew/.linuxbrew/opt/postgresql@16/bin:$PATH"
+#   export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/postgresql@16/lib"
+#   export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/postgresql@16/include"
+# fi
+
+# handle which postgres in brew we point at
+BREW_POSTGRES_VERSION="16"
+export PATH="$HOMEBREW_PREFIX/opt/postgresql@$BREW_POSTGRES_VERSION/bin:$PATH"
+export LDFLAGS="-L$HOMEBREW_PREFIX/opt/postgresql@$BREW_POSTGRES_VERSION/lib"
+export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/postgresql@$BREW_POSTGRES_VERSION/include"
+export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/postgresql@$BREW_POSTGRES_VERSION/lib/pkgconfig"
+
 

@@ -1,0 +1,14 @@
+[Install]
+WantedBy=default.target
+
+[Container]
+Pod=tussell.pod
+Image=docker.io/library/postgres:17
+ContainerName=postgres17
+Environment=PGDATA=/var/lib/postgresql17/data/pgdata
+Volume=/home/benjamin/container-volumes/postgres17/data:/var/lib/postgresql/data:z
+Volume=/home/benjamin/container-volumes/postgres17/ssl:/etc/postgresql/ssl:Z
+Volume=/home/benjamin/container-volumes/postgres17/config/postgresql.conf:/etc/postgresql.conf:z
+Volume=/home/benjamin/container-volumes/postgres17/config/pg_hba.conf:/etc/pg_hba.conf:z
+Environment=POSTGRES_PASSWORD=postgres
+Exec=-c config_file=/etc/postgresql.conf

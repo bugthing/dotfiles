@@ -11,7 +11,39 @@ alias gs="git status"
 #===========================================================================
 # Work
 #===========================================================================
+#
+function tus {
+  local action="${1:-lastdeploy}"
+  local where="${2:-staging-barbican}"
+  local heroku_app
 
+  if [[ "$action" == "tokens" ]]; then
+    heroku run \
+      'rails runner "OrganisationApiToken.active.where(organisation_id: 27).each { |t| puts \"#{t.id} | #{t.token_name} | expires #{t.expires_at} | #{t.token}\" }"' \
+      --app "$where"
+
+  elif [[ "$action" == "lastdeploy" ]]; then
+    heroku releases --app "$where"
+
+  elif [[ "$action" == "gemv" ]]; then
+    bundle info "$where" --version
+
+  elif [[ "$action" == "deploy" ]]; then
+    heroku_app="${where#staging-}"
+
+    if [[ "$heroku_app" == "harvester2" ]]; then
+      heroku_app="harvester_v2"
+    fi
+
+    # need: heroku plugins:install api
+    heroku api POST "/apps/$where/builds" \
+      --body "{\"source_blob\":{\"url\":\"https://api.github.com/repos/tussell-dev/$heroku_app/tarball/staging\",\"version\":\"staging\"}}"
+
+  else
+    printf 'Unknown action: %s\n' "$action" >&2
+    return 1
+  fi
+}
 #===========================================================================
 # Misc.
 #===========================================================================
@@ -101,3 +133,9 @@ alias aptup="sudo bash -c 'apt-get update && apt-get -y upgrade && apt-get -y di
 
 alias lsblk="lsblk -o name,fstype,size,label,uuid"
 
+function pi {
+  command pi \
+    --provider pi-claude-cli \
+    --model claude-sonnet-4-6 \
+    "$@"
+}
