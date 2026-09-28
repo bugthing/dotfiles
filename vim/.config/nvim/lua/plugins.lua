@@ -33,6 +33,9 @@ Plug('preservim/vimux')
 -- Opening assocaited files
 Plug('rgroli/other.nvim')
 
+-- dev version of itype
+Plug '/var/home/benjamin/Sandbox/itype'
+
 vim.call('plug#end')
 
 
@@ -50,4 +53,4 @@ vim.call('plug#end')
 --   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 --   \|   PlugInstall --sync | q
 --   \| endif
--- 
+--

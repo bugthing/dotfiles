@@ -5,3 +5,7 @@ WantedBy=default.target
 Pod=tussell.pod
 Image=docker.io/library/redis:latest
 ContainerName=redis
+Volume=%h/container-volumes/%N:/data:z
+
+[Quadlet]
+DefaultDependencies=false

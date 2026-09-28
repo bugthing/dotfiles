@@ -139,3 +139,6 @@ function pi {
     --model claude-sonnet-4-6 \
     "$@"
 }
+
+alias codex2='CODEX_HOME="$HOME/.codex2" codex'
+

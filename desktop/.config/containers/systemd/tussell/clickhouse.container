@@ -6,6 +6,9 @@ Pod=tussell.pod
 Image=docker.io/clickhouse/clickhouse-server:latest
 ContainerName=clickhouse
 Volume=%h/container-volumes/%N/data:/var/lib/clickhouse:z
-Volume=%h/container-volumes/%N/logs:/var/lib/clickhouse-server:z
+Volume=%h/container-volumes/%N/logs:/var/log/clickhouse-server:z
 Environment=CLICKHOUSE_PASSWORD=clickhouse
 Ulimit=nofile=262144:262144
+
+[Quadlet]
+DefaultDependencies=false

@@ -5,9 +5,14 @@ Description=pod for tussell
 PodName=tussell
 ShmSize=2g
 Network=tussell.network
+UserNS=keep-id
 PublishPort=8123:8123
 PublishPort=9000:9000
 PublishPort=5430:5430
 PublishPort=5431:5431
 PublishPort=6379:6379
 PublishPort=5500:5000
+
+
+[Quadlet]
+DefaultDependencies=false

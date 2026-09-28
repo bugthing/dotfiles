@@ -12,3 +12,6 @@ Volume=%h/container-volumes/%N/config/postgresql.conf:/etc/postgresql.conf:z
 Volume=%h/container-volumes/%N/config/pg_hba.conf:/etc/pg_hba.conf:z
 Environment=POSTGRES_PASSWORD=postgres
 Exec=-c config_file=/etc/postgresql.conf
+
+[Quadlet]
+DefaultDependencies=false
