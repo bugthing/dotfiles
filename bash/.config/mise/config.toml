@@ -1,5 +1,11 @@
 [tools]
+claude = "latest"
+codex = "latest"
+gh = "latest"
 ruby = "latest"
-nodejs = "latest"
 python = "latest"
 rust = "latest"
+node = "latest"
+
+[settings.upgrade]
+auto_prune = false
