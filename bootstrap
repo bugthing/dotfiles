@@ -1,0 +1,260 @@
+#!/usr/bin/env bash
+# Set up a new machine from these dotfiles in one run:
+#
+#   curl -fsSL https://raw.githubusercontent.com/bugthing/dotfiles/main/bootstrap | bash
+#
+# Clones the repo over HTTPS, installs the Brewfile, stows packages, starts the
+# Syncthing quadlet, shows a QR code to pair it from your phone, waits for the
+# synced folders to arrive, links them into $HOME, then switches the repo to SSH.
+# Safe to re-run: finished steps are skipped and anything replaced is moved to
+# <name>.pre-bootstrap-<timestamp>, never deleted.
+#
+# Environment:
+#   DOTFILES=~/.dotfiles   where the repo lives
+#   SKIP_BREW=1            skip brew bundle
+#   SKIP_SYNC=1            skip Syncthing pairing and waiting (links what is already there)
+set -euo pipefail
+
+DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+REPO_HTTPS="https://github.com/bugthing/dotfiles.git"
+REPO_SSH="git@github.com:bugthing/dotfiles.git"
+BREW="/home/linuxbrew/.linuxbrew/bin/brew"
+SYNC_ROOT="$HOME/container-volumes/syncthing"
+ST_CONFIG="$SYNC_ROOT/config/config.xml"
+ST_URL="${ST_URL:-http://127.0.0.1:8384}"
+STAMP="$(date +%Y%m%d-%H%M%S)"
+
+log()  { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
+warn() { printf '\033[1;33mwarning:\033[0m %s\n' "$*" >&2; }
+die()  { printf '\033[1;31merror:\033[0m %s\n' "$*" >&2; exit 1; }
+
+backup() {
+  local dest="$1.pre-bootstrap-$STAMP"
+  mv "$1" "$dest"
+  log "Moved $1 to $dest"
+}
+
+# When piped from curl, fetch the repo and hand over to its copy of this script.
+ensure_repo() {
+  if [ ! -d "$DOTFILES/.git" ]; then
+    log "Cloning $REPO_HTTPS into $DOTFILES"
+    git clone "$REPO_HTTPS" "$DOTFILES"
+  fi
+  local self
+  self="$(realpath "${BASH_SOURCE[0]:-}" 2>/dev/null || true)"
+  if [ "$self" != "$(realpath "$DOTFILES/bootstrap")" ]; then
+    exec bash "$DOTFILES/bootstrap" </dev/null
+  fi
+}
+
+install_packages() {
+  if [ ! -x "$BREW" ]; then
+    warn "Homebrew not found at $BREW; skipping packages"
+    return
+  fi
+  eval "$("$BREW" shellenv)"
+  if [ "${SKIP_BREW:-0}" = 1 ]; then
+    log "Skipping brew bundle"
+  else
+    log "Installing $DOTFILES/bash/.brewfile"
+    brew bundle --file="$DOTFILES/bash/.brewfile" </dev/null \
+      || warn "brew bundle reported failures; continuing"
+  fi
+  local tool
+  for tool in stow jq qrencode; do
+    command -v "$tool" >/dev/null || brew install "$tool" </dev/null
+  done
+}
+
+# Move aside anything stow would refuse to replace.
+clear_stow_conflicts() {
+  local pkg="$1" file rel target
+  while IFS= read -r -d '' file; do
+    rel="${file#"$DOTFILES/$pkg/"}"
+    target="$HOME/$rel"
+    if [ -L "$target" ]; then
+      [ "$(realpath "$target" 2>/dev/null)" = "$(realpath "$file")" ] || backup "$target"
+    elif [ -e "$target" ]; then
+      backup "$target"
+    fi
+  done < <(find "$DOTFILES/$pkg" \( -type f -o -type l \) -print0)
+}
+
+stow_packages() {
+  command -v stow >/dev/null || die "stow is not installed"
+  local pkg
+  for pkg in "${STOW_PACKAGES[@]}"; do
+    log "Stowing $pkg"
+    clear_stow_conflicts "$pkg"
+    stow --no-folding -d "$DOTFILES" -t "$HOME" -R "$pkg"
+  done
+}
+
+st() {
+  local method="$1" path="$2"
+  shift 2
+  curl -fsS -X "$method" -H "X-API-Key: $ST_KEY" -H "Content-Type: application/json" "$ST_URL$path" "$@"
+}
+
+start_syncthing() {
+  log "Starting Syncthing"
+  mkdir -p "$SYNC_ROOT"
+  systemctl --user daemon-reload
+  systemctl --user start syncthing.service
+
+  local _
+  ST_KEY=""
+  for _ in $(seq 180); do
+    if [ -f "$ST_CONFIG" ]; then
+      ST_KEY="$(sed -n 's:.*<apikey>\(.*\)</apikey>.*:\1:p' "$ST_CONFIG")"
+      if [ -n "$ST_KEY" ] && st GET /rest/system/ping >/dev/null 2>&1; then
+        return
+      fi
+    fi
+    sleep 1
+  done
+  die "Syncthing API did not come up; check: systemctl --user status syncthing"
+}
+
+folder_id() {
+  st GET /rest/config/folders | jq -r --arg label "$1" '[.[] | select(.label == $label)][0].id // empty'
+}
+
+missing_folders() {
+  local label
+  for label in "${SYNC_FOLDERS[@]}"; do
+    [ -n "$(folder_id "$label")" ] || printf '%s\n' "$label"
+  done
+}
+
+# Ask on the terminal; with no terminal, leave the decision to the web UI.
+confirm() {
+  local reply
+  { exec 3</dev/tty; } 2>/dev/null || return 2
+  printf '%s [y/N] ' "$1" >/dev/tty
+  read -r reply <&3 || reply=""
+  exec 3<&-
+  [[ "$reply" =~ ^[Yy] ]]
+}
+
+# Accept devices that connect after scanning our QR code. Accepted devices act
+# as introducers and their shared folders are accepted automatically.
+accept_pending_devices() {
+  local pending id name rc
+  pending="$(st GET /rest/cluster/pending/devices)"
+  for id in $(jq -r 'keys[]' <<<"$pending"); do
+    [ -n "${ASKED[$id]:-}" ] && continue
+    ASKED[$id]=1
+    name="$(jq -r --arg id "$id" '.[$id].name // "unnamed"' <<<"$pending")"
+    rc=0
+    confirm "Device \"$name\" ($id) wants to connect. Accept it?" || rc=$?
+    if [ "$rc" = 0 ]; then
+      st PUT "/rest/config/devices/$id" \
+        -d "$(jq -n --arg id "$id" --arg name "$name" \
+              '{deviceID: $id, name: $name, introducer: true, autoAcceptFolders: true}')" >/dev/null
+      log "Accepted $name; waiting for it to share ${SYNC_FOLDERS[*]}"
+    elif [ "$rc" = 2 ]; then
+      log "Accept \"$name\" at $ST_URL, ticking \"Introducer\" and \"Auto Accept\""
+    else
+      log "Ignored $name"
+    fi
+  done
+}
+
+pair_syncthing() {
+  local missing
+  missing="$(missing_folders)"
+  [ -z "$missing" ] && return
+  # Auto-accepted folders go to <default path>/<label>.
+  st PATCH /rest/config/defaults/folder -d '{"path": "~"}' >/dev/null
+  local my_id
+  my_id="$(st GET /rest/system/status | jq -r .myID)"
+  log "In the Syncthing app on your phone, add a device and scan this code:"
+  qrencode -t ansiutf8 "$my_id"
+  log "Then share these folders with it: ${SYNC_FOLDERS[*]}"
+  declare -gA ASKED=()
+  while [ -n "$missing" ]; do
+    accept_pending_devices
+    sleep 3
+    missing="$(missing_folders)"
+  done
+}
+
+wait_for_sync() {
+  local label fid status state global need line last=""
+  log "Waiting for the folders to sync (Ctrl-C is safe; re-run to resume)..."
+  for label in "${SYNC_FOLDERS[@]}"; do
+    fid="$(folder_id "$label")"
+    while :; do
+      status="$(st GET "/rest/db/status?folder=$fid" 2>/dev/null || echo '{}')"
+      state="$(jq -r '.state // "unknown"' <<<"$status")"
+      global="$(jq -r '.globalTotalItems // 0' <<<"$status")"
+      need="$(jq -r '.needTotalItems // 0' <<<"$status")"
+      if [ "$state" = idle ] && [ "$global" -gt 0 ] && [ "$need" -eq 0 ]; then
+        log "$label is in sync ($global items)"
+        break
+      fi
+      if [ "$global" -eq 0 ]; then
+        line="$label: waiting for data"
+      else
+        line="$label: $state, $need of $global items left"
+      fi
+      [ "$line" != "$last" ] && log "$line" && last="$line"
+      sleep 5
+    done
+  done
+}
+
+link_synced() {
+  local entry src dst
+  for entry in "${SYNC_LINKS[@]}"; do
+    src="$SYNC_ROOT/${entry%%:*}"
+    dst="$HOME/${entry#*:}"
+    if [ ! -e "$src" ]; then
+      warn "$src does not exist; not linking $dst"
+      continue
+    fi
+    [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ] && continue
+    if [ -e "$dst" ] || [ -L "$dst" ]; then
+      backup "$dst"
+    fi
+    mkdir -p "$(dirname "$dst")"
+    ln -s "$src" "$dst"
+    log "Linked $dst -> $src"
+    case "$dst" in
+      "$HOME/.ssh" | "$HOME/.gnupg") chmod 700 "$src" ;;
+    esac
+  done
+  if command -v gpgconf >/dev/null; then
+    gpgconf --kill gpg-agent 2>/dev/null || true
+  fi
+}
+
+use_ssh_remote() {
+  local current
+  current="$(git -C "$DOTFILES" remote get-url origin)"
+  if [ "$current" = "$REPO_HTTPS" ] && compgen -G "$HOME/.ssh/id_*" >/dev/null; then
+    git -C "$DOTFILES" remote set-url origin "$REPO_SSH"
+    log "Switched $DOTFILES remote to $REPO_SSH"
+  fi
+}
+
+main() {
+  ensure_repo
+  # shellcheck source=bootstrap.conf
+  source "$DOTFILES/bootstrap.conf"
+  install_packages
+  stow_packages
+  if [ "${SKIP_SYNC:-0}" = 1 ]; then
+    log "Skipping Syncthing pairing"
+  else
+    start_syncthing
+    pair_syncthing
+    wait_for_sync
+  fi
+  link_synced
+  use_ssh_remote
+  log "Done. Log out and back in to pick up the new shell config."
+}
+
+[ "${BOOTSTRAP_NO_MAIN:-0}" = 1 ] || main "$@"

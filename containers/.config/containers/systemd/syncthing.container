@@ -9,3 +9,4 @@ PublishPort=8384:8384
 PublishPort=22000:22000
 PublishPort=21027:21027
 UserNS=keep-id
+Environment=STNODEFAULTFOLDER=1
