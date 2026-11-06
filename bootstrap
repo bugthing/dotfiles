@@ -58,7 +58,9 @@ install_tools() {
   fi
   local tool
   for tool in stow jq qrencode; do
-    command -v "$tool" >/dev/null || brew install "$tool" </dev/null
+    command -v "$tool" >/dev/null && continue
+    { command -v brew >/dev/null && brew install "$tool" </dev/null; } \
+      || warn "could not install $tool"
   done
 }
 
@@ -101,16 +103,21 @@ clear_stow_conflicts() {
     elif [ -e "$target" ]; then
       backup "$target"
     fi
-  done < <(find "$DOTFILES/$pkg" \( -type f -o -type l \) -print0)
+  done < <(git -C "$DOTFILES" ls-files -z -- "$pkg" | while IFS= read -r -d '' f; do printf '%s\0' "$DOTFILES/$f"; done)
 }
 
+# GNU stow when available, otherwise the bundled stowsh. Both link file by file.
 stow_packages() {
-  command -v stow >/dev/null || die "stow is not installed"
   local pkg
+  command -v stow >/dev/null || log "stow not found; using $DOTFILES/stowsh"
   for pkg in "${STOW_PACKAGES[@]}"; do
     log "Stowing $pkg"
     clear_stow_conflicts "$pkg"
-    stow --no-folding -d "$DOTFILES" -t "$HOME" -R "$pkg"
+    if command -v stow >/dev/null; then
+      stow --no-folding -d "$DOTFILES" -t "$HOME" -R "$pkg"
+    else
+      bash "$DOTFILES/stowsh" -s -g -t "$HOME" "$DOTFILES/$pkg" 2>/dev/null
+    fi
   done
 }
 
