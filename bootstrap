@@ -67,8 +67,8 @@ install_packages() {
   if [ "${SKIP_BREW:-0}" = 1 ]; then
     log "Skipping brew bundle"
   elif command -v brew >/dev/null; then
-    log "Installing $DOTFILES/bash/.brewfile"
-    brew bundle --file="$DOTFILES/bash/.brewfile" </dev/null \
+    log "Installing ~/.Brewfile"
+    brew bundle --global </dev/null \
       || warn "brew bundle reported failures; continuing"
   fi
 
