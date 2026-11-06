@@ -1,0 +1,80 @@
+{
+  "plugins": {
+    "cmp-nvim-lsp": {
+      "rev": "cd4ee08a988deb47ac3726f418fb27fe1a95729d",
+      "src": "https://github.com/hrsh7th/cmp-nvim-lsp"
+    },
+    "cmp-path": {
+      "rev": "c642487086dbd9a93160e1679a1327be111cbc25",
+      "src": "https://github.com/hrsh7th/cmp-path"
+    },
+    "copilot.vim": {
+      "rev": "a12fd5672110c8aa7e3c8419e28c96943ca179be",
+      "src": "https://github.com/github/copilot.vim"
+    },
+    "llama.vim": {
+      "rev": "e1ca1cc6af9da73f4ae21f810f33909d515592e6",
+      "src": "https://github.com/ggml-org/llama.vim"
+    },
+    "lspkind-nvim": {
+      "rev": "c7274c48137396526b59d86232eabcdc7fed8a32",
+      "src": "https://github.com/onsails/lspkind-nvim"
+    },
+    "lualine.nvim": {
+      "rev": "221ce6b2d999187044529f49da6554a92f740a96",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
+    },
+    "nvim-cmp": {
+      "rev": "fe29aba4117227a6df637bc41e4b4fb4e98864a0",
+      "src": "https://github.com/hrsh7th/nvim-cmp"
+    },
+    "nvim-lspconfig": {
+      "rev": "993d048db0d83d8e8ba3f9cb376456321acdcce3",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-treesitter": {
+      "rev": "915f2bd3d4e2a33704bfc476b5137e9befa82f3d",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-web-devicons": {
+      "rev": "0dc0cfb0c6858041174a53c7aa4adaf65e994b3c",
+      "src": "https://github.com/kyazdani42/nvim-web-devicons"
+    },
+    "other.nvim": {
+      "rev": "1d48e090f6d1d53dda9fb5094af3f2006ebbb858",
+      "src": "https://github.com/rgroli/other.nvim"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "popup.nvim": {
+      "rev": "b7404d35d5d3548a82149238289fa71f7f6de4ac",
+      "src": "https://github.com/nvim-lua/popup.nvim"
+    },
+    "telescope.nvim": {
+      "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "vim-endwise": {
+      "rev": "4994afb0cdf956d9a665a14b9c834869e602c396",
+      "src": "https://github.com/tpope/vim-endwise"
+    },
+    "vim-sandwich": {
+      "rev": "74cf93d58ccc567d8e2310a69860f1b93af19403",
+      "src": "https://github.com/machakann/vim-sandwich"
+    },
+    "vim-sensible": {
+      "rev": "0ce2d843d6f588bb0c8c7eec6449171615dc56d9",
+      "src": "https://github.com/tpope/vim-sensible"
+    },
+    "vim-test": {
+      "rev": "4c6ba11524388562f2ad3636dc02cd479204aaff",
+      "src": "https://github.com/vim-test/vim-test"
+    },
+    "vimux": {
+      "rev": "d6cb7f63a8bb428ffc27060b7f83c77fb115589c",
+      "src": "https://github.com/preservim/vimux"
+    }
+  }
+}

@@ -1,56 +1,54 @@
-local Plug = vim.fn['plug#']
+-- Plugins via Neovim's built-in manager (vim.pack, Neovim 0.12+).
+-- Missing plugins are cloned on startup; nothing to install first.
+--   :lua vim.pack.update()      update (review, then :write to apply)
+--   :lua vim.pack.del({'name'}) remove
 
-vim.call('plug#begin', vim.fn.stdpath('data') .. '/plugged')
+-- Rebuild treesitter parsers after nvim-treesitter is installed or updated.
+-- Must be defined before vim.pack.add().
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
+      if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
+      vim.cmd('TSUpdate')
+    end
+  end,
+})
 
--- tpope
-Plug('tpope/vim-sensible')
-Plug('tpope/vim-endwise')
-Plug('machakann/vim-sandwich')
---  LSP
-Plug('neovim/nvim-lspconfig')
-Plug('hrsh7th/cmp-nvim-lsp')
-Plug('hrsh7th/cmp-path')
-Plug('hrsh7th/nvim-cmp')
-Plug('onsails/lspkind-nvim')
---  Github
-Plug('github/copilot.vim')
---  llama,vim
-Plug('ggml-org/llama.vim')
--- Fuzzy finder
-Plug('nvim-lua/popup.nvim')
-Plug('nvim-lua/plenary.nvim')
-Plug('nvim-telescope/telescope.nvim')
-Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
--- Status line
---Plug('NTBBloodbath/galaxyline.nvim', {branch = 'main' })
-Plug('nvim-lualine/lualine.nvim')
-Plug('kyazdani42/nvim-web-devicons')
+local gh = function(repo) return 'https://github.com/' .. repo end
 
--- Testing
-Plug('vim-test/vim-test')
-Plug('preservim/vimux')
+vim.pack.add({
+  -- tpope
+  gh('tpope/vim-sensible'),
+  gh('tpope/vim-endwise'),
+  gh('machakann/vim-sandwich'),
+  -- LSP
+  gh('neovim/nvim-lspconfig'),
+  gh('hrsh7th/cmp-nvim-lsp'),
+  gh('hrsh7th/cmp-path'),
+  gh('hrsh7th/nvim-cmp'),
+  gh('onsails/lspkind-nvim'),
+  -- Github
+  gh('github/copilot.vim'),
+  -- llama.vim
+  gh('ggml-org/llama.vim'),
+  -- Fuzzy finder
+  gh('nvim-lua/popup.nvim'),
+  gh('nvim-lua/plenary.nvim'),
+  gh('nvim-telescope/telescope.nvim'),
+  gh('nvim-treesitter/nvim-treesitter'),
+  -- Status line
+  gh('nvim-lualine/lualine.nvim'),
+  gh('kyazdani42/nvim-web-devicons'),
+  -- Testing
+  gh('vim-test/vim-test'),
+  gh('preservim/vimux'),
+  -- Opening associated files
+  gh('rgroli/other.nvim'),
+}, { confirm = false })
 
--- Opening assocaited files
-Plug('rgroli/other.nvim')
-
--- dev version of itype
-Plug '/var/home/benjamin/Sandbox/itype'
-
-vim.call('plug#end')
-
-
--- " install like so:
--- "   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
--- " then use PlugInstall to install plugins (or PlugUpdate or PlugClean, etc.)
--- " .. or auto-install
--- if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
---   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
---   autocmd VimEnter * PlugInstall | source $MYVIMRC
--- endif
-
--- " Automatically install missing plugins on startup
--- autocmd VimEnter *
---   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
---   \|   PlugInstall --sync | q
---   \| endif
---
+-- Dev version of itype, only on machines that have the checkout.
+local itype = vim.fn.expand('~/Sandbox/itype')
+if vim.uv.fs_stat(itype) then
+  vim.opt.runtimepath:prepend(itype)
+end
