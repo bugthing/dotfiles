@@ -3,15 +3,17 @@
 #
 #   curl -fsSL https://raw.githubusercontent.com/bugthing/dotfiles/main/bootstrap | bash
 #
-# Clones the repo over HTTPS, installs the Brewfile, stows packages, starts the
-# Syncthing quadlet, shows a QR code to pair it from your phone, waits for the
-# synced folders to arrive, links them into $HOME, then switches the repo to SSH.
+# Clones the repo over HTTPS, stows packages, starts the Syncthing quadlet and
+# shows a QR code to pair it from your phone. While the folders sync it installs
+# the Brewfile, mise tools and Neovim plugins, then links the synced folders
+# into $HOME and switches the repo to SSH.
 # Safe to re-run: finished steps are skipped and anything replaced is moved to
 # <name>.pre-bootstrap-<timestamp>, never deleted.
 #
 # Environment:
 #   DOTFILES=~/.dotfiles   where the repo lives
 #   SKIP_BREW=1            skip brew bundle
+#   SKIP_MISE=1            skip mise install
 #   SKIP_SYNC=1            skip Syncthing pairing and waiting (links what is already there)
 set -euo pipefail
 
@@ -47,23 +49,45 @@ ensure_repo() {
   fi
 }
 
-install_packages() {
-  if [ ! -x "$BREW" ]; then
-    warn "Homebrew not found at $BREW; skipping packages"
-    return
-  fi
-  eval "$("$BREW" shellenv)"
-  if [ "${SKIP_BREW:-0}" = 1 ]; then
-    log "Skipping brew bundle"
+# Just what stowing and pairing need, so the QR code shows up quickly.
+install_tools() {
+  if [ -x "$BREW" ]; then
+    eval "$("$BREW" shellenv)"
   else
-    log "Installing $DOTFILES/bash/.brewfile"
-    brew bundle --file="$DOTFILES/bash/.brewfile" </dev/null \
-      || warn "brew bundle reported failures; continuing"
+    warn "Homebrew not found at $BREW"
   fi
   local tool
   for tool in stow jq qrencode; do
     command -v "$tool" >/dev/null || brew install "$tool" </dev/null
   done
+}
+
+# The slow installs; they run while Syncthing syncs. Failures only warn.
+install_packages() {
+  if [ "${SKIP_BREW:-0}" = 1 ]; then
+    log "Skipping brew bundle"
+  elif command -v brew >/dev/null; then
+    log "Installing $DOTFILES/bash/.brewfile"
+    brew bundle --file="$DOTFILES/bash/.brewfile" </dev/null \
+      || warn "brew bundle reported failures; continuing"
+  fi
+
+  if [ "${SKIP_MISE:-0}" = 1 ]; then
+    log "Skipping mise install"
+  elif command -v mise >/dev/null; then
+    log "Installing mise tools from ~/.config/mise/config.toml"
+    (cd "$HOME" && mise install --yes </dev/null) \
+      || warn "mise install reported failures; continuing"
+  else
+    warn "mise not found; skipping mise install"
+  fi
+
+  if command -v nvim >/dev/null; then
+    log "Installing Neovim plugins"
+    nvim --headless +qa </dev/null || warn "Neovim plugin install failed; continuing"
+  else
+    warn "nvim not found; skipping Neovim plugins"
+  fi
 }
 
 # Move aside anything stow would refuse to replace.
@@ -243,13 +267,15 @@ main() {
   ensure_repo
   # shellcheck source=bootstrap.conf
   source "$DOTFILES/bootstrap.conf"
-  install_packages
+  install_tools
   stow_packages
   if [ "${SKIP_SYNC:-0}" = 1 ]; then
     log "Skipping Syncthing pairing"
+    install_packages
   else
     start_syncthing
     pair_syncthing
+    install_packages
     wait_for_sync
   fi
   link_synced
