@@ -6,7 +6,7 @@
 
 # All the default Omarchy aliases and functions
 # (don't mess with these directly, just overwrite them here!)
-source "$OMARCHY_PATH/default/bash/rc"
+[[ -r "$OMARCHY_PATH/default/bash/rc" ]] && source "$OMARCHY_PATH/default/bash/rc"
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
